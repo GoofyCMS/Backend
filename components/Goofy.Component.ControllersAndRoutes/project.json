@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0.0",
+  "description": "DllAspNetConControladoresConRutasParaCargarDinamicamente Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Goofy.WebFramework": ""
+  },
+  "frameworks": {
+    "dnx451": { }
+  },
+
+  "commands": {
+    
+  }
+}

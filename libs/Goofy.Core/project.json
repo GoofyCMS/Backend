@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "description": "Goofy.Core Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Newtonsoft.Json": "6.0.6",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+    "Goofy.Configuration.Extensions": ""
+  },
+  "frameworks": {
+    "dnx451": { }
+  }
+}

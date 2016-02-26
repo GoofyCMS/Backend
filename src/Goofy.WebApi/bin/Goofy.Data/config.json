@@ -1,0 +1,12 @@
+{
+	"GoofyDataSection": 
+	{
+	   "DataProviderName": "sqlite",
+    	// "DefaultConnection": {
+     //  			"ConnectionString": "Data Source=LEO_PC\\SQLEXPRESS;Initial Catalog=GoofyDatabase;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+    	// }
+    	"DefaultConnection":{
+    		"ConnectionString": "Filename=C:\\GoofyDatabase.sqlite"
+    	}
+	}
+}

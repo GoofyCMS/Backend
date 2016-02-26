@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Component.CorsIntegration Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Microsoft.AspNet.Cors": "6.0.0-rc1-final",
+    "Goofy.WebFramework": "",
+    "Goofy.Configuration.Extensions": ""
+  },
+  "frameworks": {
+    "dnx451": { }
+  }
+}
