@@ -1,8 +1,8 @@
 ﻿
 namespace Goofy.Core.Components.Configuration
 {
-    public abstract class ComponentConfig
+    public class ComponentConfig
     {
-        public bool SystemPlugin { get; set; } = false;
+        public ConfigData CompConfig { get; set; } = new ConfigData();
     }
 }

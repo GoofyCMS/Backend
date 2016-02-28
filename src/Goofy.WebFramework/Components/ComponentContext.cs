@@ -24,6 +24,7 @@ namespace Goofy.WebFramework.Components
                 component.Property(c => c.Name).IsRequired();
                 component.Property(c => c.Installed).IsRequired();
                 component.Property(c => c.Version).IsRequired();
+                component.Property(c => c.IsSystemComponent).IsRequired();
                 //component.HasMany(c => c.Dependencies).WithOne().HasForeignKey(ctc => ctc.FirstComponentId);
             });
 

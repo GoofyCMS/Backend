@@ -7,6 +7,7 @@ namespace Goofy.Core.Components
         public string Name { get; set; }
         public string Version { get; set; }
         public bool Installed { get; set; }
+        public bool IsSystemComponent { get; set; }
 
         /*
             No es necesario guardar dependencias entre componentes en la base de datos

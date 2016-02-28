@@ -28,13 +28,13 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
         [HttpGet("list")]
         public IActionResult Components()
         {
-            return new ObjectResult(_componentContext.Components.ToArray());
+            return new ObjectResult(_componentContext.Components.Where(c => !c.IsSystemComponent).ToArray());
         }
 
         [HttpGet("install/{id:int}")]
         public IActionResult Install(int id)
         {
-            var objectContext = GetObjectContext(id);
+            var objectContext = LoadObjectContextFromComponentId(id);
             if (objectContext == null)
                 return new HttpNotFoundResult();
 
@@ -46,7 +46,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
         [HttpGet("uninstall/{id:int}")]
         public IActionResult Uninstall(int id)
         {
-            var objectContext = GetObjectContext(id);
+            var objectContext = LoadObjectContextFromComponentId(id);
             if (objectContext == null)
                 return new HttpNotFoundResult();
 
@@ -57,9 +57,9 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
 
 
         //TODO: Ver si este método no puede ser agregado como útil de otra librería.
-        private DbContext GetObjectContext(int id)
+        private DbContext LoadObjectContextFromComponentId(int id)
         {
-            var component = _componentContext.Components.FirstOrDefault(c => c.ComponentId == id);
+            var component = _componentContext.Components.FirstOrDefault(c => (c.ComponentId == id) && (!c.IsSystemComponent));
             if (component == null)
                 return null;
 

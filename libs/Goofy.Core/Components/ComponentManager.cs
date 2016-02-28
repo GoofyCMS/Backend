@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using Goofy.Core.Components.Configuration;
+using Goofy.Configuration.Extensions;
 
 namespace Goofy.Core.Components
 {
@@ -16,14 +18,14 @@ namespace Goofy.Core.Components
         {
             //private readonly List<ComponentAttributes> _referencedAssemblies;
 
-            public ComponentAttributes(string name, Version version, string path)
+            public ComponentAttributes(string fullName, Version version, string path)
             {
-                Name = name;
+                FullName = fullName;
                 Version = version;
                 Path = path;
                 //_referencedAssemblies = new List<ComponentAttributes>();
             }
-            public string Name { get; private set; }
+            public string FullName { get; private set; }
             public Version Version { get; private set; }
             public string Path { get; private set; }
 
@@ -58,7 +60,7 @@ namespace Goofy.Core.Components
         public GoofyComponentManager()
         {
             LoadComponentsAssemblies();
-            ComponentAttributesInfo = GetAssembliesInfo();
+            ComponentsAttributes = GetComponentsAttributes();
         }
 
         #endregion
@@ -70,9 +72,11 @@ namespace Goofy.Core.Components
 
         public virtual IEnumerable<string> ValidComponentsJson { get; private set; }
 
+        public virtual Dictionary<string, ComponentConfig> ComponentsConfig { get; private set; }
+
         protected virtual Dictionary<string, List<Assembly>> ExtraDependencies { get; private set; }
 
-        protected virtual IEnumerable<ComponentAttributes> ComponentAttributesInfo { get; private set; }
+        protected virtual IEnumerable<ComponentAttributes> ComponentsAttributes { get; private set; }
 
 
         #endregion
@@ -88,7 +92,7 @@ namespace Goofy.Core.Components
                 En caso contrario, el framework va a chequear que esté en la carpeta de componentes(en principio 
                 no se ha considerado el chequeo de versión además)
         */
-        protected List<ComponentAttributes> GetAssembliesInfo()
+        protected List<ComponentAttributes> GetComponentsAttributes()
         {
             var componentAttributes = new Dictionary<string, ComponentAttributes>();
 
@@ -100,51 +104,52 @@ namespace Goofy.Core.Components
             }
 
             //Inspección de dependencias, internas y externas.
-            foreach (var c in ComponentAssemblies)
-            {
-                //var goofyComponentReferences = c.GetReferencedAssemblies();
+            //foreach (var c in ComponentAssemblies)
+            //{
+            //    var goofyComponentReferences = c.GetReferencedAssemblies();
 
-                //foreach (var _ref in goofyComponentReferences)
-                //{
-                //    if (IsGoofyComponent(_ref.Name))
-                //    {
-                //        //Tiene que estar presente en los ensamblados de las componentes
+            //    foreach (var _ref in goofyComponentReferences)
+            //    {
+            //        if (IsGoofyComponent(_ref.Name))
+            //        {
+            //            //Tiene que estar presente en los ensamblados de las componentes
 
-                //        if (ComponentAssemblies.Where(ass => ass.FullName == _ref.FullName).Count() == 0)
-                //        //TODO: Asegurar también que la versión es válida
-                //        {
-                //            //Agregar a los logs que hay una dependencia de componente que no está en la carpeta de componentes
-                //            throw new Exception("");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        //Puede ser una del sistema como mscorlib, System.*; o puede ser una externa que debería
-                //        // estar presente en la carpeta components.
+            //            if (ComponentAssemblies.Where(ass => ass.FullName == _ref.FullName).Count() == 0)
+            //            //TODO: Asegurar también que la versión es válida
+            //            {
+            //                //Agregar a los logs que hay una dependencia de componente que no está en la carpeta de componentes
+            //                throw new Exception("");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //Puede ser una del sistema como mscorlib, System.*; o puede ser una externa que debería
+            //            // estar presente en la carpeta components.
 
-                //        if (AppDomain.CurrentDomain.GetAssemblies().Where(ass => ass.FullName == _ref.FullName).Count() == 0)
-                //        //Verificar que no está cargada actualmente,(mscorlib, etc) TODO: hacer una pregunta más completa que garantice que el runtime puede satisfacer alguna dependencia.
-                //        {
-                //            //Asegurar que se encuentra dentro de las dependencias externas en la carpeta de la componente
-                //            var externalAssemblies = ExtraDependencies[c.FullName];
-                //            if (externalAssemblies.Where(ass => ass.FullName == _ref.FullName).Count() == 0)
-                //            //TODO: Asegurar también que la versión es válida
-                //            {
-                //                //Agregar a los logs que hay una dependencia externa que no se satisfizo
-                //                throw new Exception("");
-                //            }
-                //        }
-                //    }
-                //}
-            }
+            //            if (AppDomain.CurrentDomain.GetAssemblies().Where(ass => ass.FullName == _ref.FullName).Count() == 0)
+            //            //Verificar que no está cargada actualmente,(mscorlib, etc) TODO: hacer una pregunta más completa que garantice que el runtime puede satisfacer alguna dependencia.
+            //            {
+            //                //Asegurar que se encuentra dentro de las dependencias externas en la carpeta de la componente
+            //                var externalAssemblies = ExtraDependencies[c.FullName];
+            //                if (externalAssemblies.Where(ass => ass.FullName == _ref.FullName).Count() == 0)
+            //                //TODO: Asegurar también que la versión es válida
+            //                {
+            //                    //Agregar a los logs que hay una dependencia externa que no se satisfizo
+            //                    throw new Exception("");
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             return componentAttributes.Values.ToList();
         }
 
         protected virtual void LoadComponentsAssemblies()
         {
+            var validComponentsJson = new List<string>();
             var componentsDirectoryPath = GetComponentsDirectoryPath();
             var componentsAssemblies = new List<Assembly>();
-            var validComponentsJson = new List<string>();
+            var componentsConfig = new Dictionary<string, ComponentConfig>();
             var appDomain = AppDomain.CurrentDomain;
             var extraDependencies = new Dictionary<string, List<Assembly>>();
 
@@ -158,10 +163,10 @@ namespace Goofy.Core.Components
                 */
                 var dllPath = string.Format("{0}\\{1}{2}", componentPath, new DirectoryInfo(componentPath).Name, ComponentExtension);
                 Assembly currentAssembly;
-
+                AssemblyName assemblyName;
                 try
                 {
-                    var assemblyName = AssemblyName.GetAssemblyName(dllPath);
+                    assemblyName = AssemblyName.GetAssemblyName(dllPath);
                     currentAssembly = Assembly.Load(assemblyName);//cambiar esta línea por appDomain.Load(assemblyName) en caso de que se quiera cargar el assembly al dominio vigente
                     componentsAssemblies.Add(currentAssembly);
                 }
@@ -175,6 +180,8 @@ namespace Goofy.Core.Components
                 if (ValidConfigFile(componentPath, componentJsonConfigFile))
                 {
                     validComponentsJson.Add(componentJsonConfigFile);
+                    var componentConfig = ConfigurationExtensions.GetConfiguration<ComponentConfig>(componentJsonConfigFile, assemblyName.Name);
+                    componentsConfig.Add(currentAssembly.FullName, componentConfig);
                 }
                 else
                 {
@@ -193,8 +200,9 @@ namespace Goofy.Core.Components
                 extraDependencies.Add(currentAssembly.FullName, depAssemblies);
 
             }
-            ComponentAssemblies = componentsAssemblies;
             ValidComponentsJson = validComponentsJson;
+            ComponentAssemblies = componentsAssemblies;
+            ComponentsConfig = componentsConfig;
             ExtraDependencies = extraDependencies;
         }
 
@@ -248,7 +256,7 @@ namespace Goofy.Core.Components
         private ComponentAttributes GetComponentAttributesFromAssembly(Assembly assembly)
         {
             var assemblyName = assembly.GetName();
-            return new ComponentAttributes(assemblyName.Name, assemblyName.Version, assembly.Location);
+            return new ComponentAttributes(assemblyName.FullName, assemblyName.Version, assembly.Location);
         }
 
         #endregion
