@@ -2,3 +2,4 @@
 .vscode
 artifacts
 *.dll
+node_modules
