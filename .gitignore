@@ -3,3 +3,4 @@
 artifacts
 *.dll
 node_modules
+*.xproj.user
