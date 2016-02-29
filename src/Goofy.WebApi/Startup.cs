@@ -69,10 +69,11 @@ namespace Goofy.WebApi
 
             app.UseIISPlatformHandler();
 
-            //esta cableado, se podría buscar una mejor forma de configurarlo
+            /*
+                Está cableado, se podría buscar una mejor forma de configurarlo, usando la componente
+                Goofy.Component.Auth
+            */
             app.UseIdentity();
-
-            app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
