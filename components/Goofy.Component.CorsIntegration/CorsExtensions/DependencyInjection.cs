@@ -17,7 +17,7 @@ namespace Goofy.Component.CorsIntegration.CorsExtensions
                         options.AddPolicy(key,
                             builder =>
                             {
-                                builder.WithOrigins(corsConfig.Policies[key]).AllowAnyHeader();
+                                builder.WithOrigins(corsConfig.Policies[key]).AllowAnyMethod().AllowAnyHeader();
                             });
                     }
                 }
