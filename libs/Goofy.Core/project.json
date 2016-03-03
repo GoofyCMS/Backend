@@ -11,6 +11,6 @@
     "Goofy.Configuration.Extensions": ""
   },
   "frameworks": {
-    "dnx451": { }
+    "net451": { }
   }
 }

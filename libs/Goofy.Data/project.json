@@ -15,6 +15,8 @@
     "EntityFramework.Relational": "7.0.0-rc1-final"
   },
   "frameworks": {
-    "dnx451": { }
+    "net451": 
+    {
+    }
   }
 }

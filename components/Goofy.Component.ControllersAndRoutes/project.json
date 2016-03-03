@@ -10,7 +10,7 @@
     "Goofy.WebFramework": ""
   },
   "frameworks": {
-    "dnx451": { }
+    "net451": { }
   },
 
   "commands": {

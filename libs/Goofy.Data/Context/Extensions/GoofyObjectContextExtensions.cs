@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Goofy.Core.Infrastructure;
+﻿using Goofy.Core.Infrastructure;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Migrations;
 using Microsoft.Data.Entity.Migrations.Internal;
 using Microsoft.Data.Entity.Storage;
 using Microsoft.Data.Entity.Migrations.Operations;
+using System.Collections.Generic;
 
 namespace Goofy.Data.Context.Extensions
 {
@@ -16,7 +16,18 @@ namespace Goofy.Data.Context.Extensions
             var sqlGenerator = (MigrationsSqlGenerator)container.Resolve(typeof(MigrationsSqlGenerator));
 
             var upOperations = modelDiffer.GetDifferences(null, dbContext.Model);
-            var tables = upOperations.Where(o => o is CreateTableOperation).Cast<CreateTableOperation>().Select(o => o.Name);
+
+            /*
+                Esto se hizo porque dio error de compilación luego de pasar de dnx451 a net451 el siguiente código:
+                var tables = upOperations.Where(o => o is CreateTableOperation).Cast<CreateTableOperation>().Select(o => o.Name);
+            */
+            var tables = new List<string>();
+            foreach (var operation in upOperations)
+            {
+                var createOperation = operation as CreateTableOperation;
+                if(createOperation != null)
+                    tables.Add(createOperation.Name);
+            }
 
             if (!GoofyDataAccessManager.GoofyDataConfiguration.Provider.TablesExist(container, dbContext.Database, tables))// alguna tabla fue eliminada
             {
