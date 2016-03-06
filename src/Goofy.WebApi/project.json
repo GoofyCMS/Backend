@@ -9,7 +9,6 @@
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
     "Microsoft.Extensions.Configuration.FileProviderExtensions": "1.0.0-rc1-final",
@@ -26,7 +25,7 @@
 
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel",
-    "webIp": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://192.168.249.50:5000",
+    "webIp": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://192.168.249.50:5000",
     "ef": "EntityFramework.Commands"
   },
 
