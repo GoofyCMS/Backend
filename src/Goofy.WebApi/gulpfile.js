@@ -10,7 +10,7 @@ paths.artifactsBinDirectory = './../../artifacts/bin';
 paths.componentsOutputFolder = './components';
 
 var compMode = 'Debug';
-var runtime = 'dnx451'
+var runtime = 'net451'
 
 var authComponent = 'Goofy.Component.Auth';
 var corsComponent = 'Goofy.Component.CorsIntegration';

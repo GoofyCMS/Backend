@@ -1,20 +1,23 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
-using Goofy.Data;
+using Goofy.Data.DataProvider.Services;
 
 namespace Goofy.Component.Auth.Models
 {
     public class UserDbContext : IdentityDbContext<ApplicationUser>
     {
-        public UserDbContext()
+        private readonly IDataProviderConfigurator _providerConfigurator;
+
+        public UserDbContext(IDataProviderConfigurator dataProviderConfigurator)
         {
+            _providerConfigurator = dataProviderConfigurator;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            GoofyDataAccessManager.GoofyDataConfiguration.Provider.ConfigureDbContextProvider(optionsBuilder);
+            _providerConfigurator.ConfigureDbContextProvider(optionsBuilder);
         }
     }
 }

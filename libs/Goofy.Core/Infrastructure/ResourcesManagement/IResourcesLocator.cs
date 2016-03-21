@@ -5,5 +5,7 @@ namespace Goofy.Core.Infrastructure
     public interface IResourcesLocator
     {
         Assembly[] GetAssemblies();
+
+        string GetBinDirectoryPath();
     }
 }

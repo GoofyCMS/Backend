@@ -8,9 +8,14 @@
   "dependencies": {
     "Newtonsoft.Json": "6.0.6",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+    "Goofy.Core.DependencyInjection.DesignTimeExtensions": "",
     "Goofy.Configuration.Extensions": ""
   },
   "frameworks": {
-    "net451": { }
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": ""
+      }
+    }
   }
 }

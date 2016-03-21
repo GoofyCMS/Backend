@@ -12,5 +12,10 @@ namespace Goofy.Core.Infrastructure
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             return assemblies;
         }
+
+        public virtual string GetBinDirectoryPath()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
     }
 }

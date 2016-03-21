@@ -2,14 +2,15 @@
 
 using Goofy.Configuration.Extensions;
 using Goofy.Core.Infrastructure;
-using Goofy.WebFramework.Infrastructure;
 
 using Goofy.Component.CorsIntegration.CorsExtensions;
 using Goofy.Component.CorsIntegration.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Goofy.Component.CorsIntegration.Services
 {
-    public class CorsDependencyAssembler : IGoofyDependencyAssembler
+    public class CorsDependencyAssembler : IDependencyAssembler
     {
         public int Order
         {
@@ -19,16 +20,17 @@ namespace Goofy.Component.CorsIntegration.Services
             }
         }
 
-        public void Register(IDependencyContainer builder, IResourcesLoader loader)
+        public void Register(IServiceCollection services, IResourcesLoader loader)
         {
+            //throw new NotImplementedException();
         }
 
-        public void RegisterWebDependencies(IWebDependencyContainer container, IResourcesLoader loader, IConfiguration config)
-        {
-            var configSection = config.GetSection("Goofy.Component.CorsIntegration");
-            container.RegisterConfigurations<CorsConfiguration>(configSection);
-            var corsConfig = configSection.GetConfiguration<CorsConfiguration>();
-            container.AddPolicies(corsConfig);
-        }
+        //public void RegisterWebDependencies(IWebDependencyContainer container, IResourcesLoader loader, IConfiguration config)
+        //{
+        //    var configSection = config.GetSection("Goofy.Component.CorsIntegration");
+        //    container.RegisterConfigurations<CorsConfiguration>(configSection);
+        //    var corsConfig = configSection.GetConfiguration<CorsConfiguration>();
+        //    container.AddPolicies(corsConfig);
+        //}
     }
 }

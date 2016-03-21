@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Linq;
+
 using Goofy.Core.Configuration;
 using Goofy.Configuration.Extensions;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Goofy.Core.Infrastructure
 {
     public abstract class GoofyEngine : IEngine
     {
-        private static GoofyCoreConfiguration _goofyCoreConfiguration;
-        public static GoofyCoreConfiguration GoofyCoreConfiguration
+        private GoofyCoreConfiguration _goofyCoreConfiguration;
+        public GoofyCoreConfiguration GoofyCoreConfiguration
         {
             get
             {
                 if (_goofyCoreConfiguration == null)
                 {
-                    string jsonFilePath = string.Format("{0}\\{1}", GoofyDomainResourceLocator.GetBinDirectoryPath(), ConfigurationSource);
+                    string jsonFilePath = string.Format("{0}\\{1}", ResourcesLocator.GetBinDirectoryPath(), ConfigurationSource);
                     _goofyCoreConfiguration = ConfigurationExtensions.GetConfiguration<GoofyCoreConfiguration>(jsonFilePath, ConfigurationSection);
                 }
                 return _goofyCoreConfiguration;
@@ -22,22 +25,22 @@ namespace Goofy.Core.Infrastructure
         }
 
         public IResourcesLoader ResourcesLoader { get; protected set; }
+        public IResourcesLocator ResourcesLocator { get; private set; }
 
-        public GoofyEngine()
+
+        public GoofyEngine(IResourcesLoader resourcesLoader, IResourcesLocator resourcesLocator)
         {
-            //Registrar el un IResourcesLoader
-            ResourcesLoader = new GoofyResourcesLoader(GoofyCoreConfiguration);
+            ResourcesLoader = resourcesLoader;
+            ResourcesLocator = resourcesLocator;
         }
 
-        public virtual void Start(IDependencyContainer dependencyContainer)
+        public virtual void Start(IServiceCollection services)
         {
-            //dependencyContainer.RegisterInstanceAsSingleton(ResourcesLoader);
-
             /* Todas las tareas que se ejecutan a continuación se realizan luego de que los 
             ensamblados de los plugins son cargados */
 
             // Agregar las dependencias provistas por otros ensamblados(propios o de 3ros)
-            RegisterDependencies(dependencyContainer);
+            RegisterDependencies(services);
 
             //Correr tareas de inicio provistas por otros ensamblados(propios o de 3ros)
             if (GoofyCoreConfiguration.RunStartupTasks)
@@ -53,7 +56,7 @@ namespace Goofy.Core.Infrastructure
         }
 
 
-        public void RegisterSortableDependencies<T>(IDependencyContainer dependencyContainer, Action<T> action) where T : ISortableTask
+        public void RegisterSortableDependencies<T>(Action<T> action) where T : ISortableTask
         {
             var depAssemblerTypes = ResourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)Activator.CreateInstance(t));
@@ -64,7 +67,7 @@ namespace Goofy.Core.Infrastructure
             }
         }
 
-        public void RegisterDependencies<T>(IDependencyContainer dependencyContainer, Action<T> action)
+        public void RegisterDependencies<T>(Action<T> action)
         {
             var depAssemblerTypes = ResourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)Activator.CreateInstance(t));
@@ -74,14 +77,14 @@ namespace Goofy.Core.Infrastructure
             }
         }
 
-        public virtual void RegisterDependencies(IDependencyContainer dependencyContainer)
+        public virtual void RegisterDependencies(IServiceCollection services)
         {
-            RegisterSortableDependencies<IDependencyAssembler>(dependencyContainer,
-                                                                    d =>
-                                                                    {
-                                                                        d.Register(dependencyContainer, ResourcesLoader);
-                                                                    }
-                                                               );
+            RegisterSortableDependencies<IDependencyAssembler>(
+                                                                 d =>
+                                                                 {
+                                                                     d.Register(services, ResourcesLoader);
+                                                                 }
+                                                              );
         }
 
 
@@ -102,6 +105,7 @@ namespace Goofy.Core.Infrastructure
                 return "GoofyCoreSection";
             }
         }
+
 
         #endregion
     }

@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using Goofy.Core.Infrastructure;
-using Goofy.WebFramework.Infrastructure;
-using Goofy.Data;
+﻿using Microsoft.Extensions.DependencyInjection;
 
+using Goofy.Core.Infrastructure;
+
+using Goofy.WebFramework.Data.DependencyInjection;
 
 namespace Goofy.Component.ControllersAndRoutes
 {
-    public class ControllersAndRoutesDependencyAssembler : IGoofyDependencyAssembler
+    public class ControllersAndRoutesDependencyAssembler : IDependencyAssembler
     {
         public int Order
         {
@@ -16,15 +16,10 @@ namespace Goofy.Component.ControllersAndRoutes
             }
         }
 
-        public void Register(IDependencyContainer container, IResourcesLoader loader)
+        public void Register(IServiceCollection services, IResourcesLoader loader)
         {
-            container.RegisterDependency<FileSystemWriter, IWriter>();   
-        }
-
-        public void RegisterWebDependencies(IWebDependencyContainer container, IResourcesLoader loader, IConfiguration config)
-        {
-            container.RegisterConfigurations<ControllerAndRoutesConfiguration>(config.GetSection("Goofy.Component.ControllersAndRoutes"));
-            container.AddDbContextObject<BookContext>();
+            services.AddScoped<IWriter, FileSystemWriter>();
+            services.AddDbContextObject<BookContext>();
         }
     }
 }

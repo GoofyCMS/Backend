@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Core.DependencyInjection.DesignTimeExtensions Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
+  },
+
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": ""
+      }
+    }
+  }
+}

@@ -10,10 +10,10 @@
     "Goofy.WebFramework": ""
   },
   "frameworks": {
-    "net451": { }
-  },
-
-  "commands": {
-    
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": ""
+      }
+    }
   }
 }

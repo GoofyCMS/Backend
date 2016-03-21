@@ -1,13 +1,14 @@
-﻿using Goofy.Core.Infrastructure;
-using Goofy.WebFramework.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using Goofy.Component.Auth.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Extensions.DependencyInjection;
+
 using Goofy.Component.Auth.AuthExtensions;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Goofy.Component.Auth.Models;
+using Goofy.Core.Infrastructure;
+using Goofy.WebFramework.Data.DependencyInjection;
 
 namespace Goofy.Component.Auth.Services
 {
-    public class AuthDependencyAssembler : IGoofyDependencyAssembler
+    public class AuthDependencyAssembler : IDependencyAssembler
     {
         public int Order
         {
@@ -17,14 +18,10 @@ namespace Goofy.Component.Auth.Services
             }
         }
 
-        public void Register(IDependencyContainer builder, IResourcesLoader loader)
+        public void Register(IServiceCollection services, IResourcesLoader loader)
         {
-        }
-
-        public void RegisterWebDependencies(IWebDependencyContainer container, IResourcesLoader loader, IConfiguration config)
-        {
-            container.AddDbContextObject<UserDbContext>();
-            container.AddIdentity<ApplicationUser, IdentityRole, UserDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole, UserDbContext>();
+            services.AddDbContextObject<UserDbContext>();
         }
     }
 }

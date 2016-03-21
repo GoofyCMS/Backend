@@ -1,11 +1,17 @@
 ﻿using Microsoft.Data.Entity;
+
 using Goofy.Core.Components;
 using Goofy.Data;
+using Goofy.Data.DataProvider.Services;
 
-namespace Goofy.WebFramework.Components
+namespace Goofy.WebFramework.Data.Components
 {
     public class ComponentContext : GoofyObjectContext
     {
+        public ComponentContext(IDataProviderConfigurator dataProviderConfigurator) : base(dataProviderConfigurator)
+        {
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /*

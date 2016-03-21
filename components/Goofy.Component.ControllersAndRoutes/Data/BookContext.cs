@@ -1,10 +1,15 @@
 ﻿using Microsoft.Data.Entity;
 using Goofy.Data;
+using Goofy.Data.DataProvider.Services;
 
 namespace Goofy.Component.ControllersAndRoutes
 {
     public class BookContext : GoofyObjectContext
     {
+        public BookContext(IDataProviderConfigurator dataProviderConfigurator) : base(dataProviderConfigurator)
+        {
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>(entity =>

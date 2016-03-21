@@ -14,9 +14,9 @@ namespace Goofy.Core.Infrastructure
             private set;
         }
 
-        public GoofyResourcesLoader(GoofyCoreConfiguration config)
+        public GoofyResourcesLoader(IResourcesLocator resourcesLocator)
         {
-            Locator = new GoofyDomainResourceLocator(config);
+            Locator = resourcesLocator;
         }
 
         public IEnumerable<Type> FindClassesOfType(Type type, bool onlyConcreteClasses = true)
@@ -104,6 +104,5 @@ namespace Goofy.Core.Infrastructure
                 return false;
             }
         }
-
     }
 }

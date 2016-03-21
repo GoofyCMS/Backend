@@ -7,10 +7,10 @@ using Goofy.Core.Configuration;
 
 namespace Goofy.Core.Infrastructure
 {
-    public class GoofyDomainResourceLocator : AppDomainResourcesLocator
+    public class GoofyDomainResourcesLocator : AppDomainResourcesLocator
     {
 
-        public GoofyDomainResourceLocator(GoofyCoreConfiguration config)
+        public GoofyDomainResourcesLocator()
         {
             BinFolderAlreadyLoaded = false;
         }
@@ -55,7 +55,7 @@ namespace Goofy.Core.Infrastructure
             }
         }
 
-        public static string GetBinDirectoryPath()
+        public override string GetBinDirectoryPath()
         {
             var wwwDirectory = new DirectoryInfo(Directory.GetCurrentDirectory());
             var binDirectoryPath = string.Format("{0}\\artifacts\\bin", wwwDirectory.Parent.Parent.Parent.FullName);

@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 
 using Microsoft.AspNet.Mvc;
-
-using Goofy.Core.Components;
-using Goofy.Data;
-using Goofy.WebFramework.Components;
-using Goofy.WebFramework;
-using Goofy.Core.Infrastructure;
-
-using Goofy.Data.Context.Extensions;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Migrations.Internal;
+using Microsoft.Data.Entity.Migrations;
+
+using Goofy.Core.Components.Base;
+using Goofy.Data.Context.Extensions;
+using Goofy.Data.DataProvider;
+using Goofy.WebFramework.Data.Components;
 
 namespace Goofy.Component.ComponentsWebInterface.Controllers
 {
@@ -17,12 +16,23 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
     public class ComponentsController : Controller
     {
         private readonly ComponentContext _componentContext;
-        private readonly GoofyComponentManager _componentManager;
+        private readonly IComponentsAssembliesProvider _componentsAssembliesProvider;
+        private readonly IEntityFrameworkDataProvider _dataProvider;
+        private readonly MigrationsModelDiffer _modelDiffer;
+        private readonly MigrationsSqlGenerator _sqlGenerator;
 
-        public ComponentsController(GoofyComponentManager componentManager, ComponentContext componentContext)
+        public ComponentsController(IComponentsAssembliesProvider componentsAssembliesProvider,
+                                    ComponentContext componentContext,
+                                    MigrationsModelDiffer modelDiffer,
+                                    MigrationsSqlGenerator sqlGenerator,
+                                    IEntityFrameworkDataProvider dataProvider
+                                    )
         {
+            _componentsAssembliesProvider = componentsAssembliesProvider;
             _componentContext = componentContext;
-            _componentManager = componentManager;
+            _modelDiffer = modelDiffer;
+            _sqlGenerator = sqlGenerator;
+            _dataProvider = dataProvider;
         }
 
         [HttpGet("list")]
@@ -38,8 +48,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             if (objectContext == null)
                 return new HttpNotFoundResult();
 
-            var dependencyContainer = (IDependencyContainer)HttpContext.ApplicationServices.GetService(typeof(IDependencyContainer));
-            objectContext.CreateTablesIfNotExists(dependencyContainer);
+            objectContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
             return new HttpOkResult();
         }
 
@@ -50,8 +59,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             if (objectContext == null)
                 return new HttpNotFoundResult();
 
-            var dependencyContainer = (IDependencyContainer)HttpContext.ApplicationServices.GetService(typeof(IDependencyContainer));
-            objectContext.DropTables(dependencyContainer);
+            objectContext.DropTables(_modelDiffer, _sqlGenerator);
             return new HttpOkResult();
         }
 
@@ -63,7 +71,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             if (component == null)
                 return null;
 
-            var componentAssembly = _componentManager.ComponentAssemblies.Where(ass => ass.GetName().Name == component.Name).First();
+            var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(ass => ass.GetName().Name == component.Name).First();
             var contextObject = componentAssembly.FindObjectContext();
             var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
             return objectContext;

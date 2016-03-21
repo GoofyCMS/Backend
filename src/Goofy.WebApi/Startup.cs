@@ -5,7 +5,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Goofy.WebFramework;
+using Goofy.WebFramework.Extensions;
 
 namespace Goofy.WebApi
 {
@@ -36,8 +36,7 @@ namespace Goofy.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddGoofy(Configuration, ConfigurationBuilder);//agregar las dependencias del Framework Goofy
-            services.AddOptions();
+            services.AddGoofyWebFramework(Configuration, ConfigurationBuilder);//agregar las dependencias del Framework Goofy
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

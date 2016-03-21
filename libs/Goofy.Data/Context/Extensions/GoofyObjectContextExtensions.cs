@@ -1,37 +1,29 @@
-﻿using Goofy.Core.Infrastructure;
+﻿using System;
+
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Migrations;
-using Microsoft.Data.Entity.Migrations.Internal;
 using Microsoft.Data.Entity.Storage;
 using Microsoft.Data.Entity.Migrations.Operations;
-using System.Collections.Generic;
+
+using Goofy.Data.DataProvider;
+using System.Linq;
 
 namespace Goofy.Data.Context.Extensions
 {
     public static class GoofyObjectContextExtensions
     {
-        public static void CreateTablesIfNotExists(this DbContext dbContext, IDependencyContainer container)
+        public static void CreateTablesIfNotExists(this DbContext dbContext,
+                                                        IMigrationsModelDiffer modelDiffer,
+                                                        IMigrationsSqlGenerator sqlGenerator,
+                                                        IEntityFrameworkDataProvider dataProvider)
         {
-            var modelDiffer = (MigrationsModelDiffer)container.Resolve(typeof(MigrationsModelDiffer));
-            var sqlGenerator = (MigrationsSqlGenerator)container.Resolve(typeof(MigrationsSqlGenerator));
-
             var upOperations = modelDiffer.GetDifferences(null, dbContext.Model);
 
-            /*
-                Esto se hizo porque dio error de compilación luego de pasar de dnx451 a net451 el siguiente código:
-                var tables = upOperations.Where(o => o is CreateTableOperation).Cast<CreateTableOperation>().Select(o => o.Name);
-            */
-            var tables = new List<string>();
-            foreach (var operation in upOperations)
-            {
-                var createOperation = operation as CreateTableOperation;
-                if(createOperation != null)
-                    tables.Add(createOperation.Name);
-            }
+            var tables = upOperations.Where(o => o is CreateTableOperation).Cast<CreateTableOperation>().Select(o => o.Name);
 
-            if (!GoofyDataAccessManager.GoofyDataConfiguration.Provider.TablesExist(container, dbContext.Database, tables))// alguna tabla fue eliminada
+            if (!dataProvider.TablesExist(dbContext.Database, tables))// alguna tabla fue eliminada
             {
-                dbContext.DropTables(container);
+                dbContext.DropTables(modelDiffer, sqlGenerator, true);
 
                 //Crear nuevamente las tablas
                 var sqlOperations = sqlGenerator.Generate(upOperations);
@@ -44,11 +36,11 @@ namespace Goofy.Data.Context.Extensions
             }
         }
 
-        public static void DropTables(this DbContext dbContext, IDependencyContainer container)
+        public static void DropTables(this DbContext dbContext,
+                                           IMigrationsModelDiffer modelDiffer,
+                                           IMigrationsSqlGenerator sqlGenerator,
+                                           bool failSilently = false)
         {
-            var modelDiffer = (MigrationsModelDiffer)container.Resolve(typeof(MigrationsModelDiffer));
-            var sqlGenerator = (MigrationsSqlGenerator)container.Resolve(typeof(MigrationsSqlGenerator));
-
             var downOperations = modelDiffer.GetDifferences(dbContext.Model, null);
             var sqlDownOperations = sqlGenerator.Generate(downOperations);
 
@@ -60,13 +52,20 @@ namespace Goofy.Data.Context.Extensions
                     {
                         operation.ExecuteNonQuery(t.Connection);
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        if (!failSilently)
+                            throw e;
                     }
                 }
                 t.Commit();
             }
         }
-    }
 
+        public static Type FindObjectContext(this System.Reflection.Assembly componentAssembly)
+        {
+            return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(DbContext)));
+        }
+
+    }
 }
