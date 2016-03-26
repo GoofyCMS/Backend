@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 using Goofy.Core.Infrastructure;
+using Goofy.Data.Context.Extensions;
 
 namespace Goofy.Component.ControllersAndRoutes
 {

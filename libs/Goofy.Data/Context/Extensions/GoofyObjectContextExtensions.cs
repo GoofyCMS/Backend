@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Linq;
 
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Migrations;
-using Microsoft.Data.Entity.Storage;
 using Microsoft.Data.Entity.Migrations.Operations;
+using Microsoft.Data.Entity.Storage;
+using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+
+using Goofy.Core.Components.Configuration;
 
 using Goofy.Data.DataProvider;
-using System.Linq;
-using Goofy.Core.Components.Configuration;
+using Goofy.Data.DataProvider.Services;
 
 namespace Goofy.Data.Context.Extensions
 {
@@ -71,6 +75,13 @@ namespace Goofy.Data.Context.Extensions
         public static Type FindComponentConfigurationObject(this System.Reflection.Assembly componentAssembly)
         {
             return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(ComponentConfig)));
+        }
+
+        public static void AddDbContextObject<T>(this IServiceCollection services) where T : DbContext
+        {
+            var efServiceBuilder = new EntityFrameworkServicesBuilder(services);
+            var dataProviderConfigurator = services.Resolve<IDataProviderConfigurator>();
+            dataProviderConfigurator.AddDbContextObject<T>(efServiceBuilder);
         }
 
     }

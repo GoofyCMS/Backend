@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Goofy.Component.Auth.AuthExtensions;
 using Goofy.Component.Auth.Models;
 using Goofy.Core.Infrastructure;
+using Goofy.Data.Context.Extensions;
 
 namespace Goofy.Component.Auth.Services
 {

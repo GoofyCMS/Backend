@@ -1,9 +1,4 @@
-﻿using System.Linq;
-
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-
-using Goofy.Data.DataProvider.Services;
+﻿using Goofy.Data.DataProvider.Services;
 
 using Goofy.WebFramework.Data;
 using Goofy.WebFramework.Data.Components;
@@ -26,13 +21,5 @@ namespace Microsoft.Extensions.DependencyInjection
             componentDbContextPopulator.PopulateComponentDbContext(services);
             services.Remove<IComponentDbContextPopulator>();
         }
-
-        public static void AddDbContextObject<T>(this IServiceCollection services) where T : DbContext
-        {
-            var efServiceBuilder = new EntityFrameworkServicesBuilder(services);
-            var dataProviderConfigurator = services.Resolve<IDataProviderConfigurator>();
-            dataProviderConfigurator.AddDbContextObject<T>(efServiceBuilder);
-        }
-
     }
 }
