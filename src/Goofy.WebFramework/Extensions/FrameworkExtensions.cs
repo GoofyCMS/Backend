@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 
 using Goofy.Core.Infrastructure;
 using Goofy.Core.Components.Base;
+using Goofy.Core.WebFramework.DependencyInjection;
 
 namespace Goofy.WebFramework.Extensions
 {

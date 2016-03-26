@@ -1,10 +1,8 @@
 ﻿using Microsoft.Data.Entity;
-
 using Goofy.Core.Components;
-using Goofy.Data;
 using Goofy.Data.DataProvider.Services;
 
-namespace Goofy.WebFramework.Data.Components
+namespace Goofy.Data.WebFramework.Components
 {
     public class ComponentContext : GoofyObjectContext
     {

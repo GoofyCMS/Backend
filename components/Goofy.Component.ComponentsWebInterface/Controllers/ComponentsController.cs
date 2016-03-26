@@ -8,7 +8,7 @@ using Microsoft.Data.Entity.Migrations;
 using Goofy.Core.Components.Base;
 using Goofy.Data;
 using Goofy.Data.DataProvider;
-using Goofy.WebFramework.Data.Components;
+using Goofy.Data.WebFramework.Components;
 
 namespace Goofy.Component.ComponentsWebInterface.Controllers
 {

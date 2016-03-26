@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Goofy.Core.Components.Base;
 
-namespace Goofy.WebFramework.Core.Components
+namespace Goofy.Core.WebFramework.Components
 {
     public class GoofyWebComponentsDirectoryPathProvider : IComponentsDirectoryPathProvider
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Goofy.WebFramework.Data.Services
+namespace Goofy.Data.WebFramework.Services
 {
     internal interface IComponentDbContextPopulator
     {

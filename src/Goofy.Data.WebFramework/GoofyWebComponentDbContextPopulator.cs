@@ -12,12 +12,10 @@ using Goofy.Core.Components.Base;
 using Goofy.Core.Components.Configuration;
 
 using Goofy.Data.DataProvider;
+using Goofy.Data.WebFramework.Components;
+using Goofy.Data.WebFramework.Services;
 
-using Goofy.WebFramework.Data.Components;
-using Goofy.WebFramework.Data.Services;
-using Goofy.Data;
-
-namespace Goofy.WebFramework.Data
+namespace Goofy.Data.WebFramework
 {
     internal class GoofyWebComponentDbContextPopulator : IComponentDbContextPopulator
     {

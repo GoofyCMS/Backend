@@ -1,8 +1,8 @@
 ﻿using Goofy.Data.DataProvider.Services;
 
-using Goofy.WebFramework.Data;
-using Goofy.WebFramework.Data.Components;
-using Goofy.WebFramework.Data.Services;
+using Goofy.Data.WebFramework;
+using Goofy.Data.WebFramework.Components;
+using Goofy.Data.WebFramework.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

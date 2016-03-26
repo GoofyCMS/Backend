@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Goofy.WebFramework.Data")]
+[assembly: AssemblyTitle("Goofy.Data.WebFramework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Goofy.WebFramework.Data")]
+[assembly: AssemblyProduct("Goofy.Data.WebFramework")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,4 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b85c2c2e-870b-4d7d-959f-74fa56fc84e0")]
+[assembly: Guid("48bd9b2d-49d9-4702-9154-c92cbe6d2e74")]
