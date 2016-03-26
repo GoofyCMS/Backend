@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddGoofyCore(this IServiceCollection services)
         {
-            //Agregar las configuraciones de Goofy.Core
+            services.AddOptions();
             services.Configure<GoofyCoreConfiguration>(c => { });
             services.AddScoped<IResourcesLocator, GoofyDomainResourcesLocator>();
             services.AddScoped<IResourcesLoader, GoofyResourcesLoader>();

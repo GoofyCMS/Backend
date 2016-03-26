@@ -3,6 +3,7 @@ using System.Linq;
 
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Core.Configuration;
+using Goofy.Extensions;
 
 namespace Goofy.Core.Infrastructure
 {
@@ -40,7 +41,7 @@ namespace Goofy.Core.Infrastructure
             if (GoofyCoreConfiguration.RunStartupTasks)
             {
                 var startupTasksTypes = ResourcesLoader.FindClassesOfType<IRunAtStartup>()
-                                .Select(t => (IRunAtStartup)Activator.CreateInstance(t)).ToArray();
+                                .Select(t => (IRunAtStartup)services.Resolve(t)).ToArray();
                 var startupTasks = startupTasksTypes.AsQueryable().OrderBy(t => t.Order);
                 foreach (var s in startupTasks)
                 {

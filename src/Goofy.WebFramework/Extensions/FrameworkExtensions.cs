@@ -12,7 +12,6 @@ namespace Goofy.WebFramework.Extensions
     {
         public static void AddGoofyWebFramework(this IServiceCollection services)
         {
-            services.AddOptions();
             services.AddWebGoofyCore();
             services.AddWebGoofyData();
 
