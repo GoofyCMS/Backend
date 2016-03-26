@@ -76,7 +76,7 @@ namespace Goofy.Core.Infrastructure
             RegisterSortableDependencies<IDependencyAssembler>(
                                                                  d =>
                                                                  {
-                                                                     d.Register(services, ResourcesLoader);
+                                                                     d.Register(services);
                                                                  }
                                                               );
         }

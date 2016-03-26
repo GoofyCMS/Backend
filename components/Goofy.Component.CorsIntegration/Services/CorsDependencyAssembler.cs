@@ -17,7 +17,7 @@ namespace Goofy.Component.CorsIntegration.Services
             }
         }
 
-        public void Register(IServiceCollection services, IResourcesLoader loader)
+        public void Register(IServiceCollection services)
         {
             services.Configure<CorsConfiguration, CorsConfigConfigurator>();
             var corsConfig = services.GetConfiguration<CorsConfiguration>();

@@ -14,7 +14,7 @@ namespace Goofy.Component.ControllersAndRoutes
             }
         }
 
-        public void Register(IServiceCollection services, IResourcesLoader loader)
+        public void Register(IServiceCollection services)
         {
             services.Configure<ControllerAndRoutesConfiguration>(a => { });
             services.AddScoped<IWriter, FileSystemWriter>();

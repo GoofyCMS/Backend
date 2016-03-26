@@ -17,7 +17,7 @@ namespace Goofy.Component.Auth.Services
             }
         }
 
-        public void Register(IServiceCollection services, IResourcesLoader loader)
+        public void Register(IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, IdentityRole, UserDbContext>();
             services.AddDbContextObject<UserDbContext>();
