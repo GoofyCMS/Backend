@@ -8,7 +8,9 @@ namespace Goofy
     {
         public static Type FindExportedObject<T>(this Assembly assembly)
         {
-            return assembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(T)));
+            //return assembly.GetExportedTypes().FirstOrDefault(t => t.IsAssignableFrom(typeof(T)));
+            return assembly.GetExportedTypes().FirstOrDefault(t => typeof(T).IsAssignableFrom(t));
+
         }
     }
 }
