@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-using Goofy.Core.Configuration;
-using Goofy.Configuration.Extensions;
-
 using Microsoft.Extensions.DependencyInjection;
+using Goofy.Core.Configuration;
 
 namespace Goofy.Core.Infrastructure
 {
-    public abstract class GoofyEngine : IEngine
+    public class GoofyEngine : IEngine
     {
         private GoofyCoreConfiguration _goofyCoreConfiguration;
         public GoofyCoreConfiguration GoofyCoreConfiguration
@@ -17,21 +15,17 @@ namespace Goofy.Core.Infrastructure
             {
                 if (_goofyCoreConfiguration == null)
                 {
-                    string jsonFilePath = string.Format("{0}\\{1}", ResourcesLocator.GetBinDirectoryPath(), ConfigurationSource);
-                    _goofyCoreConfiguration = ConfigurationExtensions.GetConfiguration<GoofyCoreConfiguration>(jsonFilePath, ConfigurationSection);
+                    _goofyCoreConfiguration = new GoofyCoreConfiguration();
                 }
                 return _goofyCoreConfiguration;
             }
         }
 
         public IResourcesLoader ResourcesLoader { get; protected set; }
-        public IResourcesLocator ResourcesLocator { get; private set; }
 
-
-        public GoofyEngine(IResourcesLoader resourcesLoader, IResourcesLocator resourcesLocator)
+        public GoofyEngine(IResourcesLoader resourcesLoader)
         {
             ResourcesLoader = resourcesLoader;
-            ResourcesLocator = resourcesLocator;
         }
 
         public virtual void Start(IServiceCollection services)
@@ -87,26 +81,5 @@ namespace Goofy.Core.Infrastructure
                                                               );
         }
 
-
-        #region Properties
-
-        public static string ConfigurationSource
-        {
-            get
-            {
-                return @"Goofy.Core\config.json";
-            }
-        }
-
-        public static string ConfigurationSection
-        {
-            get
-            {
-                return "GoofyCoreSection";
-            }
-        }
-
-
-        #endregion
     }
 }

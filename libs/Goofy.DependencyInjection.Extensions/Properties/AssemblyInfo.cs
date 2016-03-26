@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Goofy.Core.DependencyInjection.DesignTimeExtensions")]
+[assembly: AssemblyTitle("Goofy.DependencyInjection.Extensions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Goofy.Core.DependencyInjection.DesignTimeExtensions")]
+[assembly: AssemblyProduct("Goofy.DependencyInjection.Extensions")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,4 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("afb78415-fa7b-4a59-9f77-36ef3924c4b8")]
+[assembly: Guid("5e77634a-d2d6-423a-b703-10645c329bfd")]

@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Migrations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.OptionsModel;
 
 using Goofy.Core.Components;
 using Goofy.Core.Components.Base;
 using Goofy.Core.Components.Configuration;
-using Goofy.Core.DependencyInjection.DesignTimeExtensions;
 
 using Goofy.Data.DataProvider;
 using Goofy.Data.Context.Extensions;
@@ -30,13 +30,15 @@ namespace Goofy.WebFramework.Data
         private readonly MigrationsSqlGenerator _sqlGenerator;
         private readonly IComponentsInfoProvider _componentsInfoProvider;
         private readonly IComponentsAssembliesProvider _componentsAssembliesProvider;
+        private readonly ComponentConfig _componentConfiguration;
 
         public GoofyWebComponentDbContextPopulator(ComponentContext compContext,
                                                    IMigrationsModelDiffer modelDiffer,
                                                    IComponentsInfoProvider componentsInfoProvider,
                                                    MigrationsSqlGenerator sqlGenerator,
                                                    IEntityFrameworkDataProvider dataProvider,
-                                                   IComponentsAssembliesProvider componentsAssembliesProvider)
+                                                   IComponentsAssembliesProvider componentsAssembliesProvider,
+                                                   IOptions<ComponentConfig> componentConfigOptions)
         {
             _compContext = compContext;
             _modelDiffer = modelDiffer;
@@ -44,6 +46,7 @@ namespace Goofy.WebFramework.Data
             _dataProvider = dataProvider;
             _componentsInfoProvider = componentsInfoProvider;
             _componentsAssembliesProvider = componentsAssembliesProvider;
+            _componentConfiguration = componentConfigOptions.Value;
         }
 
         public void PopulateComponentDbContext(IServiceCollection services)
@@ -53,16 +56,19 @@ namespace Goofy.WebFramework.Data
             var allComponents = _compContext.Components.ToArray();
             //IEnumerable<Component> installedComponents;
 
-            foreach (var compAttrsInfo in _componentsInfoProvider.ComponentsInfo)
+            foreach (var compInfo in _componentsInfoProvider.ComponentsInfo)
             {
-                if (allComponents.Where(c => c.Name == compAttrsInfo.FullName).Count() == 0)//Se encontró una componente que no está en la base de datos
+                if (allComponents.Where(c => c.Name == compInfo.FullName).Count() == 0)//Se encontró una componente que no está en la base de datos
                 {
                     var isSystemComponent = false;
                     try
                     {
-                        var compInfo = _componentsInfoProvider.ComponentsInfo.Where(cI => cI.FullName == compAttrsInfo.FullName).First();
-                        var compConfig = ConfigurationExtensions.GetConfiguration<ComponentConfig>(compInfo.ConfigFilePath, compInfo.Name);
-                        isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
+                        ///That suck, TODO: Improve this piece of code
+                        var assembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(a => a.FullName == compInfo.FullName).First();
+                        var configType = assembly.FindComponentConfigurationObject();
+                        var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
+                        //var compConfig = ConfigurationExtensions.GetConfiguration<ComponentConfig>(compInfo.ConfigFilePath, compInfo.Name);
+                        //isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
                     }
                     catch
                     {
@@ -71,9 +77,9 @@ namespace Goofy.WebFramework.Data
                     _compContext.Components.Add(
                             new Component
                             {
-                                Name = compAttrsInfo.FullName,
+                                Name = compInfo.FullName,
                                 Installed = isSystemComponent,
-                                Version = compAttrsInfo.Version.ToString(),
+                                Version = compInfo.Version.ToString(),
                                 IsSystemComponent = isSystemComponent
                             }
                         );

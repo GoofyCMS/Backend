@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Goofy.Configuration.Extensions;
 using Goofy.Core.Infrastructure;
-
-using Goofy.Component.CorsIntegration.CorsExtensions;
+using Goofy.Configuration.Extensions;
 using Goofy.Component.CorsIntegration.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using Goofy.Component.CorsIntegration.CorsExtensions;
 
 namespace Goofy.Component.CorsIntegration.Services
 {
@@ -22,15 +19,9 @@ namespace Goofy.Component.CorsIntegration.Services
 
         public void Register(IServiceCollection services, IResourcesLoader loader)
         {
-            //throw new NotImplementedException();
+            services.Configure<CorsConfiguration, CorsConfigConfigurator>();
+            var corsConfig = services.GetConfiguration<CorsConfiguration>();
+            services.AddPolicies(corsConfig);
         }
-
-        //public void RegisterWebDependencies(IWebDependencyContainer container, IResourcesLoader loader, IConfiguration config)
-        //{
-        //    var configSection = config.GetSection("Goofy.Component.CorsIntegration");
-        //    container.RegisterConfigurations<CorsConfiguration>(configSection);
-        //    var corsConfig = configSection.GetConfiguration<CorsConfiguration>();
-        //    container.AddPolicies(corsConfig);
-        //}
     }
 }

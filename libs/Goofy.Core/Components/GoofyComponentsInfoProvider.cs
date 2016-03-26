@@ -97,16 +97,16 @@ namespace Goofy.Core.Components
             var assemblyName = assembly.GetName();
             var componentFolder = new FileInfo(assembly.Location).DirectoryName;
             var configFilePath = string.Format("{0}\\config.json", componentFolder);
-            string componentConfigFilePath = null;
+            //string componentConfigFilePath = null;
 
-            if (_componentConfigFileValidator.IsValid(configFilePath, componentFolder))
-                componentConfigFilePath = configFilePath;
-            else
-            {
-                //agregar mensaje a los logs, hacer algo al respecto
-            }
+            //if (_componentConfigFileValidator.IsValid(configFilePath, componentFolder))
+            //    componentConfigFilePath = configFilePath;
+            //else
+            //{
+            //    //agregar mensaje a los logs, hacer algo al respecto
+            //}
 
-            return new ComponentInfo(assemblyName.FullName, assemblyName.Version, assembly.Location, componentConfigFilePath);
+            return new ComponentInfo(assemblyName.FullName, assemblyName.Version, assembly.Location);
         }
 
     }

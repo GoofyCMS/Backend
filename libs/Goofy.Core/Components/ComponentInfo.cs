@@ -6,25 +6,24 @@ namespace Goofy.Core.Components
     {
         //private readonly List<ComponentAttributes> _referencedAssemblies;
 
-        public ComponentInfo(string fullName, Version version, string path, string configFilePath)
+        public ComponentInfo(string fullName, Version version, string path)
         {
             FullName = fullName;
             Version = version;
             Path = path;
-            ConfigFilePath = configFilePath;
             //_referencedAssemblies = new List<ComponentAttributes>();
         }
         public string FullName { get; private set; }
         public Version Version { get; private set; }
         public string Path { get; private set; }
-        public string ConfigFilePath { get; private set; }
-        public string Name
-        {
-            get
-            {
-                return FullName.Substring(0, FullName.IndexOf(','));
-            }
-        }
+        //public string ConfigFilePath { get; private set; }
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return FullName.Substring(0, FullName.IndexOf(','));
+        //    }
+        //}
 
         //public IEnumerable<ComponentAttributes> ReferencedAssemblies { get { return _referencedAssemblies; } }
 

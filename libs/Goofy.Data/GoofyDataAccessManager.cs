@@ -11,14 +11,12 @@ namespace Goofy.Data
         private const string SqlDataProviderName = "sql";
         private const string SqliteDataProviderName = "sqlite";
 
-        private readonly IResourcesLocator _resourceLocator;
         private GoofyDataConfiguration _goofyDataConfiguration;
         private Type _dataProviderType;
         private Type _dataProviderConfiguratorType;
 
-        public GoofyDataAccessManager(IResourcesLocator resourceLocator)
+        public GoofyDataAccessManager()
         {
-            _resourceLocator = resourceLocator;
         }
 
         public GoofyDataConfiguration GoofyDataConfiguration
@@ -27,8 +25,7 @@ namespace Goofy.Data
             {
                 if (_goofyDataConfiguration == null)
                 {
-                    string jsonFilePath = string.Format("{0}\\{1}", _resourceLocator.GetBinDirectoryPath(), ConfigurationSource);
-                    _goofyDataConfiguration = ConfigurationExtensions.GetConfiguration<GoofyDataConfiguration>(jsonFilePath, ConfigurationSection);
+                    _goofyDataConfiguration = new GoofyDataConfiguration();
                 }
                 return _goofyDataConfiguration;
             }
@@ -59,7 +56,6 @@ namespace Goofy.Data
             }
         }
 
-
         public Type DataProviderType
         {
             get
@@ -84,22 +80,5 @@ namespace Goofy.Data
                 return _dataProviderType;
             }
         }
-
-        public static string ConfigurationSource
-        {
-            get
-            {
-                return @"Goofy.Data\config.json";
-            }
-        }
-
-        public static string ConfigurationSection
-        {
-            get
-            {
-                return "GoofyDataSection";
-            }
-        }
-
     }
 }

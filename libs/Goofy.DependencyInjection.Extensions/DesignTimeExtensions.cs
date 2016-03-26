@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
-namespace Goofy.Core.DependencyInjection.DesignTimeExtensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DesignTimeExtensions
     {
@@ -21,6 +21,17 @@ namespace Goofy.Core.DependencyInjection.DesignTimeExtensions
         public static T Resolve<T>(this IServiceCollection services)
         {
             return (T)services.Resolve(typeof(T));
+        }
+
+        public static IServiceCollection Remove<TService>(this IServiceCollection services, bool failSilently=false)
+        {
+            var componentDbContextPopulatorDescriptor = services.Where(sd => sd.ServiceType == typeof(TService)).FirstOrDefault();
+            if (componentDbContextPopulatorDescriptor != null)
+                services.Remove(componentDbContextPopulatorDescriptor);
+            else if (componentDbContextPopulatorDescriptor == null && !failSilently)
+                throw new InvalidOperationException();
+
+            return services;
         }
     }
 }

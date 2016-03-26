@@ -5,6 +5,6 @@ namespace Goofy.Component.CorsIntegration.Configuration
 {
     public class CorsConfiguration: ComponentConfig
     {
-        public Dictionary<string, string[]> Policies { get; set; }
+        public Dictionary<string, string[]> Policies { get; set; } = new Dictionary<string, string[]>();
     }
 }

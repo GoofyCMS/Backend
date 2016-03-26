@@ -2,8 +2,6 @@
 
 using Goofy.Core.Infrastructure;
 
-using Goofy.WebFramework.Data.DependencyInjection;
-
 namespace Goofy.Component.ControllersAndRoutes
 {
     public class ControllersAndRoutesDependencyAssembler : IDependencyAssembler
@@ -12,12 +10,13 @@ namespace Goofy.Component.ControllersAndRoutes
         {
             get
             {
-                return 1;
+                return 0;
             }
         }
 
         public void Register(IServiceCollection services, IResourcesLoader loader)
         {
+            services.Configure<ControllerAndRoutesConfiguration>(a => { });
             services.AddScoped<IWriter, FileSystemWriter>();
             services.AddDbContextObject<BookContext>();
         }

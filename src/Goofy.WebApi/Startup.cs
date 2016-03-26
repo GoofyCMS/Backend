@@ -18,6 +18,7 @@ namespace Goofy.WebApi
         public Startup(IHostingEnvironment env, IApplicationEnvironment app)
         {
             /* 
+                TODO:
                 Esto debería poderse hacer desde configuraciónes pero, no está funcionando
                 el atributo "webroot" en el project.json.
                 **Buscar como mejorar esto**
@@ -26,8 +27,6 @@ namespace Goofy.WebApi
             ConfigurationBuilder = new ConfigurationBuilder();
             ConfigurationBuilder.SetBasePath(string.Format("{0}\\bin", app.ApplicationBasePath));
             ConfigurationBuilder.AddJsonFile("appsettings.json");
-            ConfigurationBuilder.AddGoofyCoreConfigurations();
-            ConfigurationBuilder.AddGoofyDataConfigurations();
             Configuration = ConfigurationBuilder.Build();
         }
 
@@ -36,7 +35,7 @@ namespace Goofy.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddGoofyWebFramework(Configuration, ConfigurationBuilder);//agregar las dependencias del Framework Goofy
+            services.AddGoofyWebFramework();//agregar las dependencias del Framework Goofy
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

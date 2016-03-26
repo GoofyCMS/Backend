@@ -7,6 +7,7 @@ using Microsoft.Data.Entity.Migrations.Operations;
 
 using Goofy.Data.DataProvider;
 using System.Linq;
+using Goofy.Core.Components.Configuration;
 
 namespace Goofy.Data.Context.Extensions
 {
@@ -65,6 +66,11 @@ namespace Goofy.Data.Context.Extensions
         public static Type FindObjectContext(this System.Reflection.Assembly componentAssembly)
         {
             return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(DbContext)));
+        }
+
+        public static Type FindComponentConfigurationObject(this System.Reflection.Assembly componentAssembly)
+        {
+            return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(ComponentConfig)));
         }
 
     }

@@ -4,6 +4,6 @@ namespace Goofy.Component.ControllersAndRoutes
 {
     public class ControllerAndRoutesConfiguration : ComponentConfig
     {
-        public string SampleKey { get; set; }
+        public string SampleKey { get; set; } = "Some Key";
     }
 }

@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Core.DependencyInjection.DesignTimeExtensions Class Library",
+  "description": "Goofy.DependencyInjection.Extensions Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
@@ -8,7 +8,6 @@
   "dependencies": {
     "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
   },
-
   "frameworks": {
     "net451": {
       "frameworkAssemblies": {
