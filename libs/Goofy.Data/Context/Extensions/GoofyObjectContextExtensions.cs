@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Goofy.Data.DataProvider;
 using Goofy.Data.DataProvider.Services;
 
+using Goofy.Extensions;
+
 namespace Goofy.Data
 {
     public static class GoofyObjectContextExtensions

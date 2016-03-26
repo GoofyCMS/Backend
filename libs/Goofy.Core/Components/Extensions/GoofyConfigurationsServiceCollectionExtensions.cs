@@ -1,5 +1,4 @@
-﻿using Goofy.Core.Configuration;
-using Goofy.Core.Components.Configuration;
+﻿using Goofy.Core.Components.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

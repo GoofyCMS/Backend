@@ -8,7 +8,7 @@
   "dependencies": {
     "Microsoft.AspNet.Cors": "6.0.0-rc1-final",
     "Goofy.WebFramework": "",
-    "Goofy.Configuration.Extensions": ""
+    "Goofy.Extensions.Configuration": ""
   },
   "frameworks": {
     "net451": {

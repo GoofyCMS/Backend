@@ -2,6 +2,7 @@
 
 using Goofy.Core.Components.Base;
 using Goofy.Core.WebFramework.Components;
+using Goofy.Extensions;
 
 namespace Goofy.Core.WebFramework.DependencyInjection
 {

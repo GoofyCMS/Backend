@@ -15,6 +15,8 @@ using Goofy.Data.DataProvider;
 using Goofy.Data.WebFramework.Components;
 using Goofy.Data.WebFramework.Services;
 
+using Goofy.Extensions;
+
 namespace Goofy.Data.WebFramework
 {
     internal class GoofyWebComponentDbContextPopulator : IComponentDbContextPopulator

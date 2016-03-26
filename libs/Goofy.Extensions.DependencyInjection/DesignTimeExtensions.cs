@@ -1,7 +1,8 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Goofy.Extensions
 {
     public static class DesignTimeExtensions
     {
@@ -23,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return (T)services.Resolve(typeof(T));
         }
 
-        public static IServiceCollection Remove<TService>(this IServiceCollection services, bool failSilently=false)
+        public static IServiceCollection Remove<TService>(this IServiceCollection services, bool failSilently = false)
         {
             var componentDbContextPopulatorDescriptor = services.Where(sd => sd.ServiceType == typeof(TService)).FirstOrDefault();
             if (componentDbContextPopulatorDescriptor != null)

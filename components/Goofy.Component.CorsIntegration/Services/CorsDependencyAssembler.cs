@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
 using Goofy.Core.Infrastructure;
 using Goofy.Component.CorsIntegration.Configuration;
 using Goofy.Component.CorsIntegration.CorsExtensions;
+using Goofy.Extensions;
 
 namespace Goofy.Component.CorsIntegration.Services
 {

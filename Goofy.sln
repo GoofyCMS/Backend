@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Component.ControllersAndRoutes", "components\Goofy.Component.ControllersAndRoutes\Goofy.Component.ControllersAndRoutes.xproj", "{43392740-080D-4E7B-81FB-2F0E5BCFA250}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Configuration.Extensions", "libs\Goofy.Configuration.Extensions\Goofy.Configuration.Extensions.xproj", "{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Component.AnotherComponent", "components\Goofy.Component.AnotherComponent\Goofy.Component.AnotherComponent.xproj", "{DAFA7C52-705B-4902-A784-EFCA96DE1EF9}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Component.ComponentsWebInterface", "components\Goofy.Component.ComponentsWebInterface\Goofy.Component.ComponentsWebInterface.xproj", "{6A94FA5C-A123-4775-917F-EFBB6DA88E01}"
@@ -36,13 +34,15 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Component.Auth", "com
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Component.CorsIntegration", "components\Goofy.Component.CorsIntegration\Goofy.Component.CorsIntegration.xproj", "{44E98D21-CE5F-46C9-9692-3C91091C82F6}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.DependencyInjection.Extensions", "libs\Goofy.DependencyInjection.Extensions\Goofy.DependencyInjection.Extensions.xproj", "{5E77634A-D2D6-423A-B703-10645C329BFD}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Utils", "libs\Goofy.Utils\Goofy.Utils.xproj", "{F599886B-ED76-499C-8626-6C787E212A8D}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Core.WebFramework", "src\Goofy.Core.WebFramework\Goofy.Core.WebFramework.xproj", "{A15E7068-B61D-4C8C-9D89-51718C74EC32}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Data.WebFramework", "src\Goofy.Data.WebFramework\Goofy.Data.WebFramework.xproj", "{48BD9B2D-49D9-4702-9154-C92CBE6D2E74}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Extensions.DependencyInjection", "libs\Goofy.Extensions.DependencyInjection\Goofy.Extensions.DependencyInjection.xproj", "{87C7C252-D599-42EF-A486-2624001CE72A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Extensions.Configuration", "libs\Goofy.Extensions.Configuration\Goofy.Extensions.Configuration.xproj", "{B31BEF21-44F2-4FA0-8925-D484CD545C7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,12 +81,6 @@ Global
 		{43392740-080D-4E7B-81FB-2F0E5BCFA250}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43392740-080D-4E7B-81FB-2F0E5BCFA250}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43392740-080D-4E7B-81FB-2F0E5BCFA250}.Release|Any CPU.Build.0 = Release|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DAFA7C52-705B-4902-A784-EFCA96DE1EF9}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
 		{DAFA7C52-705B-4902-A784-EFCA96DE1EF9}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
 		{DAFA7C52-705B-4902-A784-EFCA96DE1EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -111,12 +105,6 @@ Global
 		{44E98D21-CE5F-46C9-9692-3C91091C82F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44E98D21-CE5F-46C9-9692-3C91091C82F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E98D21-CE5F-46C9-9692-3C91091C82F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E77634A-D2D6-423A-B703-10645C329BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F599886B-ED76-499C-8626-6C787E212A8D}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
 		{F599886B-ED76-499C-8626-6C787E212A8D}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
 		{F599886B-ED76-499C-8626-6C787E212A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -135,6 +123,18 @@ Global
 		{48BD9B2D-49D9-4702-9154-C92CBE6D2E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48BD9B2D-49D9-4702-9154-C92CBE6D2E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48BD9B2D-49D9-4702-9154-C92CBE6D2E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C7C252-D599-42EF-A486-2624001CE72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,14 +145,14 @@ Global
 		{DF26D551-B5FF-41C4-B436-7574FC16BD22} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 		{DE48E200-9782-4470-AB21-D07774449AE4} = {F389CDFC-344D-4409-AD01-1D6B5201D528}
 		{43392740-080D-4E7B-81FB-2F0E5BCFA250} = {11AC8C64-BC97-448D-88E6-54F2F29ADF7A}
-		{039CEC51-0044-4255-A3FC-0D8DF7B9F2BF} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 		{DAFA7C52-705B-4902-A784-EFCA96DE1EF9} = {11AC8C64-BC97-448D-88E6-54F2F29ADF7A}
 		{6A94FA5C-A123-4775-917F-EFBB6DA88E01} = {11AC8C64-BC97-448D-88E6-54F2F29ADF7A}
 		{2B609A2E-094B-4EAD-9C73-F9B33CF2E501} = {11AC8C64-BC97-448D-88E6-54F2F29ADF7A}
 		{44E98D21-CE5F-46C9-9692-3C91091C82F6} = {11AC8C64-BC97-448D-88E6-54F2F29ADF7A}
-		{5E77634A-D2D6-423A-B703-10645C329BFD} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 		{F599886B-ED76-499C-8626-6C787E212A8D} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 		{A15E7068-B61D-4C8C-9D89-51718C74EC32} = {F389CDFC-344D-4409-AD01-1D6B5201D528}
 		{48BD9B2D-49D9-4702-9154-C92CBE6D2E74} = {F389CDFC-344D-4409-AD01-1D6B5201D528}
+		{87C7C252-D599-42EF-A486-2624001CE72A} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
+		{B31BEF21-44F2-4FA0-8925-D484CD545C7D} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 	EndGlobalSection
 EndGlobal

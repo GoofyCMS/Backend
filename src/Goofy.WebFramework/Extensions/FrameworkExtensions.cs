@@ -4,6 +4,8 @@ using Goofy.Core.Infrastructure;
 using Goofy.Core.Components.Base;
 using Goofy.Core.WebFramework.DependencyInjection;
 
+using Goofy.Extensions;
+
 namespace Goofy.WebFramework.Extensions
 {
     public static class FrameworkExtensions

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.OptionsModel;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.OptionsModel;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Goofy.Extensions
 {
     public static class ConfigurationExtensions
     {

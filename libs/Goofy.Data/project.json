@@ -10,7 +10,6 @@
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
     "EntityFramework.SQLite": "7.0.0-rc1-final",
-    "Goofy.Configuration.Extensions": "",
     "EntityFramework.Relational": "7.0.0-rc1-final"
   },
   "frameworks": {

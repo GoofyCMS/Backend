@@ -4,6 +4,8 @@ using Goofy.Data;
 using Goofy.Data.DataProvider;
 using Goofy.Data.DataProvider.Services;
 
+using Goofy.Extensions;
+
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class GoofyDataDependencyInjectionExtensions

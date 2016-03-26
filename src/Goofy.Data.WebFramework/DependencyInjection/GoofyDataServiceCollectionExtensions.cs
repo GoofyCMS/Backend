@@ -4,6 +4,8 @@ using Goofy.Data.WebFramework;
 using Goofy.Data.WebFramework.Components;
 using Goofy.Data.WebFramework.Services;
 
+using Goofy.Extensions;
+
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class GoofyDataServiceCollectionExtensions
