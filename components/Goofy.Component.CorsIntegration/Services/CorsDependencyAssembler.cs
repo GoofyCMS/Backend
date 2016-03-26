@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 using Goofy.Core.Infrastructure;
-using Goofy.Configuration.Extensions;
 using Goofy.Component.CorsIntegration.Configuration;
 using Goofy.Component.CorsIntegration.CorsExtensions;
 

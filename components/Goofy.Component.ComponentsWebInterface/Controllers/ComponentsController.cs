@@ -6,7 +6,7 @@ using Microsoft.Data.Entity.Migrations.Internal;
 using Microsoft.Data.Entity.Migrations;
 
 using Goofy.Core.Components.Base;
-using Goofy.Data.Context.Extensions;
+using Goofy.Data;
 using Goofy.Data.DataProvider;
 using Goofy.WebFramework.Data.Components;
 
@@ -72,7 +72,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
                 return null;
 
             var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(ass => ass.GetName().Name == component.Name).First();
-            var contextObject = componentAssembly.FindObjectContext();
+            var contextObject = componentAssembly.FindExportedObject<DbContext>();
             var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
             return objectContext;
         }

@@ -8,12 +8,10 @@ using Microsoft.Data.Entity.Storage;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-using Goofy.Core.Components.Configuration;
-
 using Goofy.Data.DataProvider;
 using Goofy.Data.DataProvider.Services;
 
-namespace Goofy.Data.Context.Extensions
+namespace Goofy.Data
 {
     public static class GoofyObjectContextExtensions
     {
@@ -65,16 +63,6 @@ namespace Goofy.Data.Context.Extensions
                 }
                 t.Commit();
             }
-        }
-
-        public static Type FindObjectContext(this System.Reflection.Assembly componentAssembly)
-        {
-            return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(DbContext)));
-        }
-
-        public static Type FindComponentConfigurationObject(this System.Reflection.Assembly componentAssembly)
-        {
-            return componentAssembly.GetExportedTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(ComponentConfig)));
         }
 
         public static void AddDbContextObject<T>(this IServiceCollection services) where T : DbContext

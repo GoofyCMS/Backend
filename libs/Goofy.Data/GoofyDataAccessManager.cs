@@ -1,6 +1,4 @@
-﻿using Goofy.Core.Infrastructure;
-using Goofy.Data.DataProvider;
-using Goofy.Configuration.Extensions;
+﻿using Goofy.Data.DataProvider;
 using System;
 using Goofy.Data.DataProvider.Services;
 

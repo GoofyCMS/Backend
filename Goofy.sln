@@ -42,6 +42,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.WebFramework.Data", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.DependencyInjection.Extensions", "libs\Goofy.DependencyInjection.Extensions\Goofy.DependencyInjection.Extensions.xproj", "{5E77634A-D2D6-423A-B703-10645C329BFD}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Utils", "libs\Goofy.Utils\Goofy.Utils.xproj", "{F599886B-ED76-499C-8626-6C787E212A8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AuthConfig|Any CPU = AuthConfig|Any CPU
@@ -127,6 +129,12 @@ Global
 		{5E77634A-D2D6-423A-B703-10645C329BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E77634A-D2D6-423A-B703-10645C329BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E77634A-D2D6-423A-B703-10645C329BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.AuthConfig|Any CPU.ActiveCfg = Debug|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.AuthConfig|Any CPU.Build.0 = Debug|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F599886B-ED76-499C-8626-6C787E212A8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,5 +153,6 @@ Global
 		{3DA78549-5388-43A7-B98D-D768D24466C7} = {F389CDFC-344D-4409-AD01-1D6B5201D528}
 		{5FF1C6AB-93FD-45B1-904F-A9253E43D755} = {F389CDFC-344D-4409-AD01-1D6B5201D528}
 		{5E77634A-D2D6-423A-B703-10645C329BFD} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
+		{F599886B-ED76-499C-8626-6C787E212A8D} = {1123D5F9-6694-4CE8-8297-7A97E969CF8D}
 	EndGlobalSection
 EndGlobal

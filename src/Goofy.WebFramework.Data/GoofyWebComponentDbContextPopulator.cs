@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Linq;
-using System.Collections.Generic;
 
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Migrations;
@@ -13,12 +12,10 @@ using Goofy.Core.Components.Base;
 using Goofy.Core.Components.Configuration;
 
 using Goofy.Data.DataProvider;
-using Goofy.Data.Context.Extensions;
 
 using Goofy.WebFramework.Data.Components;
 using Goofy.WebFramework.Data.Services;
-
-using Goofy.Configuration.Extensions;
+using Goofy.Data;
 
 namespace Goofy.WebFramework.Data
 {
@@ -65,7 +62,7 @@ namespace Goofy.WebFramework.Data
                     {
                         ///That suck, TODO: Improve this piece of code
                         var assembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(a => a.FullName == compInfo.FullName).First();
-                        var configType = assembly.FindComponentConfigurationObject();
+                        var configType = assembly.FindExportedObject<ComponentConfig>();
                         var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
                         //var compConfig = ConfigurationExtensions.GetConfiguration<ComponentConfig>(compInfo.ConfigFilePath, compInfo.Name);
                         //isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
@@ -98,7 +95,7 @@ namespace Goofy.WebFramework.Data
 
         private void UpdateComponentTablesFromAssembly(Assembly componentAssembly, IServiceCollection services, bool installed)
         {
-            Type contextObjectType = componentAssembly.FindObjectContext();
+            Type contextObjectType = componentAssembly.FindExportedObject<DbContext>();
             if (contextObjectType != null)
             {
                 //Por ahora se necesita obligado un IServiceCollection porque la forma de instanciar el

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.OptionsModel;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Goofy.Configuration.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigurationExtensions
     {
@@ -10,6 +9,5 @@ namespace Goofy.Configuration.Extensions
             var configOptions = services.Resolve<IOptions<T>>();
             return configOptions.Value;
         }
-
     }
 }
