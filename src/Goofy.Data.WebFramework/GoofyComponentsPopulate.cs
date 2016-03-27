@@ -77,7 +77,7 @@ namespace Goofy.Data.WebFramework
 
             foreach (var compInfo in _componentsInfoProvider.ComponentsInfo)
             {
-                if (allComponents.Where(c => c.Name == compInfo.FullName).Count() == 0)//Se encontró una componente que no está en la base de datos
+                if (allComponents.Where(c => c.FullName == compInfo.FullName).Count() == 0)//Se encontró una componente que no está en la base de datos
                 {
                     var isSystemComponent = false;
                     try
@@ -94,7 +94,7 @@ namespace Goofy.Data.WebFramework
                     _compContext.Components.Add(
                             new Component
                             {
-                                Name = compInfo.FullName,
+                                FullName = compInfo.FullName,
                                 Installed = isSystemComponent,
                                 Version = compInfo.Version.ToString(),
                                 IsSystemComponent = isSystemComponent
@@ -111,7 +111,7 @@ namespace Goofy.Data.WebFramework
             */
             foreach (var component in _compContext.Components.ToArray())
             {
-                var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(comp => comp.FullName == component.Name).First();
+                var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(comp => comp.FullName == component.FullName).First();
                 UpdateComponentTablesFromAssembly(componentAssembly, _services, component.Installed);
             }
         }

@@ -25,7 +25,7 @@ namespace Goofy.Data.WebFramework.Components
             {
                 component.ToTable("Goofy_Component");
                 component.HasKey(c => c.ComponentId);
-                component.Property(c => c.Name).IsRequired();
+                component.Property(c => c.FullName).IsRequired();
                 component.Property(c => c.Installed).IsRequired();
                 component.Property(c => c.Version).IsRequired();
                 component.Property(c => c.IsSystemComponent).IsRequired();

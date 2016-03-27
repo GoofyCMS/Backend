@@ -4,7 +4,7 @@ namespace Goofy.Core.Components
     public class Component
     {
         public int ComponentId { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public string Version { get; set; }
         public bool Installed { get; set; }
         public bool IsSystemComponent { get; set; }

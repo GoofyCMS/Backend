@@ -9,6 +9,7 @@ using Goofy.Core.Components.Base;
 using Goofy.Data;
 using Goofy.Data.DataProvider;
 using Goofy.Data.WebFramework.Components;
+using Microsoft.Extensions.Logging;
 
 namespace Goofy.Component.ComponentsWebInterface.Controllers
 {
@@ -18,6 +19,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
         private readonly ComponentContext _componentContext;
         private readonly IComponentsAssembliesProvider _componentsAssembliesProvider;
         private readonly IEntityFrameworkDataProvider _dataProvider;
+        private readonly ILogger _logger;
         private readonly MigrationsModelDiffer _modelDiffer;
         private readonly MigrationsSqlGenerator _sqlGenerator;
 
@@ -25,7 +27,8 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
                                     ComponentContext componentContext,
                                     MigrationsModelDiffer modelDiffer,
                                     MigrationsSqlGenerator sqlGenerator,
-                                    IEntityFrameworkDataProvider dataProvider
+                                    IEntityFrameworkDataProvider dataProvider,
+                                    ILogger<ComponentsController> logger
                                     )
         {
             _componentsAssembliesProvider = componentsAssembliesProvider;
@@ -33,6 +36,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             _modelDiffer = modelDiffer;
             _sqlGenerator = sqlGenerator;
             _dataProvider = dataProvider;
+            _logger = logger;
         }
 
         [HttpGet("list")]
@@ -70,8 +74,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             var component = _componentContext.Components.FirstOrDefault(c => (c.ComponentId == id) && (!c.IsSystemComponent));
             if (component == null)
                 return null;
-
-            var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(ass => ass.GetName().Name == component.Name).First();
+            var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(ass => ass.GetName().FullName == component.FullName).First();
             var contextObject = componentAssembly.FindExportedObject<DbContext>();
             var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
             return objectContext;
