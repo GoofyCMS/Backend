@@ -9,7 +9,10 @@ namespace Goofy.Core.Infrastructure
 {
     public class GoofyEngine : IEngine
     {
-        private GoofyCoreConfiguration _goofyCoreConfiguration;
+        protected GoofyCoreConfiguration _goofyCoreConfiguration;
+        protected readonly IServiceCollection _services;
+        protected readonly IResourcesLoader _resourcesLoader;
+
         public GoofyCoreConfiguration GoofyCoreConfiguration
         {
             get
@@ -22,38 +25,41 @@ namespace Goofy.Core.Infrastructure
             }
         }
 
-        public IResourcesLoader ResourcesLoader { get; protected set; }
 
-        public GoofyEngine(IResourcesLoader resourcesLoader)
+        public GoofyEngine(IServiceCollection services, IResourcesLoader resourcesLoader)
         {
-            ResourcesLoader = resourcesLoader;
+            _services = services;
+            _resourcesLoader = resourcesLoader;
         }
 
-        public virtual void Start(IServiceCollection services)
+        public virtual void Start()
         {
             /* Todas las tareas que se ejecutan a continuación se realizan luego de que los 
             ensamblados de los plugins son cargados */
 
             // Agregar las dependencias provistas por otros ensamblados(propios o de 3ros)
-            RegisterDependencies(services);
+            RegisterDependencies(_services);
 
             //Correr tareas de inicio provistas por otros ensamblados(propios o de 3ros)
             if (GoofyCoreConfiguration.RunStartupTasks)
             {
-                var startupTasksTypes = ResourcesLoader.FindClassesOfType<IRunAtStartup>()
-                                .Select(t => (IRunAtStartup)services.Resolve(t)).ToArray();
+                var startupTasksTypes = _resourcesLoader.FindClassesOfType<IRunAtStartup>()
+                                .Select(t => (IRunAtStartup)_services.Resolve(t)).ToArray();
                 var startupTasks = startupTasksTypes.AsQueryable().OrderBy(t => t.Order);
                 foreach (var s in startupTasks)
                 {
                     s.Run();
                 }
             }
+
+            //Quitar IServiceCollection de las dependencias
+            _services.Remove<IServiceCollection>();
         }
 
 
         public void RegisterSortableDependencies<T>(Action<T> action) where T : ISortableTask
         {
-            var depAssemblerTypes = ResourcesLoader.FindClassesOfType<T>()
+            var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)Activator.CreateInstance(t));
             var assemblers = depAssemblerTypes.AsQueryable().OrderBy(s => s.Order);
             foreach (var depAssembler in assemblers)
@@ -64,7 +70,7 @@ namespace Goofy.Core.Infrastructure
 
         public void RegisterDependencies<T>(Action<T> action)
         {
-            var depAssemblerTypes = ResourcesLoader.FindClassesOfType<T>()
+            var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)Activator.CreateInstance(t));
             foreach (var depAssembler in depAssemblerTypes)
             {

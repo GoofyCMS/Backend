@@ -9,6 +9,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddGoofyCore(this IServiceCollection services)
         {
+            /*
+                Allow components can resolve IServiceCollection at framework load time,
+                it'll be removed when calling GoofyEngine.Start()
+            */
+            services.AddInstance(services); 
             services.AddOptions();
             services.Configure<GoofyCoreConfiguration>(c => { });
             services.AddScoped<IResourcesLocator, GoofyDomainResourcesLocator>();

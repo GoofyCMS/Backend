@@ -4,6 +4,6 @@ namespace Goofy.Core.Infrastructure
 {
     public interface IEngine
     {
-        void Start(IServiceCollection services);
+        void Start();
     }
 }

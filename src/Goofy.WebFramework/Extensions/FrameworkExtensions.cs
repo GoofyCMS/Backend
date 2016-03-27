@@ -19,7 +19,7 @@ namespace Goofy.WebFramework.Extensions
             services.AddMvc().AddControllersAsServices(componentsAssembliesProvider.ComponentsAssemblies);
 
             var engine = services.Resolve<IEngine>();
-            engine.Start(services);
+            engine.Start();
         }
     }
 }
