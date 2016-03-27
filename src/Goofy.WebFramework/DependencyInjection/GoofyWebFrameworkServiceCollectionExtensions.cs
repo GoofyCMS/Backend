@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-using Goofy.Core.Infrastructure;
+﻿using Goofy.Core.Infrastructure;
 using Goofy.Core.Components.Base;
 using Goofy.Core.WebFramework.DependencyInjection;
 
 using Goofy.Extensions;
 
-namespace Goofy.WebFramework.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class GoofyWebFrameworkServiceCollectionExtensions
     {

@@ -1,9 +1,5 @@
 ﻿using Goofy.Data.DataProvider.Services;
-
-using Goofy.Data.WebFramework;
 using Goofy.Data.WebFramework.Components;
-using Goofy.Data.WebFramework.Services;
-
 using Goofy.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,11 +13,6 @@ namespace Microsoft.Extensions.DependencyInjection
             var builder = services.AddEntityFramework();
             var dataProviderConfigurator = services.Resolve<IDataProviderConfigurator>();
             dataProviderConfigurator.AddDbContextObject<ComponentContext>(builder);
-
-            services.AddScoped<IComponentDbContextPopulator, GoofyWebComponentDbContextPopulator>();
-            var componentDbContextPopulator = services.Resolve<IComponentDbContextPopulator>();
-            componentDbContextPopulator.PopulateComponentDbContext(services);
-            services.Remove<IComponentDbContextPopulator>();
         }
     }
 }

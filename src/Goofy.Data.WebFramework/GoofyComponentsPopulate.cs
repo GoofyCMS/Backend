@@ -7,36 +7,58 @@ using Microsoft.Data.Entity.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
 
+using Goofy.Core.Infrastructure;
 using Goofy.Core.Components;
 using Goofy.Core.Components.Base;
 using Goofy.Core.Components.Configuration;
 
 using Goofy.Data.DataProvider;
 using Goofy.Data.WebFramework.Components;
-using Goofy.Data.WebFramework.Services;
 
 using Goofy.Extensions;
 
 namespace Goofy.Data.WebFramework
 {
-    internal class GoofyWebComponentDbContextPopulator : IComponentDbContextPopulator
+    /// <summary>
+    /// Esta clase tiene como objetivo sincronizar la base de datos con las componentes
+    /// que se encuentren instaladas en el sistema. Si la componente está instalada sus
+    /// tablas serán creadas si no lo están, en caso contrario serán eliminadas.
+    /// </summary>
+    public class GoofyComponentsPopulate : IRunAtStartup
     {
-        private readonly IEntityFrameworkDataProvider _dataProvider;
+        private readonly IServiceCollection _services;
         private readonly ComponentContext _compContext;
+        private readonly IEntityFrameworkDataProvider _dataProvider;
         private readonly IMigrationsModelDiffer _modelDiffer;
         private readonly MigrationsSqlGenerator _sqlGenerator;
         private readonly IComponentsInfoProvider _componentsInfoProvider;
         private readonly IComponentsAssembliesProvider _componentsAssembliesProvider;
         private readonly ComponentConfig _componentConfiguration;
 
-        public GoofyWebComponentDbContextPopulator(ComponentContext compContext,
-                                                   IMigrationsModelDiffer modelDiffer,
-                                                   IComponentsInfoProvider componentsInfoProvider,
-                                                   MigrationsSqlGenerator sqlGenerator,
-                                                   IEntityFrameworkDataProvider dataProvider,
-                                                   IComponentsAssembliesProvider componentsAssembliesProvider,
-                                                   IOptions<ComponentConfig> componentConfigOptions)
+        public int Order
         {
+            get
+            {
+                /*
+                Asegurar que esta tarea de inicio se corra de primera
+                al iniciar el framework
+                */
+                return -1000;
+            }
+        }
+
+        public GoofyComponentsPopulate(
+                                       IServiceCollection services,
+                                       ComponentContext compContext,
+                                       IMigrationsModelDiffer modelDiffer,
+                                       IComponentsInfoProvider componentsInfoProvider,
+                                       MigrationsSqlGenerator sqlGenerator,
+                                       IEntityFrameworkDataProvider dataProvider,
+                                       IComponentsAssembliesProvider componentsAssembliesProvider,
+                                       IOptions<ComponentConfig> componentConfigOptions
+                                      )
+        {
+            _services = services;
             _compContext = compContext;
             _modelDiffer = modelDiffer;
             _sqlGenerator = sqlGenerator;
@@ -46,7 +68,7 @@ namespace Goofy.Data.WebFramework
             _componentConfiguration = componentConfigOptions.Value;
         }
 
-        public void PopulateComponentDbContext(IServiceCollection services)
+        public void Run()
         {
             _compContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
 
@@ -64,8 +86,6 @@ namespace Goofy.Data.WebFramework
                         var assembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(a => a.FullName == compInfo.FullName).First();
                         var configType = assembly.FindExportedObject<ComponentConfig>();
                         var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
-                        //var compConfig = ConfigurationExtensions.GetConfiguration<ComponentConfig>(compInfo.ConfigFilePath, compInfo.Name);
-                        //isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
                     }
                     catch
                     {
@@ -85,11 +105,14 @@ namespace Goofy.Data.WebFramework
             //installedComponents = _compContext.Components.Where(c => c.Installed).ToArray();
             _compContext.SaveChanges();
 
-            //Asegurar que las tablas de las componentes instaladas estén creadas.
+            /*
+                Asegurar que las tablas de las componentes instaladas estén creadas,
+                y las de las componentes no instaladas no lo estén.
+            */
             foreach (var component in _compContext.Components.ToArray())
             {
                 var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(comp => comp.FullName == component.Name).First();
-                UpdateComponentTablesFromAssembly(componentAssembly, services, component.Installed);
+                UpdateComponentTablesFromAssembly(componentAssembly, _services, component.Installed);
             }
         }
 
@@ -98,13 +121,6 @@ namespace Goofy.Data.WebFramework
             Type contextObjectType = componentAssembly.FindExportedObject<DbContext>();
             if (contextObjectType != null)
             {
-                //Por ahora se necesita obligado un IServiceCollection porque la forma de instanciar el
-                //tipo contextObjectType sin usar serviceCollection es mediante Activator.CreateInstance 
-                //que usa el constructor vacío por defecto, por lo que no es capaz de resolver dependencias
-                //using (var contextObject = (DbContext)Activator.CreateInstance(contextObjectType, ))
-                //{
-                //    contextObject.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
-                //}
                 var contextObject = (DbContext)services.Resolve(contextObjectType);
                 if (installed)
                     contextObject.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
