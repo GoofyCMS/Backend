@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+using Goofy.Extensions;
+
 namespace Goofy.WebApi
 {
     public class Startup
@@ -34,13 +36,14 @@ namespace Goofy.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            var loggerFactory = services.Resolve<ILoggerFactory>();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddGoofyWebFramework();//agregar las dependencias del Framework Goofy
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             if (env.IsDevelopment())
             {
