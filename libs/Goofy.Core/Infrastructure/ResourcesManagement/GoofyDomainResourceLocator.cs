@@ -3,14 +3,16 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Goofy.Core.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Goofy.Core.Infrastructure
 {
     public class GoofyDomainResourcesLocator : AppDomainResourcesLocator
     {
 
-        public GoofyDomainResourcesLocator()
+        public GoofyDomainResourcesLocator(ILibraryManager libraryManager, ILogger<AppDomainResourcesLocator> logger)
+            : base(libraryManager, logger)
         {
             BinFolderAlreadyLoaded = false;
         }
@@ -20,14 +22,23 @@ namespace Goofy.Core.Infrastructure
 
         public override Assembly[] GetAssemblies()
         {
-            //Conventios over configurations
+            //Conventions over configurations
             if (!BinFolderAlreadyLoaded)
             {
                 BinFolderAlreadyLoaded = true;
                 var binDirectoryPath = GetBinDirectoryPath();
                 LoadBinFolder(binDirectoryPath);
             }
-
+            _logger.LogInformation("GetAssemblies() method was called");
+            int count = 1;
+            foreach (var lib in _libraryManager.GetLibraries())
+            {
+                if (lib.Name.StartsWith("Goofy"))
+                {
+                    _logger.LogInformation("#{0}- LibraryName: {1}, LibraryType: {2}, LibraryVersion: {3}", count, lib.Name, lib.Type, lib.Version);
+                    count += 1;
+                }
+            }
             return base.GetAssemblies().Where(a => ValidAssembly(a.FullName)).ToArray();
         }
 

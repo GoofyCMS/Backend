@@ -9,7 +9,9 @@
     "Newtonsoft.Json": "6.0.6",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
     "Goofy.Extensions.Configuration": "",
-    "Goofy.Extensions.DependencyInjection": ""
+    "Goofy.Extensions.DependencyInjection": "",
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
   },
   "frameworks": {
     "net451": {
