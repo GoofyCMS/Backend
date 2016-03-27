@@ -8,7 +8,7 @@ using Goofy.Extensions;
 
 namespace Goofy.WebFramework.Extensions
 {
-    public static class FrameworkExtensions
+    public static class GoofyWebFrameworkServiceCollectionExtensions
     {
         public static void AddGoofyWebFramework(this IServiceCollection services)
         {

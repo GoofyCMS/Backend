@@ -8,7 +8,7 @@ using Goofy.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class GoofyDataDependencyInjectionExtensions
+    public static class GoofyDataServiceCollectionExtensions
     {
         public static IServiceCollection AddGoofyData(this IServiceCollection services)
         {
