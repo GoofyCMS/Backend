@@ -11,7 +11,7 @@ namespace Goofy.Core.Infrastructure
     {
         protected GoofyCoreConfiguration _goofyCoreConfiguration;
         protected readonly IServiceCollection _services;
-        protected readonly IResourcesLoader _resourcesLoader;
+        protected readonly IResourcesLocator _resourcesLoader;
 
         public GoofyCoreConfiguration GoofyCoreConfiguration
         {
@@ -26,7 +26,7 @@ namespace Goofy.Core.Infrastructure
         }
 
 
-        public GoofyEngine(IServiceCollection services, IResourcesLoader resourcesLoader)
+        public GoofyEngine(IServiceCollection services, IResourcesLocator resourcesLoader)
         {
             _services = services;
             _resourcesLoader = resourcesLoader;
@@ -45,7 +45,7 @@ namespace Goofy.Core.Infrastructure
             {
                 var startupTasksTypes = _resourcesLoader.FindClassesOfType<IRunAtStartup>()
                                 .Select(t => (IRunAtStartup)_services.Resolve(t)).ToArray();
-                var startupTasks = startupTasksTypes.AsQueryable().OrderBy(t => t.Order);
+                var startupTasks = startupTasksTypes.OrderBy(t => t.Order);
                 foreach (var s in startupTasks)
                 {
                     s.Run();
@@ -60,8 +60,8 @@ namespace Goofy.Core.Infrastructure
         public void RegisterSortableDependencies<T>(Action<T> action) where T : ISortableTask
         {
             var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
-                                                   .Select(t => (T)Activator.CreateInstance(t));
-            var assemblers = depAssemblerTypes.AsQueryable().OrderBy(s => s.Order);
+                                                   .Select(t => (T)_services.Resolve(t));
+            var assemblers = depAssemblerTypes.OrderBy(s => s.Order);
             foreach (var depAssembler in assemblers)
             {
                 action(depAssembler);
@@ -71,7 +71,7 @@ namespace Goofy.Core.Infrastructure
         public void RegisterDependencies<T>(Action<T> action)
         {
             var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
-                                                   .Select(t => (T)Activator.CreateInstance(t));
+                                                   .Select(t => (T)_services.Resolve(t));
             foreach (var depAssembler in depAssemblerTypes)
             {
                 action(depAssembler);
