@@ -95,7 +95,12 @@ namespace Goofy.Core.Components
         private ComponentInfo GetComponentAttributesFromAssembly(Assembly assembly)
         {
             var assemblyName = assembly.GetName();
-            var componentFolder = new FileInfo(assembly.Location).DirectoryName;
+            /*
+                TODO
+                    Arreglar el problema del Location
+            */
+            //var componentFolder = new FileInfo(assembly.Location).DirectoryName;
+            var componentFolder = " ";
             var configFilePath = string.Format("{0}\\config.json", componentFolder);
             //string componentConfigFilePath = null;
 
@@ -106,7 +111,11 @@ namespace Goofy.Core.Components
             //    //agregar mensaje a los logs, hacer algo al respecto
             //}
 
-            return new ComponentInfo(assemblyName.FullName, assemblyName.Version, assembly.Location);
+            /*
+                TODO:
+                    Proveer el location que es no "" 
+            */
+            return new ComponentInfo(assemblyName.FullName, assemblyName.Version, "");
         }
 
     }
