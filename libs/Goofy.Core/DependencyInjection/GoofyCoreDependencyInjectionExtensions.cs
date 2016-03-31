@@ -16,11 +16,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddInstance(services); 
             services.AddOptions();
             services.Configure<GoofyCoreConfiguration>(c => { });
-            services.AddScoped<IResourcesLocator, GoofyDomainResourcesLocator>();
-            services.AddScoped<IResourcesLoader, GoofyResourcesLoader>();
+            services.AddScoped<IAssembliesProvider, GoofyAssembliesProvider>();
+            services.AddScoped<IResourcesLocator, GoofyResourcesLocator>();
             services.AddScoped<IComponentsDirectoryPathProvider, GoofyComponentsDirectoryPathProvider>();
             services.AddScoped<IComponentsConfigurationFileValidator, GoofyComponentConfigurationFileValidator>();
-            services.AddScoped<IComponentsAssembliesProvider, GoofyComponentsAssembliesProvider>();
+            //var assembliesProvider = 
+            services.AddSingleton<IComponentsAssembliesProvider, GoofyComponentsAssembliesProvider>();
             services.AddScoped<IComponentsInfoProvider, GoofyComponentsInfoProvider>();
             services.AddScoped<IEngine, GoofyEngine>();
             return services;

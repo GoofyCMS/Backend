@@ -1,11 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Goofy.Core.Infrastructure
 {
     public interface IResourcesLocator
     {
-        Assembly[] GetAssemblies();
-
-        string GetBinDirectoryPath();
+        IEnumerable<Type> FindClassesOfType(Type type);
+        IEnumerable<Type> FindClassesOfType<T>();
     }
 }
