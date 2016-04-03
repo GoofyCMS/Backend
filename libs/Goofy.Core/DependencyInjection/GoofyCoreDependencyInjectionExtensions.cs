@@ -1,7 +1,8 @@
-﻿using Goofy.Core.Components;
-using Goofy.Core.Components.Base;
-using Goofy.Core.Configuration;
+﻿using Goofy.Core.Configuration;
+using Goofy.Core.Entity.Base;
 using Goofy.Core.Infrastructure;
+using Goofy.Core.Components;
+using Goofy.Core.Components.Base;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -20,7 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IResourcesLocator, GoofyResourcesLocator>();
             services.AddScoped<IComponentsDirectoryPathProvider, GoofyComponentsDirectoryPathProvider>();
             services.AddScoped<IComponentsConfigurationFileValidator, GoofyComponentConfigurationFileValidator>();
-            //var assembliesProvider = 
             services.AddSingleton<IComponentsAssembliesProvider, GoofyComponentsAssembliesProvider>();
             services.AddScoped<IComponentsInfoProvider, GoofyComponentsInfoProvider>();
             services.AddScoped<IEngine, GoofyEngine>();

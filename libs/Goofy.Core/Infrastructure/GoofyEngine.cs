@@ -43,13 +43,7 @@ namespace Goofy.Core.Infrastructure
             //Correr tareas de inicio provistas por otros ensamblados(propios o de 3ros)
             if (GoofyCoreConfiguration.RunStartupTasks)
             {
-                var startupTasksTypes = _resourcesLoader.FindClassesOfType<IRunAtStartup>()
-                                .Select(t => (IRunAtStartup)_services.Resolve(t)).ToArray();
-                var startupTasks = startupTasksTypes.OrderBy(t => t.Order);
-                foreach (var s in startupTasks)
-                {
-                    s.Run();
-                }
+                ExecActionForeachSortableType<IRunAtStartup>(startupTask => startupTask.Run());
             }
 
             //Quitar IServiceCollection de las dependencias
@@ -57,7 +51,7 @@ namespace Goofy.Core.Infrastructure
         }
 
 
-        public void RegisterSortableDependencies<T>(Action<T> action) where T : ISortableTask
+        public void ExecActionForeachSortableType<T>(Action<T> action) where T : ISortableTask
         {
             var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)_services.Resolve(t));
@@ -68,7 +62,7 @@ namespace Goofy.Core.Infrastructure
             }
         }
 
-        public void RegisterDependencies<T>(Action<T> action)
+        public void ExecActionForeachType<T>(Action<T> action)
         {
             var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
                                                    .Select(t => (T)_services.Resolve(t));
@@ -80,7 +74,7 @@ namespace Goofy.Core.Infrastructure
 
         public virtual void RegisterDependencies(IServiceCollection services)
         {
-            RegisterSortableDependencies<IDependencyAssembler>(
+            ExecActionForeachSortableType<IDependencyAssembler>(
                                                                  d =>
                                                                  {
                                                                      d.Register(services);

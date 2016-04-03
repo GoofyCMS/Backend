@@ -1,9 +1,8 @@
 ﻿
 namespace Goofy.Core.Infrastructure
 {
-    public interface IRunAtStartup
+    public interface IRunAtStartup : ISortableTask
     {
         void Run();
-        int Order { get; }
     }
 }

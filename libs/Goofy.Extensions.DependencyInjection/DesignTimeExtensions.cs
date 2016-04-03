@@ -11,6 +11,10 @@ namespace Goofy.Extensions
 
         public static object Resolve(this IServiceCollection services, Type serviceType)
         {
+            /* TODO
+                Mejorar las forma en la que se manejan los servicios, tratar que se agreguen todos
+                los servicios y luego se haga services.Build()
+            */
             if (_serviceProvider == null || servicesNumber != services.Count)
             {
                 _serviceProvider = services.BuildServiceProvider();

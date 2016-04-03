@@ -1,4 +1,5 @@
-﻿using Goofy.Data.DataProvider.Services;
+﻿using Goofy.Core.Entity.Base;
+using Goofy.Data.DataProvider.Services;
 using Microsoft.Data.Entity;
 
 namespace Goofy.Data
