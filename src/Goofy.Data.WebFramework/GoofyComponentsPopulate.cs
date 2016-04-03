@@ -80,16 +80,15 @@ namespace Goofy.Data.WebFramework
                 if (allComponents.Where(c => c.FullName == compInfo.FullName).Count() == 0)//Se encontró una componente que no está en la base de datos
                 {
                     var isSystemComponent = false;
-                    try
-                    {
-                        ///That suck, TODO: Improve this piece of code
-                        var assembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(a => a.FullName == compInfo.FullName).First();
-                        var configType = assembly.FindExportedObject<ComponentConfig>();
-                        var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
-                    }
-                    catch
-                    {
 
+                    ///That suck, 
+                    ///TODO: Make this code logic be done by ComponentInfo Improve this piece of code
+                    var assembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(a => a.FullName == compInfo.FullName).First();
+                    var configType = assembly.FindExportedObject<ComponentConfig>();
+                    if (configType != null)
+                    {
+                        var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
+                        isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
                     }
                     _compContext.Components.Add(
                             new Component
@@ -112,17 +111,18 @@ namespace Goofy.Data.WebFramework
             foreach (var component in _compContext.Components.ToArray())
             {
                 var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(comp => comp.FullName == component.FullName).First();
-                UpdateComponentTablesFromAssembly(componentAssembly, _services, component.Installed);
+                bool createTables = component.Installed || component.IsSystemComponent;
+                UpdateComponentTablesFromAssembly(componentAssembly, createTables);
             }
         }
 
-        private void UpdateComponentTablesFromAssembly(Assembly componentAssembly, IServiceCollection services, bool installed)
+        private void UpdateComponentTablesFromAssembly(Assembly componentAssembly, bool createTables)
         {
             Type contextObjectType = componentAssembly.FindExportedObject<DbContext>();
             if (contextObjectType != null)
             {
-                var contextObject = (DbContext)services.Resolve(contextObjectType);
-                if (installed)
+                var contextObject = (DbContext)_services.Resolve(contextObjectType);
+                if (createTables)
                     contextObject.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
                 else
                     contextObject.DropTables(_modelDiffer, _sqlGenerator, true);

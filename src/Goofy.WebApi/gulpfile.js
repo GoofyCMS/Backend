@@ -17,39 +17,44 @@ var components = [
                  ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];
-                  
+
 
 String.prototype.format = function () {
-        var args = [].slice.call(arguments);
-        return this.replace(/(\{\d+\})/g, function (a){
-            return args[+(a.substr(1,a.length-2))||0];
-        });
+    var args = [].slice.call(arguments);
+    return this.replace(/(\{\d+\})/g, function (a) {
+        return args[+(a.substr(1, a.length - 2)) || 0];
+    });
 };
 
 function getComponentDllPath(componentName, compMode, runtime) {
-	return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentName, compMode, runtime);
+    return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentName, compMode, runtime);
 }
 
 function getComponentOutputFolder(componentName) {
-	return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
+    return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
 }
 
 function copyComponents() {
-    for (var cmp in components) {
-        for (var rtm in runtimes) {
-            for (var cmpMode in compModes) {
+    for (var cmpIndex in components) {
+        var componentName = components[cmpIndex];
+        for (var rtmIndex in runtimes) {
+            var runtime = runtimes[rtmIndex];
+            for (var cmpModeIndex in compModes) {   
+                var cmpMode = compModes[cmpModeIndex];
                 ///no se está teniendo en cuenta ni el runtime, ni el compMode para generar el output folder
-                gulp.src(getComponentDllPath(cmp, cmpMode, rtm))
-                        .pipe(gulp.dest(getComponentOutputFolder(cmp)));
+                //console.info(componentName);
+                //componentSource = getComponentDllPath(componentName, compModes)
+                gulp.src(getComponentDllPath(componentName, cmpMode, runtime))
+                        .pipe(gulp.dest(getComponentOutputFolder(componentName)));
             }
-         }
+        }
     }
 }
 
 /*Este se usa para visual studio que da las salidas en artifacts/bin/..
 y de ahí se compian para la carpeta componentes de donde las carga el framework
 */
-gulp.task('visual-studio-copy:component-dlls', function(done){
+gulp.task('visual-studio-copy:component-dlls', function (done) {
     copyComponents();
     done();
 });
