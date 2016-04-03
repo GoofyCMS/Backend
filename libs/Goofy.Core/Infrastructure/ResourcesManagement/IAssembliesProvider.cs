@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 
 namespace Goofy.Core.Infrastructure
@@ -9,3 +8,4 @@ namespace Goofy.Core.Infrastructure
         IEnumerable<Assembly> GetAssemblies();
     }
 }
+    

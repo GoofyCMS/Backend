@@ -1,4 +1,4 @@
-﻿/// <binding AfterBuild='copy' />
+﻿/// <binding AfterBuild='visual-studio-copy:component-dlls' />
 
 var gulp = require('gulp'),
     concat = require('gulp-concat');
@@ -7,15 +7,17 @@ var paths = {
     wwwroot: './wwwroot'
 }
 paths.artifactsBinDirectory = './../../artifacts/bin';
+paths.componentsTempOutputFolder = "./temp/components";
 paths.componentsOutputFolder = './components';
 
-var compMode = 'Debug';
-var runtime = 'net451'
-
-var authComponent = 'Goofy.Component.Auth';
-var corsComponent = 'Goofy.Component.CorsIntegration';
-var compInterfaceComponent = 'Goofy.Component.ComponentsWebInterface';
-var testComponent = 'Goofy.Component.ControllersAndRoutes';
+var components = [
+                  'Goofy.Component.Auth', 
+                  'Goofy.Component.CorsIntegration',
+                  'Goofy.Component.ComponentsWebInterface'
+                 ];
+var runtimes = ['net451'];
+var compModes = ['Debug'];
+                  
 
 String.prototype.format = function () {
         var args = [].slice.call(arguments);
@@ -24,7 +26,7 @@ String.prototype.format = function () {
         });
 };
 
-function getComponentDllPath(componentName) {
+function getComponentDllPath(componentName, compMode, runtime) {
 	return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentName, compMode, runtime);
 }
 
@@ -32,25 +34,37 @@ function getComponentOutputFolder(componentName) {
 	return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
 }
 
+function copyComponents() {
+    for (var cmp in components) {
+        for (var rtm in runtimes) {
+            for (var cmpMode in compModes) {
+                ///no se está teniendo en cuenta ni el runtime, ni el compMode para generar el output folder
+                gulp.src(getComponentDllPath(cmp, cmpMode, rtm))
+                        .pipe(gulp.dest(getComponentOutputFolder(cmp)));
+            }
+         }
+    }
+}
 
-gulp.task('copy:authComponent', function () {
-    return gulp.src([getComponentDllPath(authComponent)])
-               .pipe(gulp.dest(getComponentOutputFolder(authComponent)));
+/*Este se usa para visual studio que da las salidas en artifacts/bin/..
+y de ahí se compian para la carpeta componentes de donde las carga el framework
+*/
+gulp.task('visual-studio-copy:component-dlls', function(done){
+    copyComponents();
+    done();
 });
 
-gulp.task('copy:corsComponent', function () {
-    return gulp.src([getComponentDllPath(corsComponent)])
-               .pipe(gulp.dest(getComponentOutputFolder(corsComponent)));
-});
+//vs code tasks
+///lo ideal aquí sería sacar los runtimes de project.json y compilar para cada runtime
+//gulp.task('vs-code-build-components', function(done){
+//    for (var cmp in components) {
+//        var componetFiles = getComponentsCsFiles(cmp);
+//        gulp.src(componetFiles)
+//            .pipe((['--fullpaths', '--debug', '-target:exe', '-out:.']));
+//    }
+//    done();
+//});
 
-gulp.task('copy:compInterfaceComponent', function () {
-    return gulp.src([getComponentDllPath(compInterfaceComponent)])
-               .pipe(gulp.dest(getComponentOutputFolder(compInterfaceComponent)));
-});
-
-gulp.task('copy:test', function () {
-    return gulp.src([getComponentDllPath(testComponent)])
-               .pipe(gulp.dest(getComponentOutputFolder(testComponent)));
-});
-
-gulp.task('copy', ['copy:authComponent', 'copy:corsComponent', 'copy:compInterfaceComponent', 'copy:test']);
+//function getComponentsCsFiles(componentName){
+//    return './../{0}/**/*.cs'.format(componentName);
+//}
