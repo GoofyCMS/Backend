@@ -73,10 +73,10 @@ namespace Goofy.Core.Components
                     {
                         _componentsAssemblies.Add(assemblyLoadContext.LoadFile(componentDllPath));
                         _logger.LogInformation("La Componente \"{0}\", fue cargada satisfactoriamente.", componentName);
-                    }   
+                    }
                     else
                     {
-                        _logger.LogWarning("La carpeta \"{0}\" situada en \"{1}\" no posee no es un Component válida.", componentName, componentDirectory.FullName);
+                        _logger.LogWarning("La carpeta \"{0}\" situada en \"{1}\" no es un Component válida.", componentName, componentDirectory.FullName);
                     }
                 }
             }

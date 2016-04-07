@@ -2,9 +2,9 @@
 
 namespace Goofy.Component.Auth.Configuration
 {
-    public class ComponentAuthConfiuguration : ComponentConfig
+    public class ComponentAuthConfiguration : ComponentConfig
     {
-        public ComponentAuthConfiuguration()
+        public ComponentAuthConfiguration()
         {
             CompConfig.IsSystemPlugin = true;
         }

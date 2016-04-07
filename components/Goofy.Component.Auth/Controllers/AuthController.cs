@@ -24,7 +24,7 @@ namespace Goofy.Component.Auth.Controllers
         [HttpPost("register")]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([FromBody] Register model)
+        public async Task<IActionResult> Register([FromBody] Register model)//Preguntar si aquí se hace chequeo contra robots.
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +52,7 @@ namespace Goofy.Component.Auth.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _loginManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
+                //SignInResult
                 if (result.Succeeded)
                 {
                     return Ok();

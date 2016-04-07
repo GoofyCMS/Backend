@@ -13,7 +13,8 @@ paths.componentsOutputFolder = './components';
 var components = [
                   'Goofy.Component.Auth', 
                   'Goofy.Component.CorsIntegration',
-                  'Goofy.Component.ComponentsWebInterface'
+                  'Goofy.Component.ComponentsWebInterface',
+                  'Goofy.Component.ControllersAndRoutes'
                  ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];
