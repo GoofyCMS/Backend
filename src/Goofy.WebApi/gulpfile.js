@@ -11,11 +11,11 @@ paths.componentsTempOutputFolder = "./temp/components";
 paths.componentsOutputFolder = './components';
 
 var components = [
-                  'Goofy.Component.Auth', 
+                  'Goofy.Component.Auth',
                   'Goofy.Component.CorsIntegration',
                   'Goofy.Component.ComponentsWebInterface',
                   'Goofy.Component.ControllersAndRoutes'
-                 ];
+];
 var runtimes = ['net451'];
 var compModes = ['Debug'];
 
@@ -31,6 +31,10 @@ function getComponentDllPath(componentName, compMode, runtime) {
     return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentName, compMode, runtime);
 }
 
+function getComponentPdbFilePath(componentName, runtime) {
+    return '{0}/{1}/{2}/{3}/{1}.pdb'.format(paths.artifactsBinDirectory, componentName, "Debug", runtime);
+}
+
 function getComponentOutputFolder(componentName) {
     return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
 }
@@ -40,13 +44,18 @@ function copyComponents() {
         var componentName = components[cmpIndex];
         for (var rtmIndex in runtimes) {
             var runtime = runtimes[rtmIndex];
-            for (var cmpModeIndex in compModes) {   
+            for (var cmpModeIndex in compModes) {
                 var cmpMode = compModes[cmpModeIndex];
                 ///no se está teniendo en cuenta ni el runtime, ni el compMode para generar el output folder
                 //console.info(componentName);
                 //componentSource = getComponentDllPath(componentName, compModes)
                 gulp.src(getComponentDllPath(componentName, cmpMode, runtime))
                         .pipe(gulp.dest(getComponentOutputFolder(componentName)));
+                if (cmpMode == "Debug") {
+                    //copiar los .pdb también
+                    gulp.src(getComponentPdbFilePath(componentName, runtime))
+                        .pipe(gulp.dest(getComponentOutputFolder(componentName)));
+                }
             }
         }
     }

@@ -2,6 +2,7 @@
 .vscode
 artifacts
 *.dll
+*.pdb
 node_modules
 *.xproj.user
 project.lock.json
