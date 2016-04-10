@@ -3,6 +3,7 @@ using Goofy.Core.Components.Base;
 using Goofy.Core.WebFramework.DependencyInjection;
 
 using Goofy.Extensions;
+using Goofy.WebFramework.Mvc.DependencyInjection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -15,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var componentsAssembliesProvider = services.Resolve<IComponentsAssembliesProvider>();
             services.AddMvc().AddControllersAsServices(componentsAssembliesProvider.ComponentsAssemblies);
+            services.AddWebGoofyMvc();
 
             var engine = services.Resolve<IEngine>();
             engine.Start();

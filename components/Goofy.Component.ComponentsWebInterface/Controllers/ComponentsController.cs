@@ -7,8 +7,8 @@ using Microsoft.Data.Entity.Migrations;
 
 using Goofy.Core.Components.Base;
 using Goofy.Data;
+using Goofy.Data.Components;
 using Goofy.Data.DataProvider;
-using Goofy.Data.WebFramework.Components;
 using Microsoft.Extensions.Logging;
 
 namespace Goofy.Component.ComponentsWebInterface.Controllers
@@ -53,6 +53,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
                 return new HttpNotFoundResult();
 
             objectContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
+            SetComponentInstalledState(id, true);
             return new HttpOkResult();
         }
 
@@ -64,6 +65,7 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
                 return new HttpNotFoundResult();
 
             objectContext.DropTables(_modelDiffer, _sqlGenerator);
+            SetComponentInstalledState(id, false);
             return new HttpOkResult();
         }
 
@@ -78,6 +80,13 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
             var contextObject = componentAssembly.FindExportedObject<DbContext>();
             var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
             return objectContext;
+        }
+
+        private void SetComponentInstalledState(int id, bool installed)
+        {
+            var component = _componentContext.Components.ToArray().FirstOrDefault(c => (c.ComponentId == id) && (!c.IsSystemComponent));
+            component.Installed = installed;
+            _componentContext.SaveChanges();
         }
     }
 }

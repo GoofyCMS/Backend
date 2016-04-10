@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.WebFramework.Mvc Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
+    "Goofy.Extensions.DependencyInjection": "",
+    "Goofy.Data.WebFramework": ""
+  }
+}

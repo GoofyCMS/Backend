@@ -1,6 +1,5 @@
-﻿using Microsoft.Data.Entity.Infrastructure;
-
-using Goofy.Data;
+﻿using Goofy.Data;
+using Goofy.Data.Components;
 using Goofy.Data.DataProvider;
 using Goofy.Data.DataProvider.Services;
 
@@ -18,12 +17,13 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(IEntityFrameworkDataProvider), dataAccessManager.DataProviderType);
             services.AddScoped(typeof(IDataProviderConfigurator), dataAccessManager.DataProviderConfiguratorType);
 
-            var efServicesBuilder = new EntityFrameworkServicesBuilder(services);
+            var efServicesBuilder = services.AddEntityFramework();
             var dataProviderConfigurator = services.Resolve<IDataProviderConfigurator>();
             dataProviderConfigurator.AddDataProvider(efServicesBuilder);
             dataProviderConfigurator.AddRelationalAnnotationProvider(services);
             dataProviderConfigurator.AddMigrationsAnnotationProvider(services);
             dataProviderConfigurator.AddSqlCommandBuilderAndDependencies(services);
+            dataProviderConfigurator.AddDbContextObject<ComponentContext>(efServicesBuilder);
             return services;
         }
     }

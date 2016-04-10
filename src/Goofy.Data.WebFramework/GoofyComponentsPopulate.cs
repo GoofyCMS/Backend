@@ -12,8 +12,8 @@ using Goofy.Core.Components;
 using Goofy.Core.Components.Base;
 using Goofy.Core.Components.Configuration;
 
+using Goofy.Data.Components;
 using Goofy.Data.DataProvider;
-using Goofy.Data.WebFramework.Components;
 
 using Goofy.Extensions;
 
@@ -22,7 +22,7 @@ namespace Goofy.Data.WebFramework
     /// <summary>
     /// Esta clase tiene como objetivo sincronizar la base de datos con las componentes
     /// que se encuentren instaladas en el sistema. Si la componente está instalada sus
-    /// tablas serán creadas si no lo están, en caso contrario serán eliminadas.
+    /// tablas serán creadas, en caso contrario serán eliminadas.
     /// </summary>
     public class GoofyComponentsPopulate : IRunAtStartup
     {
@@ -33,7 +33,6 @@ namespace Goofy.Data.WebFramework
         private readonly MigrationsSqlGenerator _sqlGenerator;
         private readonly IComponentsInfoProvider _componentsInfoProvider;
         private readonly IComponentsAssembliesProvider _componentsAssembliesProvider;
-        private readonly ComponentConfig _componentConfiguration;
 
         public int Order
         {
@@ -54,8 +53,7 @@ namespace Goofy.Data.WebFramework
                                        IComponentsInfoProvider componentsInfoProvider,
                                        MigrationsSqlGenerator sqlGenerator,
                                        IEntityFrameworkDataProvider dataProvider,
-                                       IComponentsAssembliesProvider componentsAssembliesProvider,
-                                       IOptions<ComponentConfig> componentConfigOptions
+                                       IComponentsAssembliesProvider componentsAssembliesProvider
                                       )
         {
             _services = services;
@@ -65,7 +63,6 @@ namespace Goofy.Data.WebFramework
             _dataProvider = dataProvider;
             _componentsInfoProvider = componentsInfoProvider;
             _componentsAssembliesProvider = componentsAssembliesProvider;
-            _componentConfiguration = componentConfigOptions.Value;
         }
 
         public void Run()
@@ -87,7 +84,7 @@ namespace Goofy.Data.WebFramework
                     var configType = assembly.FindExportedObject<ComponentConfig>();
                     if (configType != null)
                     {
-                        var compConfig = (ComponentConfig)Activator.CreateInstance(configType);
+                        var compConfig = (ComponentConfig)_services.GetConfiguration(configType);
                         isSystemComponent = compConfig.CompConfig.IsSystemPlugin;
                     }
                     _compContext.Components.Add(
