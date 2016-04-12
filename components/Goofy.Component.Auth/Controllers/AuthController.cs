@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
+
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
-using Goofy.Component.Auth.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Cors;
+
+using Goofy.Component.Auth.Models;
 
 namespace Goofy.Component.Auth.Controllers
 {
     [Route("auth")]
-    [EnableCors("AllowYoel")]
     public class AuthController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

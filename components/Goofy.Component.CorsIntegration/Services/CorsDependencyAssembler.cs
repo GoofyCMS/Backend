@@ -18,7 +18,7 @@ namespace Goofy.Component.CorsIntegration.Services
 
         public void Register(IServiceCollection services)
         {
-            services.Configure<CorsConfiguration, CorsConfigConfigurator>();
+            services.ConfigureComponentConfigurationFile<CorsConfiguration>("Goofy.Component.CorsIntegration");
             var corsConfig = services.GetConfiguration<CorsConfiguration>();
             services.AddPolicies(corsConfig);
         }

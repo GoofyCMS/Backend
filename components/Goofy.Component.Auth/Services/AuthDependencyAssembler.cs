@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 
-using Goofy.Component.Auth.AuthExtensions;
-using Goofy.Component.Auth.Models;
-
 using Goofy.Core.Infrastructure;
 using Goofy.Data;
+
+using Goofy.Component.Auth.AuthExtensions;
+using Goofy.Component.Auth.Models;
 
 namespace Goofy.Component.Auth.Services
 {
