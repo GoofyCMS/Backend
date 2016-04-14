@@ -1,0 +1,20 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Component.IdentityIntegration Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Goofy.WebFramework": "",
+    "Microsoft.AspNet.Identity.EntityFramework":  "3.0.0-rc1-final"
+  },
+
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": ""
+      }
+    }
+  }
+}
