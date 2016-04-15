@@ -13,6 +13,8 @@ namespace Goofy.Component.Authorization.Resources
                     return "CanCreate" + entityType.Name;
                 case (CrudOperation.Update):
                     return "CanUpdate" + entityType.Name;
+                case (CrudOperation.View):
+                    return "CanView" + entityType.Name;
                 default:
                     return "CanDelete" + entityType.Name;
             }

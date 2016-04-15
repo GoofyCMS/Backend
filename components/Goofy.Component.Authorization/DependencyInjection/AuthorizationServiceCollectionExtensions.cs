@@ -32,7 +32,8 @@ namespace Goofy.Component.Authorization.DependencyInjection
                 return new[] {
                                 policiesManager.AddNewGoofyCrudPolicy(t, CrudOperation.Create),
                                 policiesManager.AddNewGoofyCrudPolicy(t, CrudOperation.Update),
-                                policiesManager.AddNewGoofyCrudPolicy(t, CrudOperation.Delete)
+                                policiesManager.AddNewGoofyCrudPolicy(t, CrudOperation.Delete),
+                                policiesManager.AddNewGoofyCrudPolicy(t, CrudOperation.View)
                              };
 
             });

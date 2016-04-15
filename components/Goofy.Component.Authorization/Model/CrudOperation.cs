@@ -5,6 +5,7 @@ namespace Goofy.Component.Authorization.Model
     {
         Create = 0,
         Update,
-        Delete
+        Delete,
+        View
     }
 }

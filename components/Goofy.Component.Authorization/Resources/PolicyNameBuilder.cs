@@ -13,6 +13,8 @@ namespace Goofy.Component.Authorization.Resources
                     return "RequireCreate" + entityType.Name;
                 case (CrudOperation.Update):
                     return "RequireUpdate" + entityType.Name;
+                case (CrudOperation.View):
+                    return "RequireView" + entityType.Name;
                 default:
                     return "RequireDelete" + entityType.Name;
             }
