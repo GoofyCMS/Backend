@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.OptionsModel;
 using System.Linq;
 
@@ -19,9 +20,10 @@ namespace Goofy.Component.ControllersAndRoutes.Controllers
 
         // GET: /hello/
         [HttpGet("hello")]
+        [Authorize(Policy = "RequireViewComponent")]
         public string Index()
         {
-            var message = "Hello World from a third party controller";
+            var message = "Hello World from a third party controller, protected by a RequireViewComponent policy.";
             _writer.Write(message);
             return string.Format("Message \"{0}\" was written on wwwroot directory. \n The value of SampleKey in the config.json file is \"{1}\"", message, _config.SampleKey);
         }
