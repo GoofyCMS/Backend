@@ -3,6 +3,9 @@
 using Goofy.Core.Infrastructure;
 using Goofy.Core.Entity.Base;
 using Goofy.Component.Authorization.Resources;
+using Goofy.Component.Authorization.Model;
+using System.Collections.Generic;
+using Goofy.Component.Authorization.DependencyInjection;
 
 namespace Goofy.Component.Authorization
 {
@@ -10,15 +13,12 @@ namespace Goofy.Component.Authorization
     {
         private readonly IServiceCollection _services;
         private readonly IResourcesLocator _resourcesLocator;
-        private readonly IPolicyAndClaimNameProvider _namesProvider;
 
         public BasicPermissionsStarter(IServiceCollection services,
-                                       IResourcesLocator resourcesLocator,
-                                       IPolicyAndClaimNameProvider namesProvider)
+                                       IResourcesLocator resourcesLocator)
         {
             _services = services;
             _resourcesLocator = resourcesLocator;
-            _namesProvider = namesProvider;
         }
 
         public int Order
@@ -31,16 +31,8 @@ namespace Goofy.Component.Authorization
 
         public void Run()
         {
-            foreach (var type in _resourcesLocator.FindClassesOfType<GoofyEntityBase>())
-            {
-                _services.AddAuthorization(options =>
-                {
-                    options.AddPolicy(_namesProvider.GetCreatePolicy(type), policy => policy.RequireClaim(_namesProvider.GetCreateClaim(type)));
-                    options.AddPolicy(_namesProvider.GetUpdatePolicy(type), policy => policy.RequireClaim(_namesProvider.GetUpdateClaim(type)));
-                    options.AddPolicy(_namesProvider.GetDeletePolicy(type), policy => policy.RequireClaim(_namesProvider.GetDeleteClaim(type)));
-                });
-            }
-
+            var policies = new List<GoofyCrudPolicy>();
+            _services.AddGoofyCrudPolicies(_resourcesLocator.FindClassesOfType<GoofyEntityBase>());
         }
     }
 }

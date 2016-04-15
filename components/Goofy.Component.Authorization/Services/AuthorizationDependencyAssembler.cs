@@ -17,7 +17,8 @@ namespace Goofy.Component.Authorization.Services
 
         public void Register(IServiceCollection services)
         {
-            services.AddScoped<IPolicyAndClaimNameProvider, PolicyAndClaimNameProvider>();
+            services.AddScoped<IGoofyClaimManager, GoofyClaimManager>();
+            services.AddScoped<IGoofyCrudPoliciesManager, GoofyCrudPoliciesManager>();
         }
     }
 }
