@@ -49,10 +49,9 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
         public IActionResult Install(int id)
         {
             var objectContext = LoadObjectContextFromComponentId(id);
-            if (objectContext == null)
-                return new HttpNotFoundResult();
+            if (objectContext != null)
+                objectContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
 
-            objectContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
             SetComponentInstalledState(id, true);
             return new HttpOkResult();
         }
@@ -61,10 +60,9 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
         public IActionResult Uninstall(int id)
         {
             var objectContext = LoadObjectContextFromComponentId(id);
-            if (objectContext == null)
-                return new HttpNotFoundResult();
+            if (objectContext != null)
+                objectContext.DropTables(_modelDiffer, _sqlGenerator);
 
-            objectContext.DropTables(_modelDiffer, _sqlGenerator);
             SetComponentInstalledState(id, false);
             return new HttpOkResult();
         }
@@ -78,8 +76,12 @@ namespace Goofy.Component.ComponentsWebInterface.Controllers
                 return null;
             var componentAssembly = _componentsAssembliesProvider.ComponentsAssemblies.Where(ass => ass.GetName().FullName == component.FullName).First();
             var contextObject = componentAssembly.FindExportedObject<DbContext>();
-            var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
-            return objectContext;
+            if (contextObject != null)
+            {
+                var objectContext = (DbContext)HttpContext.ApplicationServices.GetService(contextObject);
+                return objectContext;
+            }
+            return null;
         }
 
         private void SetComponentInstalledState(int id, bool installed)
