@@ -1,0 +1,8 @@
+{
+	"Goofy.Component.Authentication":
+	{
+		"CompConfig":{
+				"IsSystemPlugin": "true"
+			}
+	}
+}

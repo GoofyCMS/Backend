@@ -2,6 +2,7 @@
 
 using Goofy.Core.Infrastructure;
 using Goofy.Component.Authorization.Resources;
+using Goofy.Component.Authorization.Configuration;
 
 namespace Goofy.Component.Authorization.Services
 {
@@ -17,6 +18,7 @@ namespace Goofy.Component.Authorization.Services
 
         public void Register(IServiceCollection services)
         {
+            services.ConfigureComponentConfigurationFile<AuthorizationConfiguration>("Goofy.Component.Authorization");
             services.AddScoped<IGoofyClaimManager, GoofyClaimManager>();
             services.AddScoped<IGoofyCrudPoliciesManager, GoofyCrudPoliciesManager>();
         }
