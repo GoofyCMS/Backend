@@ -44,8 +44,8 @@ namespace Goofy.Core.Infrastructure
 
         private IEnumerable<Assembly> LoadAssemblies()
         {
-            //Aquí no se incluye, el assembly Goofy.Core
-            var assemblies = ReferenceAssemblies.SelectMany(_libraryManager.GetReferencingLibraries)
+            var assemblies = ReferenceAssemblies.Select(_libraryManager.GetLibrary)
+                                                .Union(ReferenceAssemblies.SelectMany(_libraryManager.GetReferencingLibraries))
                                                 .Distinct()
                                                 .Select(assDesc => Assembly.Load(new AssemblyName(assDesc.Name)))
                                                 .Union(_componentsAssembliesProvider.ComponentsAssemblies)

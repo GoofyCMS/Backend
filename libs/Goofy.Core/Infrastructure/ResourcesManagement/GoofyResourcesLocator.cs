@@ -22,7 +22,7 @@ namespace Goofy.Core.Infrastructure
                 var typeInfo = t.GetTypeInfo();
                 if (type.IsAssignableFrom(t) && typeInfo.IsClass)
                 {
-                    if (!typeInfo.IsInterface)
+                    if (!typeInfo.IsInterface && !typeInfo.IsAbstract)
                     {
                         yield return t;
                     }

@@ -1,7 +1,7 @@
 ﻿
 namespace Goofy.Core.Entity.Base
 {
-    public class GoofyEntityBase
+    public abstract class GoofyEntityBase
     {
         public GoofyEntityBase()
         {
