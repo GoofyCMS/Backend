@@ -1,0 +1,8 @@
+{
+	"Goofy.Component.Administration":
+	{
+		"CompConfig":{
+				"IsSystemPlugin": "true"
+			}
+	}
+}

@@ -11,6 +11,7 @@ paths.componentsTempOutputFolder = "./temp/components";
 paths.componentsOutputFolder = './components';
 
 var components = [
+                  'Goofy.Component.Administration',
                   'Goofy.Component.Authentication',
                   'Goofy.Component.Authorization',
                   'Goofy.Component.IdentityIntegration',
