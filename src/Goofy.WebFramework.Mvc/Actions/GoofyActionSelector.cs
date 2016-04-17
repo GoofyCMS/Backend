@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+
 using Microsoft.AspNet.Mvc.ActionConstraints;
 using Microsoft.AspNet.Mvc.Infrastructure;
 using Microsoft.AspNet.Mvc.Routing;
@@ -7,23 +8,23 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNet.Mvc.Controllers;
 using Microsoft.AspNet.Mvc.Abstractions;
 
-using Goofy.Data.Components;
+using Goofy.Core.Components.Base;
 
 namespace Microsoft.AspNet.Mvc
 {
     public class GoofyActionSelector : DefaultActionSelector
     {
-        private readonly ComponentContext _componentContext;
+        private readonly IComponentStore _componentStore;
 
         public GoofyActionSelector(
                                    IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider,
                                    IActionSelectorDecisionTreeProvider decisionTreeProvider,
                                    IEnumerable<IActionConstraintProvider> actionConstraintProviders,
                                    ILoggerFactory loggerFactory,
-                                   ComponentContext componentContext)
+                                   IComponentStore componentStore)
             : base(actionDescriptorsCollectionProvider, decisionTreeProvider, actionConstraintProviders, loggerFactory)
         {
-            _componentContext = componentContext;
+            _componentStore = componentStore;
         }
 
         protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
@@ -42,7 +43,7 @@ namespace Microsoft.AspNet.Mvc
             if (controllerActionDescriptor != null)
             {
                 var componentAssemblyName = controllerActionDescriptor.ControllerTypeInfo.Assembly.FullName;
-                var componentInfo = _componentContext.Components.First(cI => cI.FullName == componentAssemblyName);
+                var componentInfo = _componentStore.Components.First(cI => cI.FullName == componentAssemblyName);
                 if (componentInfo.Installed)
                 {
                     return true;

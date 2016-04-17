@@ -14,6 +14,8 @@ namespace Goofy.Core.WebFramework.DependencyInjection
             services.AddGoofyCore();
             services.Remove<IComponentsDirectoryPathProvider>(true);
             services.AddScoped<IComponentsDirectoryPathProvider, GoofyWebComponentsDirectoryPathProvider>();
+            services.Remove<IComponentStateManager>(true);
+            services.AddScoped<IComponentStateManager, ComponentStateManager>();
             services.Remove<IComponentJsonConfigProvider>(true);
             services.AddScoped<IComponentJsonConfigProvider, ComponentJsonConfigProvider>();
             services.Remove<IEntityJsonConfigProvider>(true);
