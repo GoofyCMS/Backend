@@ -1,6 +1,8 @@
 ﻿using System.IO;
 
+using Goofy.Core.Infrastructure;
 using Goofy.Extensions;
+
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +41,8 @@ namespace Goofy.WebFramework
             var loggerFactory = services.Resolve<ILoggerFactory>();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddGoofyWebFramework();//agregar las dependencias del Framework Goofy
+            var engine = services.Resolve<IEngine>();
+            engine.Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

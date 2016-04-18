@@ -39,11 +39,9 @@ namespace Goofy.Core.Components
         {
             get
             {
-                // TODO Ver por qué _componentsAssemblies == null evalúa 2 veces true
                 if (_componentsAssemblies == null)
                 {
                     LoadAssemblies();
-                    // return Enumerable.Empty<Assembly>();
                 }
                 return _componentsAssemblies;
             }
