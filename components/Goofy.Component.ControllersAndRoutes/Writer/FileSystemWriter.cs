@@ -10,7 +10,7 @@ namespace Goofy.Component.ControllersAndRoutes
             using (var sw = new StreamWriter(file))
             {
                 sw.Write(message);
-                sw.Close();
+                sw.Dispose();
             }
         }
     }
