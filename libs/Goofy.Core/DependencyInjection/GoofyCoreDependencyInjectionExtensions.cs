@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IComponentsConfigurationFileValidator, GoofyComponentConfigurationFileValidator>();
             services.AddSingleton<IComponentsAssembliesProvider, GoofyComponentsAssembliesProvider>();
             services.AddScoped<IComponentsInfoProvider, GoofyComponentsInfoProvider>();
+            services.AddInstance<IComponentStore>(new GoofyInMemoryComponentStore());
             services.AddSingleton<IEngine, GoofyEngine>();
             return services;
         }

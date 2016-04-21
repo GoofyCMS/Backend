@@ -12,6 +12,14 @@ using Goofy.Core.Components.Base;
 
 namespace Microsoft.AspNet.Mvc
 {
+    /*
+        TODO: Agregar comentarios a la clase y testear que está pinchando el GoofyActionSelector, 
+        2 tests mínimo son requeridos
+            - Comprobar que se retorna 404 cuando una ruta de un controlador que pertenece a una 
+            componente que no está instalada
+            - Comprobar que la acción se ejecuta correctamente cuando la ruta solicitada pertenece a
+            un controlador que pertenece a una componente que está instalada.
+    */
     public class GoofyActionSelector : DefaultActionSelector
     {
         private readonly IComponentStore _componentStore;

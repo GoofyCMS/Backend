@@ -5,7 +5,7 @@ using Goofy.Data.DataProvider;
 
 namespace Goofy.Data.WebFramework.Components
 {
-    public class ComponentStoreStarter : IComponentStoreStarter<ComponentStore>
+    public class ComponentStoreStarter : IComponentStoreStarter<GoofyDbComponentStore>
     {
         private readonly IEntityFrameworkDataProvider _dataProvider;
         private readonly IMigrationsModelDiffer _modelDiffer;
@@ -22,7 +22,7 @@ namespace Goofy.Data.WebFramework.Components
 
         public void StartStore(object store)
         {
-            ((ComponentStore)store).ComponentContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
+            ((GoofyDbComponentStore)store).ComponentContext.CreateTablesIfNotExists(_modelDiffer, _sqlGenerator, _dataProvider);
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Mvc;
+﻿using System.Linq;
+
 using Microsoft.Extensions.OptionsModel;
-using System.Linq;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 
 namespace Goofy.Component.ControllersAndRoutes.Controllers
 {

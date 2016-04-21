@@ -2,6 +2,10 @@
 
 namespace Goofy.Core.Components.Base
 {
+    /*
+        TODO:
+            Sería bueno en algún momento hacer que todos estos métodos tuviesen su versión asíncrona.
+    */
     public interface IComponentStore
     {
         void AddComponent(Component component);

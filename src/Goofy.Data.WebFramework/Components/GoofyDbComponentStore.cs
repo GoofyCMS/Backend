@@ -8,9 +8,9 @@ using Goofy.Data.Components;
 
 namespace Goofy.Data.WebFramework.Components
 {
-    public class ComponentStore : IComponentStore
+    public class GoofyDbComponentStore : IComponentStore
     {
-        public ComponentStore(ComponentContext componentContext)
+        public GoofyDbComponentStore(ComponentContext componentContext)
         {
             ComponentContext = componentContext;
         }
@@ -27,6 +27,7 @@ namespace Goofy.Data.WebFramework.Components
 
         public void AddComponent(Component component)
         {
+            //TODO: No se queja si la componente ya existe
             ComponentContext.Add(component);
             ComponentContext.SaveChanges();
         }
