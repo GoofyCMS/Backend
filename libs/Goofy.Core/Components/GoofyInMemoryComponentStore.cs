@@ -4,17 +4,15 @@ using Goofy.Core.Components.Base;
 
 namespace Goofy.Core.Components
 {
-    /*
-        TODO: Esta solución tiene un gran problema por el momento,
-        no se controla el estado de las componentes instaladas o no-instaladas.
-    */
     public class GoofyInMemoryComponentStore : IComponentStore
     {
         Dictionary<int, Component> _components;
+        private readonly IComponentStorePersist<GoofyInMemoryComponentStore> _componentStorePersist;
         private int _currentId;
 
-        public GoofyInMemoryComponentStore()
+        public GoofyInMemoryComponentStore(IComponentStorePersist<GoofyInMemoryComponentStore> componentStorePersist)
         {
+            _componentStorePersist = componentStorePersist;
             _components = new Dictionary<int, Component>();
             _currentId = 1;
         }
@@ -34,12 +32,14 @@ namespace Goofy.Core.Components
         {
             AssignNewId(component);
             _components.Add(component.ComponentId, component);
+            _componentStorePersist.PersistComponentStore(this);
         }
 
         public void RemoveComponent(Component component)
         {
             if (!_components.ContainsKey(component.ComponentId))
                 throw new ArgumentException();
+            _componentStorePersist.PersistComponentStore(this);
             _components.Remove(component.ComponentId);
         }
 
@@ -47,6 +47,9 @@ namespace Goofy.Core.Components
         {
             if (!_components.ContainsKey(component.ComponentId))
                 throw new ArgumentException();
+            if(_components[component.ComponentId].GlobalId != component.GlobalId)
+                throw new InvalidOperationException("Can not update GlobalId for any component");
+            _componentStorePersist.PersistComponentStore(this);
             _components[component.ComponentId] = component;
         }
 

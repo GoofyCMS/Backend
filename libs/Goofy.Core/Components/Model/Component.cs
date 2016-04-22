@@ -13,7 +13,7 @@ namespace Goofy.Core.Components
 
         public bool Equals(Component other)
         {
-            return GlobalId == other.GlobalId;
+            return ComponentId == other.ComponentId && GlobalId == other.GlobalId;
         }
     }
 }

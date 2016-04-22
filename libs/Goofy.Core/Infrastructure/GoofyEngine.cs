@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 using Goofy.Core.Configuration;
 using Goofy.Extensions;
-using System.Reflection;
-using System.Collections.Generic;
 
 namespace Goofy.Core.Infrastructure
 {
@@ -14,6 +15,7 @@ namespace Goofy.Core.Infrastructure
         protected GoofyCoreConfiguration _goofyCoreConfiguration;
         protected readonly IServiceCollection _services;
         protected readonly IResourcesLocator _resourcesLoader;
+        private readonly ILogger<GoofyEngine> _logger;
 
         public GoofyCoreConfiguration GoofyCoreConfiguration
         {
@@ -28,10 +30,13 @@ namespace Goofy.Core.Infrastructure
         }
 
 
-        public GoofyEngine(IServiceCollection services, IResourcesLocator resourcesLoader)
+        public GoofyEngine(IServiceCollection services,
+                           IResourcesLocator resourcesLoader,
+                           ILogger<GoofyEngine> logger)
         {
             _services = services;
             _resourcesLoader = resourcesLoader;
+            _logger = logger;
         }
 
         public virtual void Start()
@@ -92,20 +97,16 @@ namespace Goofy.Core.Infrastructure
             foreach (var serviceDescriptor in servicesForDeleting)
             {
                 _services.Remove(serviceDescriptor);
+                var implementationType = serviceDescriptor.ImplementationType ?? serviceDescriptor.ImplementationInstance.GetType();
+                _logger.LogInformation(string.Format("Remove implementationType \"{0}\", for service \"{1}\".", implementationType, serviceDescriptor.ServiceType));
             }
         }
 
         private bool ServiceIsDesignTimeService(ServiceDescriptor serviceDescriptor)
         {
-            var implementationType = serviceDescriptor.ImplementationType;
-            if (implementationType != null)
-                return typeof(IDesignTimeService).GetTypeInfo().IsAssignableFrom(implementationType.GetTypeInfo());
-
-            var implementationInstance = serviceDescriptor.ImplementationInstance;
-            if (implementationInstance != null)
-            {
-                return typeof(IDesignTimeService).GetTypeInfo().IsAssignableFrom(implementationInstance.GetType().GetTypeInfo());
-            }
+            var serviceType = serviceDescriptor.ServiceType;
+            if (serviceType != null)
+                return typeof(IDesignTimeService).GetTypeInfo().IsAssignableFrom(serviceType.GetTypeInfo());
             return false;
         }
     }

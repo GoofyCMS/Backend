@@ -1,17 +1,23 @@
 ﻿using Goofy.Core.Components;
+using Goofy.Core.Test.Fake;
 using System;
 using System.Linq;
 using Xunit;
 
 namespace Goofy.Core.Test.Components
 {
+    /*
+        TODO:
+        Hacer tests para chequear la generación automática de ComponentId
+    */
     public class GoofyInMemoryComponentStoreTest
     {
+
         private readonly GoofyInMemoryComponentStore _componentStore;
 
         public GoofyInMemoryComponentStoreTest()
         {
-            _componentStore = new GoofyInMemoryComponentStore();
+            _componentStore = new GoofyInMemoryComponentStore(new FakeComponentStorePersist());
         }
 
         [Fact]
@@ -21,7 +27,7 @@ namespace Goofy.Core.Test.Components
             _componentStore.AddComponent(component);
             Assert.Equal(1, _componentStore.Components.Count());
             Assert.Contains(component, _componentStore.Components);
-            Assert.Contains(new Component { ComponentId = 1 }, _componentStore.Components);
+            Assert.DoesNotContain(new Component { ComponentId = 1 }, _componentStore.Components);
         }
 
         [Fact]
@@ -30,6 +36,7 @@ namespace Goofy.Core.Test.Components
             var component = new Component { ComponentId = 1 };
             _componentStore.AddComponent(component);
             Assert.ThrowsAny<Exception>(delegate () { _componentStore.AddComponent(component); });
+            Assert.ThrowsAny<Exception>(delegate () { _componentStore.AddComponent(new Component { ComponentId = 1 }); });
             Assert.Equal(1, _componentStore.Components.Count());
         }
 
@@ -44,7 +51,7 @@ namespace Goofy.Core.Test.Components
         }
 
         [Fact]
-        public void ShouldRemoveComponentByComponentNameOnly()
+        public void ShouldRemoveComponentByComponentIdOnly()
         {
             var componentId = 1;
             _componentStore.AddComponent(new Component { ComponentId = componentId });
@@ -71,8 +78,21 @@ namespace Goofy.Core.Test.Components
             component.Installed = false;
             _componentStore.UpdateComponent(component);
             Assert.Equal(1, _componentStore.Components.Count());
+            Assert.Contains(component, _componentStore.Components);
             var updatedComponent = _componentStore.Components.First(c => c.ComponentId == component.ComponentId);
             Assert.Equal(false, updatedComponent.Installed);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfTryUpdateComponentGlobalId()
+        {
+            var component = new Component { ComponentId = 1, Installed = true };
+            _componentStore.AddComponent(component);
+
+            var invalidComponentToUpdate = new Component { ComponentId = 1, Installed = false };
+            Assert.ThrowsAny<Exception>(delegate () { _componentStore.UpdateComponent(invalidComponentToUpdate); });
+            Assert.Equal(1, _componentStore.Components.Count());
+            Assert.Contains(component, _componentStore.Components);
         }
 
         [Fact]

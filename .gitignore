@@ -7,3 +7,5 @@ artifacts
 node_modules
 *.xproj.user
 project.lock.json
+src/Goofy.WebApi/components/components.json
+

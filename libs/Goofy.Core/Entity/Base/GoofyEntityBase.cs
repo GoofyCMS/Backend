@@ -11,7 +11,7 @@ namespace Goofy.Core.Entity.Base
         public long GlobalId
         {
             get;
-            private set;
+            set;
         }
     }
 }

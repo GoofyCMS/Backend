@@ -53,15 +53,11 @@ namespace Microsoft.AspNet.Mvc
                 var componentAssemblyName = controllerActionDescriptor.ControllerTypeInfo.Assembly.FullName;
                 var componentInfo = _componentStore.Components.First(cI => cI.FullName == componentAssemblyName);
                 if (componentInfo.Installed)
-                {
                     return true;
-                }
+                else
+                    return false;
             }
-            else
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
     }
 }
