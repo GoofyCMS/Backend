@@ -18,13 +18,12 @@ namespace Goofy.Infrastructure.Core.Adapters
         /// <summary>
         ///     Create a new Automapper type adapter factory
         /// </summary>
-        public AutomapperTypeAdapterFactory(IGoofyAssemblyProvider goofyAssemblies, IPluginAssemblyProvider pluginAssemblies)
+        public AutomapperTypeAdapterFactory(IPluginAssemblyProvider pluginAssemblies)
         {
             //scan all assemblies finding Automapper Profile
-            var profiles = goofyAssemblies.GetAssemblies
-                                          .Concat(pluginAssemblies.GetAssemblies)
-                                          .FindClassesOfType<Profile>()
-                                          .Where(item => !item.FullName.StartsWith("AutoMapper"));
+            var profiles = pluginAssemblies.GetAssemblies
+                                           .FindClassesOfType<Profile>()
+                                           .Where(item => !item.FullName.StartsWith("AutoMapper"));
 
             Config = new MapperConfiguration(cfg =>
             {

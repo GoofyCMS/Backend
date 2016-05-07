@@ -20,10 +20,10 @@ namespace Goofy.Web.Core
 
         public GoofyStartup(IHostingEnvironment env, IApplicationEnvironment app)
         {
-            Directory.SetCurrentDirectory(string.Format("{0}\\wwwroot", app.ApplicationBasePath));
+            //Directory.SetCurrentDirectory(string.Format("{0}\\wwwroot", app.ApplicationBasePath));
             ConfigurationBuilder = new ConfigurationBuilder();
             ConfigurationBuilder.SetBasePath(string.Format("{0}\\bin", app.ApplicationBasePath));
-            ConfigurationBuilder.AddJsonFile("appsettings.json");
+            //ConfigurationBuilder.AddJsonFile("appsettings.json");
             Configuration = ConfigurationBuilder.Build();
         }
 
@@ -71,14 +71,14 @@ namespace Goofy.Web.Core
                 Está cableado, se podría buscar una mejor forma de configurarlo, usando la componente
                 Goofy.Component.Auth
             */
-            app.UseIdentity();
+            //app.UseIdentity();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //    name: "default",
+            //    template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

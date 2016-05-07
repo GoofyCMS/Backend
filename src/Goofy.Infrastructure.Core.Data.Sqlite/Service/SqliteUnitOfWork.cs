@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Entity;
 using Goofy.Infrastructure.Core.Data.Service;
 
-namespace Goofy.Infrastructure.Core.Data.Sqlite.Service
+namespace Goofy.Infrastructure.Core.Data.Sqlite
 {
     public abstract class SqliteUnitOfWork : UnitOfWork
     {

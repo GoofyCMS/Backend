@@ -3,6 +3,9 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Abstractions;
+using Goofy.Domain.Core.Service.Data;
+using Goofy.Infrastructure.Core.Data;
+using Goofy.Infrastructure.Core.Data.Context;
 
 namespace Goofy.Application.Core
 {
@@ -10,6 +13,9 @@ namespace Goofy.Application.Core
     {
         //protected GoofyCoreConfiguration _goofyCoreConfiguration;
         protected readonly IServiceCollection _services;
+        //private readonly IGoofyAssemblyProvider _coreAssemblies;
+        private readonly IPluginAssemblyProvider _pluginAssemblies;
+
         //private readonly ILogger<GoofyEngine> _logger;
 
         //public GoofyCoreConfiguration GoofyCoreConfiguration
@@ -26,10 +32,14 @@ namespace Goofy.Application.Core
 
 
         public GoofyEngine(
-                           IServiceCollection services
+                           IServiceCollection services,
+                           //IGoofyAssemblyProvider coreAssemblies,
+                           IPluginAssemblyProvider pluginAssemblies
                                                             /*ILogger<GoofyEngine> logger*/)
         {
             _services = services;
+            //_coreAssemblies = coreAssemblies;
+            _pluginAssemblies = pluginAssemblies;
             //_logger = logger;
         }
 
@@ -79,11 +89,23 @@ namespace Goofy.Application.Core
             //}
         }
 
+        //protected virtual void RegisterDependencies()
+        //    => ExecActionForeachSortableType<IDependencyRegistrar>(d =>
+        //    {
+        //        d.ConfigureServices(_services);
+        //    });
         protected virtual void RegisterDependencies()
-            => ExecActionForeachSortableType<IDependencyRegistrar>(d =>
+        {
+            //Register IUnitOfWork objects
+            //var coreAssemblies = _coreAssemblies.GetAssemblies.ToArray();
+            var contextTypes = _pluginAssemblies.GetAssemblies.FindClassesOfType<IUnitOfWork>();
+            foreach (var type in contextTypes)
             {
-                d.ConfigureServices(_services);
-            });
+                var iUnitOfWorkRegistrarType = typeof(IUnitOfWorkRegistrar<>).MakeGenericType(new[] { type });
+                dynamic iUnitOfWorkRegistrar = Activator.CreateInstance(iUnitOfWorkRegistrarType);
+                iUnitOfWorkRegistrar.AddUnitOfWork(_services);
+            }
+        }
 
 
         protected virtual void RunStartupTasks()

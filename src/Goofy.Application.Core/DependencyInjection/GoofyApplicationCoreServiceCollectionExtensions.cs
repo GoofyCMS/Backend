@@ -11,8 +11,8 @@ namespace Goofy.Application.Core.DependencyInjection
 
         public static IServiceCollection AddGoofyCore(this IServiceCollection services)
         {
+            services.AddInstance(services);
             services.AddSingleton<IPluginAssemblyProvider, GoofyPluginAssemblyProvider>();
-            services.AddScoped<IGoofyAssemblyProvider, GoofyAssemblyProvider>();
 
             //services.AddSingleton<ITypeAdapterFactory, AutoMapperTypeAdapterFactory>();
             services.AddSingleton<IEngine, GoofyEngine>();

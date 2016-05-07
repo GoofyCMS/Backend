@@ -3,7 +3,7 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace Goofy.Infrastructure.Core.Data.Context
 {
-    public abstract class DbContextRegistrar<T> where T : DbContext
+    public class DbContextRegistrar<T> where T : DbContext
     {
         /*
             Esta clase probablemente no la voy a usar porque los objetos que se
@@ -12,7 +12,6 @@ namespace Goofy.Infrastructure.Core.Data.Context
         */
         public void AddDbContext(EntityFrameworkServicesBuilder builder)
         {
-            
             builder.AddDbContext<T>();
         }
     }

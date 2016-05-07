@@ -18,11 +18,11 @@ namespace Goofy.Application.Core
         protected string _pluginDirectoryName = "plugins";
 
 
-        public virtual string PluginDirectoryName
+        public virtual string PluginsDirectory
         {
             get
             {
-                return _pluginDirectoryName;
+                return Path.Combine(Directory.GetCurrentDirectory(), _pluginDirectoryName);
             }
             protected set
             {
@@ -69,9 +69,9 @@ namespace Goofy.Application.Core
             _componentsAssemblies = new List<Assembly>();
 
             var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
-            using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, PluginDirectoryName)))
+            using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, PluginsDirectory)))
             {
-                foreach (var componentDirectory in Directory.EnumerateDirectories(PluginDirectoryName).Select(dir => new DirectoryInfo(dir)).Reverse())
+                foreach (var componentDirectory in Directory.EnumerateDirectories(PluginsDirectory).Select(dir => new DirectoryInfo(dir)).Reverse())
                 {
 
                     var componentName = componentDirectory.Name;

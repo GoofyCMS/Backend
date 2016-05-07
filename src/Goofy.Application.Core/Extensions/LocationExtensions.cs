@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Goofy.Application.Core.Extensions
+namespace Goofy.Application.Core
 {
     public static class LocationExtensions
     {

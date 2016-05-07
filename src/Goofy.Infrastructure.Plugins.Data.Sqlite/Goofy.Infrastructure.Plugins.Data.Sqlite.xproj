@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>63e0121b-72e6-4b8d-8a15-49f02c15922e</ProjectGuid>
-    <RootNamespace>Goofy.Infrastructure.Core.Adapter</RootNamespace>
+    <ProjectGuid>dc931dc4-467c-4a3f-9979-b872e8af1423</ProjectGuid>
+    <RootNamespace>Goofy.Infrastructure.Plugins.Data.Sqlite</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>

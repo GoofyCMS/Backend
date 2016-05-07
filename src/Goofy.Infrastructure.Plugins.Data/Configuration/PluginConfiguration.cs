@@ -2,7 +2,7 @@
 using Microsoft.Data.Entity.Metadata.Builders;
 
 using Goofy.Domain.Plugins.Entity;
-using Goofy.Infrastructure.Core.Data.Configurations;
+using Goofy.Infrastructure.Core.Data.Entity.Configuration;
 
 namespace Goofy.Infrastructure.Plugins.Data.Configuration
 {
