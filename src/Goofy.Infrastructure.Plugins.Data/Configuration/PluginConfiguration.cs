@@ -1,21 +1,18 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Metadata.Builders;
-
-using Goofy.Domain.Plugins.Entity;
-using Goofy.Infrastructure.Core.Data.Entity.Configuration;
+﻿using Goofy.Domain.Plugins.Entity;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Goofy.Infrastructure.Plugins.Data.Configuration
 {
-    public class PluginConfiguration : EntityConfiguration<Plugin>
+    public class PluginConfiguration : EntityTypeConfiguration<Plugin>
     {
-        public override void ConfigureEntity(EntityTypeBuilder<Plugin> pluginTypeBuilder)
+        public PluginConfiguration()
         {
-            pluginTypeBuilder.ToTable("Goofy_Component");
-            pluginTypeBuilder.HasKey(c => c.ComponentId);
-            pluginTypeBuilder.Property(c => c.FullName).IsRequired();
-            pluginTypeBuilder.Property(c => c.Installed).IsRequired();
-            pluginTypeBuilder.Property(c => c.Version).IsRequired();
-            pluginTypeBuilder.Property(c => c.IsSystemComponent).IsRequired();
+            ToTable("Goofy_Component");
+            HasKey(c => c.ComponentId);
+            Property(c => c.FullName).IsRequired();
+            Property(c => c.Installed).IsRequired();
+            Property(c => c.Version).IsRequired();
+            Property(c => c.IsSystemComponent).IsRequired();
         }
     }
 }

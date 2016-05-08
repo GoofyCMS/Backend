@@ -9,6 +9,12 @@
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+    "Microsoft.Data.OData": "5.7.0",
+    "Microsoft.Data.Edm": "5.7.0",
+    "WebActivatorEx": "2.1.0",
+    "Breeze.Server.ContextProvider": "1.5.5",
+    "Breeze.Server.ContextProvider.EF6": "1.5.5",
+    "Breeze.Server.WebApi2": "1.5.5",
     "Goofy.Application.Core": "1.0.0",
     "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
@@ -16,14 +22,9 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final"
   },
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Threading": "4.0.11-beta-23516"
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": ""
       }
     }
   }

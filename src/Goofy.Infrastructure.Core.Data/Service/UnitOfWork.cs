@@ -1,9 +1,7 @@
 using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Data.Entity;
-//using Microsoft.Data.Entity.Internal;
 using Goofy.Domain.Core.Service.Data;
 
 namespace Goofy.Infrastructure.Core.Data.Service
@@ -11,23 +9,12 @@ namespace Goofy.Infrastructure.Core.Data.Service
     /// <summary>
     ///     Contract for UnitOfWork pattern.
     /// </summary>
-    public abstract class UnitOfWork : DbContext, IUnitOfWork
+    public class UnitOfWork : DbContext, IUnitOfWork
     {
-        protected string ConnectionString { get; private set; }
-
-        public UnitOfWork(string connectionString)
-            : base()
+        public UnitOfWork(string connection)
+            : base(connection)
         {
-            ConnectionString = connectionString;
-        }
-
-        /// <summary>
-        ///     Commit all changes made in a container, asynchronous version.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<int> SaveChangesAsync()
-        {
-            return await SaveChangesAsync(default(CancellationToken));
+            Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }
 
         /// <summary>
@@ -49,10 +36,19 @@ namespace Goofy.Infrastructure.Core.Data.Service
         /// <returns>A collection of <typeparamref name="TResult" /> objects.</returns>
         public IEnumerable<TResult> SqlQuery<TResult>(string query, params object[] parameters) where TResult : class
         {
-            IEnumerable<TResult> result;
-            result = Set<TResult>().FromSql(query, parameters);
-            return result;
+            return Database.SqlQuery<TResult>(query, parameters);
         }
 
+        /// <summary>
+        ///     Executes a sql query directly to the database.
+        /// </summary>
+        /// <param name="type">The type of the response items.</param>
+        /// <param name="query">Sql query.</param>
+        /// <param name="parameters">Sql query parameters.</param>
+        /// <returns>A collection of <paramref name="type" /> objects.</returns>
+        public IEnumerable SqlQuery(Type type, string query, params object[] parameters)
+        {
+            return Database.SqlQuery(type, query, parameters);
+        }
     }
 }

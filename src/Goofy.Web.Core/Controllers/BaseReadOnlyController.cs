@@ -2,15 +2,22 @@
 
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
+using Breeze.ContextProvider;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using System;
+using System.Linq.Expressions;
+using System.Web.Http.OData.Query;
 
 namespace Goofy.Web.Core.Controllers
 {
     public class BaseReadOnlyController<TEntity, TViewModel, TKey> : Controller where TEntity : BaseEntity
         where TViewModel : class
     {
-        //protected readonly ContextProvider Provider;
+        protected readonly ContextProvider Provider;
 
-        protected BaseReadOnlyController(IServiceMapper<TEntity, TViewModel> service/*, ContextProvider provider*/)
+        protected BaseReadOnlyController(IServiceMapper<TEntity, TViewModel> service, ContextProvider provider)
         {
             Service = service;
             //Provider = provider;
@@ -18,28 +25,28 @@ namespace Goofy.Web.Core.Controllers
 
         public IServiceMapper<TEntity, TViewModel> Service { get; }
 
-        //public virtual IQueryable<TViewModel> GetQuery(ODataQueryOptions<TViewModel> options)
-        //{
-        //    var query = Service.GetAll().AsQueryable();
-        //    if (options?.OrderBy == null)
-        //    {
-        //        var keyProperty =
-        //                typeof(TViewModel).GetProperties().Last(e => e.GetCustomAttribute(typeof(KeyAttribute)) != null);
+        public virtual IQueryable<TViewModel> GetQuery(ODataQueryOptions<TViewModel> options)
+        {
+            var query = Service.GetAll().AsQueryable();
+            //if (options?.OrderBy == null)
+            //{
+            var keyProperty =
+                    typeof(TViewModel).GetProperties().Last(e => e.GetCustomAttribute(typeof(KeyAttribute)) != null);
 
-        //        var parameter = Expression.Parameter(typeof(TViewModel), "obj");
-        //        var body = Expression.Property(parameter, keyProperty.Name);
-        //        var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
+            var parameter = Expression.Parameter(typeof(TViewModel), "obj");
+            var body = Expression.Property(parameter, keyProperty.Name);
+            var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
 
-        //        query = query.OrderBy(exp);
-        //    }
-        //    return query;
-        //}
+            query = query.OrderBy(exp);
+            //}
+            return query;
+        }
 
-        //[Route("")]
-        //[HttpGet]
-        //public virtual IHttpActionResult Get(ODataQueryOptions<TViewModel> options = null)
-        //{
-        //    return Ok(GetQuery(options));
-        //}
+        [Route("")]
+        [HttpGet]
+        public virtual IActionResult Get(ODataQueryOptions<TViewModel> options = null)
+        {
+            return Ok(GetQuery(options));
+        }
     }
 }

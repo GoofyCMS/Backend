@@ -1,4 +1,5 @@
-﻿using Goofy.Domain.Core.Entity;
+﻿using Breeze.ContextProvider;
+using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
 using Microsoft.AspNet.Mvc;
 
@@ -10,8 +11,8 @@ namespace Goofy.Web.Core.Controllers
     {
         private readonly IServiceMapper<TEntity, TViewModel> _serviceMapper;
 
-        public BaseController(IServiceMapper<TEntity, TViewModel> serviceMapper)
-            : base(serviceMapper)
+        public BaseController(IServiceMapper<TEntity, TViewModel> serviceMapper, ContextProvider provider)
+            : base(serviceMapper, provider)
         {
             _serviceMapper = serviceMapper;
         }

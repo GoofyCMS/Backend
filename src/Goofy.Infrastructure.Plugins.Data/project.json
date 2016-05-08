@@ -6,7 +6,6 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "EntityFramework.Relational": "7.0.0-rc1-final",
     "Goofy.Domain.Plugins": "1.0.0",
     "Goofy.Infrastructure.Core.Data": "1.0.0"
   },
@@ -15,16 +14,6 @@
     "net451": {
       "frameworkAssemblies": {
         "System.Runtime": ""
-      }
-    },
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Threading": "4.0.11-beta-23516"
       }
     }
   }

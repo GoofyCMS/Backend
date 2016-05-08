@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Data.Entity;
+using System.Data.Entity;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Data;
 
@@ -39,9 +39,7 @@ namespace Goofy.Infrastructure.Core.Data.Service
                 throw new ArgumentNullException("item");
 
             // attach object to unit of work
-            Set.Attach(item);
-            ((DbContext)UnitOfWork).Entry(item).State = EntityState.Added;
-            return item;
+            return Set.Add(item);
         }
 
         /// <summary>
@@ -50,7 +48,7 @@ namespace Goofy.Infrastructure.Core.Data.Service
         /// <returns>The new object with default values.</returns>
         public virtual TEntity Create()
         {
-            return default(TEntity);
+            return Set.Create();
         }
 
         /// <summary>
@@ -65,8 +63,7 @@ namespace Goofy.Infrastructure.Core.Data.Service
                 throw new ArgumentNullException("item");
 
             // delete object from DbSet
-            ((DbContext)UnitOfWork).Entry(item).State = EntityState.Deleted;
-            return item;
+            return Set.Remove(item);
         }
 
         /// <summary>
@@ -85,6 +82,7 @@ namespace Goofy.Infrastructure.Core.Data.Service
                 throw new ArgumentNullException("item");
 
             // set object as modified
+            Set.Attach(item);
             ((DbContext)UnitOfWork).Entry(item).State = EntityState.Modified;
             return item;
         }

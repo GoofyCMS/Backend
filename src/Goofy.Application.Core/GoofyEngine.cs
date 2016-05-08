@@ -3,9 +3,6 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Abstractions;
-using Goofy.Domain.Core.Service.Data;
-using Goofy.Infrastructure.Core.Data;
-using Goofy.Infrastructure.Core.Data.Context;
 
 namespace Goofy.Application.Core
 {
@@ -96,15 +93,7 @@ namespace Goofy.Application.Core
         //    });
         protected virtual void RegisterDependencies()
         {
-            //Register IUnitOfWork objects
-            //var coreAssemblies = _coreAssemblies.GetAssemblies.ToArray();
-            var contextTypes = _pluginAssemblies.GetAssemblies.FindClassesOfType<IUnitOfWork>();
-            foreach (var type in contextTypes)
-            {
-                var iUnitOfWorkRegistrarType = typeof(IUnitOfWorkRegistrar<>).MakeGenericType(new[] { type });
-                dynamic iUnitOfWorkRegistrar = Activator.CreateInstance(iUnitOfWorkRegistrarType);
-                iUnitOfWorkRegistrar.AddUnitOfWork(_services);
-            }
+            
         }
 
 

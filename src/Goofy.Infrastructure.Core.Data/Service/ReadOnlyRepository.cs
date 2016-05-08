@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.Data.Entity;
+using System.Threading.Tasks;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Domain.Core;
 
 namespace Goofy.Infrastructure.Core.Data.Service
 {
@@ -30,7 +30,7 @@ namespace Goofy.Infrastructure.Core.Data.Service
             // check preconditions
             if (unitOfWork == null)
                 // error
-                throw new ArgumentNullException(nameof(unitOfWork));
+                throw new ArgumentNullException("unitOfWork");
 
             // set internal values
             UnitOfWork = unitOfWork;
@@ -70,36 +70,17 @@ namespace Goofy.Infrastructure.Core.Data.Service
             // local instance of entity
             TEntity entity = null;
 
-            /*
-                TODO: Esta es una implementación burda en memoria de lo que debería
-                ser el verdadero Find que ejecute la consulta directo en la base
-                de datos.
-            */
             if (entityKeyValues != null && entityKeyValues.Length > 0)
-            {
                 // gets entity
-                var entities = Set.Where(e => FilterByKeys(e, entityKeyValues)).ToArray();
-
-                if (entities.Length > 1)
-                    throw new ArgumentException("More than one entity were found.");
-                else if (entities.Length == 1)
-                {
-                    entity = entities[0];
-                    Set.Attach(entity);
-                }
-            }
+                entity = Set.Find(entityKeyValues);
 
             // return located entity or null
             return entity;
         }
 
-        private bool FilterByKeys(TEntity entity, params object[] entityKeyValues)
+        public Task<TEntity> FindAsync(params object[] entityKeyValues)
         {
-            var keyValues = entity.GetEntityKeys();
-            for (int i = 0; i < keyValues.Length; i++)
-                if (!keyValues[i].Equals(entityKeyValues[i]))
-                    return false;
-            return true;
+            return Set.FindAsync(entityKeyValues);
         }
 
         /// <summary>

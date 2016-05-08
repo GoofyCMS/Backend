@@ -7,7 +7,7 @@ var paths = {
     wwwroot: './wwwroot'
 }
 paths.artifactsBinDirectory = './../../artifacts/bin';
-paths.componentsTempOutputFolder = "./temp/components";
+paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
@@ -24,7 +24,7 @@ var externalAssemblies = [
                   'Goofy.Infrastrucuture.Plugins.Data.Sqlite'
 
 ];
-var runtimes = ['dnxcore50'];
+var runtimes = ['dnx451'];
 var compModes = ['Debug'];
 
 

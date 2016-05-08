@@ -1,5 +1,4 @@
 ﻿using Goofy.Infrastructure.Core.Data.Service;
-using Microsoft.Data.Entity;
 
 namespace Goofy.Infrastructure.Core.Data.Sql.Service
 {
@@ -8,11 +7,6 @@ namespace Goofy.Infrastructure.Core.Data.Sql.Service
         public SqlUnitOfWork(string connectionString)
             : base(connectionString)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(ConnectionString);
         }
     }
 }
