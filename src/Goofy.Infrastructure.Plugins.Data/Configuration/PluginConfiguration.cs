@@ -7,8 +7,8 @@ namespace Goofy.Infrastructure.Plugins.Data.Configuration
     {
         public PluginConfiguration()
         {
-            ToTable("Goofy_Component");
-            HasKey(c => c.ComponentId);
+            ToTable("Goofy_Plugins");
+            HasKey(c => c.PluginId);
             Property(c => c.FullName).IsRequired();
             Property(c => c.Installed).IsRequired();
             Property(c => c.Version).IsRequired();

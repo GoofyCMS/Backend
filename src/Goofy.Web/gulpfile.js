@@ -11,20 +11,13 @@ paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
-                  'Goofy.Infrastructure.Core.Adapter',
-                  'Goofy.Infrastructure.Core.Data',
-                  'Goofy.Infrastructure.Core.Data.Sql',
-                  'Goofy.Infrastrucuture.Core.Data.Sqlite',
-
                   'Goofy.Application.Plugins',
                   'Goofy.Application.Plugins.DTO',
                   'Goofy.Domain.Plugins',
                   'Goofy.Infrastructure.Plugins.Adapter',
-                  'Goofy.Infrastructure.Plugins.Data',
-                  'Goofy.Infrastrucuture.Plugins.Data.Sqlite'
-
+                  'Goofy.Infrastructure.Plugins.Data'
 ];
-var runtimes = ['dnx451'];
+var runtimes = ['net451'];
 var compModes = ['Debug'];
 
 

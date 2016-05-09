@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Abstractions;
+using Goofy.Domain.Core.Service.Data;
 
 namespace Goofy.Application.Core
 {
@@ -93,7 +94,12 @@ namespace Goofy.Application.Core
         //    });
         protected virtual void RegisterDependencies()
         {
-            
+            //var coreAssemblies = _coreAssemblies.GetAssemblies;
+            var contextTypes = _pluginAssemblies.GetAssemblies.FindClassesOfType<IUnitOfWork>();
+            foreach (var context in contextTypes)
+            {
+                _services.AddSingleton(context);
+            }
         }
 
 

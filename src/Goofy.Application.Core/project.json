@@ -8,6 +8,8 @@
   "dependencies": {
     "Goofy.Domain.Core": "1.0.0",
     "Goofy.Infrastructure.Core.Data": "1.0.0",
+    "Goofy.Infrastructure.Core.Adapter": "1.0.0",
+    "Goofy.Infrastructure.Core.Data.Sql": "1.0.0",
     "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
   },
 
