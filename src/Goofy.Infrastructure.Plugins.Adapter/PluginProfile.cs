@@ -9,6 +9,7 @@ namespace Goofy.Infrastructure.Plugins.Adapter
         protected override void Configure()
         {
             CreateMap<Plugin, PluginItem>();
+            CreateMap<PluginItem, Plugin>();
         }
     }
 }

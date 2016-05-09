@@ -8,17 +8,17 @@ namespace Goofy.Application.Core
     public class GoofyPluginDirectoryLoader : IAssemblyLoader
     {
         private readonly IAssemblyLoadContext _assemblyLoadContext;
-        private readonly string _componentsDirectoryPath;
+        private readonly string _pluginDirectoryPath;
                 
         public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string componentsDirectoryPath)
         {
             _assemblyLoadContext = assemblyLoadContext;
-            _componentsDirectoryPath = componentsDirectoryPath;
+            _pluginDirectoryPath = componentsDirectoryPath;
         }
 
         public Assembly Load(AssemblyName assemblyName)
         {
-            return _assemblyLoadContext.LoadFile(Path.Combine(_componentsDirectoryPath, assemblyName.Name, assemblyName.Name + ".dll"));
+            return _assemblyLoadContext.LoadFile(Path.Combine(_pluginDirectoryPath, assemblyName.Name + ".dll"));
         }
 
         public IntPtr LoadUnmanagedLibrary(string name)

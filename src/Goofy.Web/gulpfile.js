@@ -11,11 +11,12 @@ paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
-                  'Goofy.Application.Plugins',
-                  'Goofy.Application.Plugins.DTO',
-                  'Goofy.Domain.Plugins',
-                  'Goofy.Infrastructure.Plugins.Adapter',
-                  'Goofy.Infrastructure.Plugins.Data'
+                  'Plugins',
+                  //'Goofy.Application.Plugins',
+                  //'Goofy.Application.Plugins.DTO',
+                  //'Goofy.Domain.Plugins',
+                  //'Goofy.Infrastructure.Plugins.Adapter',
+                  //'Goofy.Infrastructure.Plugins.Data'
 ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];
@@ -28,8 +29,8 @@ String.prototype.format = function () {
     });
 };
 
-function getComponentDllPath(componentName, compMode, runtime) {
-    return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentName, compMode, runtime);
+function getComponentDllPath(componentDll, compMode, runtime) {
+    return '{0}/{1}/{2}/{3}/{1}.dll'.format(paths.artifactsBinDirectory, componentDll, compMode, runtime);
 }
 
 function getComponentPdbFilePath(componentName, runtime) {
@@ -38,6 +39,17 @@ function getComponentPdbFilePath(componentName, runtime) {
 
 function getComponentOutputFolder(componentName) {
     return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
+}
+
+function candidateAssemblies(compName)
+{
+    return [
+                'Goofy.Application.' + compName,
+                'Goofy.Domain.' + compName,
+                'Goofy.Application.' + compName + '.DTO',
+                'Goofy.Infrastructure.' + compName + '.Adapter',
+                'Goofy.Infrastructure.'  + compName + '.Data'
+           ];
 }
 
 function copyComponents() {
@@ -50,12 +62,17 @@ function copyComponents() {
                 ///no se está teniendo en cuenta ni el runtime, ni el compMode para generar el output folder
                 //console.info(componentName);
                 //componentSource = getComponentDllPath(componentName, compModes)
-                gulp.src(getComponentDllPath(componentName, cmpMode, runtime))
-                        .pipe(gulp.dest(getComponentOutputFolder(componentName)));
-                if (cmpMode == "Debug") {
-                    //copiar los .pdb también
-                    gulp.src(getComponentPdbFilePath(componentName, runtime))
-                        .pipe(gulp.dest(getComponentOutputFolder(componentName)));
+                var candidates = candidateAssemblies(componentName);
+                for (var compAssemblyIndex in candidates) {
+                    compAssembly = candidates[compAssemblyIndex];
+                    console.info(compAssembly);
+                    gulp.src(getComponentDllPath(compAssembly, cmpMode, runtime))
+                            .pipe(gulp.dest(getComponentOutputFolder(componentName)));
+                    if (cmpMode == "Debug") {
+                        //copiar los .pdb también
+                        gulp.src(getComponentPdbFilePath(compAssembly, runtime))
+                            .pipe(gulp.dest(getComponentOutputFolder(componentName)));
+                    }
                 }
             }
         }

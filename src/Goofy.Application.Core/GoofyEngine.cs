@@ -94,7 +94,7 @@ namespace Goofy.Application.Core
         //    });
         protected virtual void RegisterDependencies()
         {
-            //var coreAssemblies = _coreAssemblies.GetAssemblies;
+            //All objects UnitOfWork added
             var contextTypes = _pluginAssemblies.GetAssemblies.FindClassesOfType<IUnitOfWork>();
             foreach (var context in contextTypes)
             {

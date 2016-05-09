@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -7,7 +7,8 @@
   "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
-    "Goofy.Web.Core": "1.0.0"
+    "Goofy.Web.Core": "1.0.0",
+    "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": "1.0.0"
   },
 
   "commands": {

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -58,22 +57,14 @@ namespace Goofy.Application.Core
             _componentsAssemblies = new List<Assembly>();
 
             var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
-            using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, PluginsDirectoryPath)))
+            foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
             {
-                foreach (var componentDirectory in Directory.EnumerateDirectories(PluginsDirectoryPath).Select(dir => new DirectoryInfo(dir)).Reverse())
+                using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, pluginFolder)))
                 {
-
-                    var componentName = componentDirectory.Name;
-                    var componentDllPath = Path.Combine(componentDirectory.FullName, string.Format("{0}{1}", componentName, ComponentExtension));
-                    if (File.Exists(componentDllPath))
+                    foreach (var dll in Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly))
                     {
-                        var dllName = Path.GetFileNameWithoutExtension(componentDllPath);
+                        var dllName = Path.GetFileNameWithoutExtension(dll);
                         _componentsAssemblies.Add(assemblyLoadContext.Load(dllName));
-                        //_logger.LogInformation("La Componente \"{0}\", fue cargada satisfactoriamente.", componentName);
-                    }
-                    else
-                    {
-                        //_logger.LogWarning("La carpeta \"{0}\" situada en \"{1}\" no es un Component válida.", componentName, componentDirectory.FullName);
                     }
                 }
             }
