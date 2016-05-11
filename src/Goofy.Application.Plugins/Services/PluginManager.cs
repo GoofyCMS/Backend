@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -46,9 +47,21 @@ namespace Goofy.Application.Plugins.Services
             }
         }
 
-        IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
+        public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
         {
             return _plugins.Values.SelectMany(assemblies => assemblies.Where(ass => Regex.IsMatch(ass.GetName().Name, GetPattern(layer))));
+        }
+
+        public IEnumerable<Assembly> GetAssembliesByPluginName(string pluginName)
+        {
+            try
+            {
+                return _plugins[pluginName];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ArgumentException(string.Format($"Plugin \"{pluginName}\" doesn't exist."));
+            }
         }
 
         public void Install(int pluginId) { }
