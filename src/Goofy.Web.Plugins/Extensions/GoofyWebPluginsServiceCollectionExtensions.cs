@@ -13,16 +13,16 @@ namespace Goofy.Web.Plugins.Extensions
         public static void AddMvcServices(this IServiceCollection services)
         {
             services.AddScoped<PluginContextProvider>();
-            services.AddMvc().AddControllersAsServices(new[] { typeof(PluginsMetadataController) });
+            services.AddMvc();
 
-            //services.AddSingleton<IAssemblyProvider, GoofyMvcAssemblyProvider>(
-            //provider =>
-            //    {
-            //        return new GoofyMvcAssemblyProvider(
-            //            provider.GetRequiredService<ILibraryManager>(),
-            //            provider.GetRequiredService<IPluginAssemblyProvider>()
-            //            );
-            //    });
+            services.AddSingleton<IAssemblyProvider, GoofyMvcAssemblyProvider>(
+            provider =>
+                {
+                    return new GoofyMvcAssemblyProvider(
+                        provider.GetRequiredService<ILibraryManager>(),
+                        provider.GetRequiredService<IPluginAssemblyProvider>()
+                        );
+                });
         }
     }
 }

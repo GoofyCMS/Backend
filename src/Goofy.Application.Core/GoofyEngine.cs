@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Abstractions;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Goofy.Application.Core
 {
@@ -15,7 +16,7 @@ namespace Goofy.Application.Core
 
         //protected GoofyCoreConfiguration _goofyCoreConfiguration;
 
-        //private readonly ILogger<GoofyEngine> _logger;
+        private readonly ILogger<GoofyEngine> _logger;
 
         //public GoofyCoreConfiguration GoofyCoreConfiguration
         //{
@@ -32,12 +33,12 @@ namespace Goofy.Application.Core
 
         public GoofyEngine(
                            IServiceCollection services,
-                           IGoofyAssemblyProvider coreAssembliesProvider
-                                                            /*ILogger<GoofyEngine> logger*/)
+                           IGoofyAssemblyProvider coreAssembliesProvider,
+                           ILogger<GoofyEngine> logger)
         {
             Services = services;
             CoreAssembliesProvider = coreAssembliesProvider;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public virtual void Start()
@@ -111,8 +112,8 @@ namespace Goofy.Application.Core
                 /* TODO: Chequear que no da NullReferenceException si el servicio se registró
                     usando un Factory
                 */
-                //var implementationType = serviceDescriptor.ImplementationType ?? serviceDescriptor.ImplementationInstance.GetType();
-                //_logger.LogInformation(string.Format("Remove implementationType \"{0}\", for service \"{1}\".", implementationType, serviceDescriptor.ServiceType));
+                var implementationType = serviceDescriptor.ImplementationType ?? serviceDescriptor.ImplementationInstance.GetType();
+                _logger.LogInformation(string.Format("Remove implementationType \"{0}\", for service \"{1}\".", implementationType, serviceDescriptor.ServiceType));
             }
         }
 

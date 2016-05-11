@@ -31,10 +31,6 @@ namespace Goofy.Web.Core
         public virtual void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            /* TODO:
-                Buscar la forma de resolver el ILoggerFactory para configurarlo desde que se
-                carga el framework a agregar uno para tiempo de carga del framework diferente
-            */
             services.AddGoofyCore();//agregar las dependencias del Framework Goofy
             services.StartEngine();
         }

@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Goofy.Domain.Plugins;
+using Microsoft.Extensions.Logging;
 
 namespace Goofy.Application.Plugins
 {
@@ -11,7 +12,7 @@ namespace Goofy.Application.Plugins
         //private readonly string ComponentExtension = ".dll";
         private readonly IAssemblyLoaderContainer _assemblyLoaderContainer;
         private readonly IAssemblyLoadContextAccessor _assemblyLoadContextAccessor;
-        //private readonly ILogger<GoofyPluginAssemblyProvider> _logger;
+        private readonly ILogger<GoofyPluginAssemblyProvider> _logger;
         private List<Assembly> _componentsAssemblies;
 
         protected string _pluginDirectoryName = "plugins";
@@ -31,13 +32,13 @@ namespace Goofy.Application.Plugins
 
 
         public GoofyPluginAssemblyProvider(IAssemblyLoaderContainer assemblyLoaderContainer,
-                                           IAssemblyLoadContextAccessor assemblyLoadContextAccessor
-                                               //ILogger<GoofyPluginAssemblyProvider> logger
+                                           IAssemblyLoadContextAccessor assemblyLoadContextAccessor,
+                                           ILogger<GoofyPluginAssemblyProvider> logger
                                                )
         {
             _assemblyLoaderContainer = assemblyLoaderContainer;
             _assemblyLoadContextAccessor = assemblyLoadContextAccessor;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public IEnumerable<Assembly> GetAssemblies
