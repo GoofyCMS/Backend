@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace Goofy.Application.Core
+namespace Goofy.Application.Plugins
 {
     public class GoofyPluginDirectoryLoader : IAssemblyLoader
     {

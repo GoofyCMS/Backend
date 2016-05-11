@@ -17,14 +17,12 @@ namespace Goofy.Web.Core.Providers
 {
     public abstract class BaseContextProvider<TContext> : ContextProvider where TContext : class, new()
     {
-        private readonly string _name;
         private readonly IUnitOfWork _context;
         private readonly ITypeAdapterFactory _typeAdapterFactory;
         private readonly EFContextProvider<TContext> _contextProvider;
 
-        protected BaseContextProvider(string name, IUnitOfWork context, ITypeAdapterFactory typeAdapterFactory)
+        protected BaseContextProvider(IUnitOfWork context, ITypeAdapterFactory typeAdapterFactory)
         {
-            _name = name;
             _context = context;
             _typeAdapterFactory = typeAdapterFactory;
             _contextProvider = new EFContextProvider<TContext>();

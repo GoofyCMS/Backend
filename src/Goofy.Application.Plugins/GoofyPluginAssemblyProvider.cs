@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
-using Goofy.Domain.Core.Abstractions;
+using Goofy.Domain.Plugins;
 
-namespace Goofy.Application.Core
+namespace Goofy.Application.Plugins
 {
     public class GoofyPluginAssemblyProvider : IPluginAssemblyProvider
     {
-        private readonly string ComponentExtension = ".dll";
+        //private readonly string ComponentExtension = ".dll";
         private readonly IAssemblyLoaderContainer _assemblyLoaderContainer;
         private readonly IAssemblyLoadContextAccessor _assemblyLoadContextAccessor;
         //private readonly ILogger<GoofyPluginAssemblyProvider> _logger;

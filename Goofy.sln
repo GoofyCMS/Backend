@@ -28,7 +28,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Core.D
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Domain.Core.Abstractions", "src\Goofy.Domain.Core.Abstractions\Goofy.Domain.Core.Abstractions.xproj", "{BE97EBBB-6DDC-4895-B17C-A6624EBD4143}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugable_core", "plugable_core", "{D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Domain.Plugins", "src\Goofy.Domain.Plugins\Goofy.Domain.Plugins.xproj", "{3E59C95D-954E-463A-8F03-2B257A6AC667}"
 EndProject
@@ -39,6 +39,8 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Plugins.Adapter", "src\Goofy.Infrastructure.Plugins.Adapter\Goofy.Infrastructure.Plugins.Adapter.xproj", "{F33951F7-26A7-4273-9D1D-B0725B5BE48A}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Plugins.Data", "src\Goofy.Infrastructure.Plugins.Data\Goofy.Infrastructure.Plugins.Data.xproj", "{0A29A1B0-A710-4B2F-8236-700D10741A55}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Web.Plugins", "src\Goofy.Web.Plugins\Goofy.Web.Plugins.xproj", "{F953931A-404E-4008-A989-910591E2D191}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +100,10 @@ Global
 		{0A29A1B0-A710-4B2F-8236-700D10741A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A29A1B0-A710-4B2F-8236-700D10741A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A29A1B0-A710-4B2F-8236-700D10741A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F953931A-404E-4008-A989-910591E2D191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F953931A-404E-4008-A989-910591E2D191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F953931A-404E-4008-A989-910591E2D191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F953931A-404E-4008-A989-910591E2D191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +124,6 @@ Global
 		{3130F858-00A7-4750-958D-E522E2778558} = {D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}
 		{F33951F7-26A7-4273-9D1D-B0725B5BE48A} = {D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}
 		{0A29A1B0-A710-4B2F-8236-700D10741A55} = {D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}
+		{F953931A-404E-4008-A989-910591E2D191} = {D6AE5B82-A92B-4CEC-80D5-B35A6897AE4D}
 	EndGlobalSection
 EndGlobal

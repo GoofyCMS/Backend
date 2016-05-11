@@ -1,17 +1,19 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Application.Plugins.DTO Class Library",
+  "description": "Goofy.Web.Plugins Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
+    "Goofy.Web.Core": "1.0.0",
+    "Goofy.Application.Plugins": "1.0.0"
   },
+
   "frameworks": {
     "net451": {
       "frameworkAssemblies": {
-        "System.Runtime": "",
-        "System.ComponentModel.DataAnnotations": ""
+        "System.Runtime": ""
       }
     }
   }

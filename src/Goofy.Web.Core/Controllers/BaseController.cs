@@ -1,7 +1,7 @@
-﻿using Breeze.ContextProvider;
+﻿using Microsoft.AspNet.Mvc;
+using Breeze.ContextProvider;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
-using Microsoft.AspNet.Mvc;
 
 
 namespace Goofy.Web.Core.Controllers

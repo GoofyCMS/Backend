@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
 using AutoMapper;
+using Goofy.Domain.Core;
 using Goofy.Domain.Core.Service.Adapter;
-using Goofy.Domain.Core.Abstractions;
 
-namespace Goofy.Infrastructure.Core.Adapters
+namespace Goofy.Infrastructure.Core.Adapter
 {
     public class AutomapperTypeAdapterFactory : ITypeAdapterFactory, IDisposable
     {
@@ -18,12 +19,11 @@ namespace Goofy.Infrastructure.Core.Adapters
         /// <summary>
         ///     Create a new Automapper type adapter factory
         /// </summary>
-        public AutomapperTypeAdapterFactory(IPluginAssemblyProvider pluginAssemblies)
+        public AutomapperTypeAdapterFactory(IEnumerable<Assembly> assemblies)
         {
             //scan all assemblies finding Automapper Profile
-            var profiles = pluginAssemblies.GetAssemblies
-                                           .FindClassesOfType<Profile>()
-                                           .Where(item => !item.FullName.StartsWith("AutoMapper"));
+            var profiles = assemblies.FindClassesOfType<Profile>()
+                                     .Where(item => !item.FullName.StartsWith("AutoMapper"));
 
             Config = new MapperConfiguration(cfg =>
             {

@@ -3,16 +3,17 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Abstractions;
-using Goofy.Domain.Core.Service.Data;
+using System.Collections.Generic;
+using Goofy.Infrastructure.Core.Adapter.DependencyInjection;
 
 namespace Goofy.Application.Core
 {
     public class GoofyEngine : IEngine
     {
+        protected IServiceCollection Services { get; private set; }
+        protected IGoofyAssemblyProvider CoreAssembliesProvider { get; private set; }
+
         //protected GoofyCoreConfiguration _goofyCoreConfiguration;
-        protected readonly IServiceCollection _services;
-        //private readonly IGoofyAssemblyProvider _coreAssemblies;
-        private readonly IPluginAssemblyProvider _pluginAssemblies;
 
         //private readonly ILogger<GoofyEngine> _logger;
 
@@ -31,17 +32,15 @@ namespace Goofy.Application.Core
 
         public GoofyEngine(
                            IServiceCollection services,
-                           //IGoofyAssemblyProvider coreAssemblies,
-                           IPluginAssemblyProvider pluginAssemblies
+                           IGoofyAssemblyProvider coreAssembliesProvider
                                                             /*ILogger<GoofyEngine> logger*/)
         {
-            _services = services;
-            //_coreAssemblies = coreAssemblies;
-            _pluginAssemblies = pluginAssemblies;
+            Services = services;
+            CoreAssembliesProvider = coreAssembliesProvider;
             //_logger = logger;
         }
 
-        public virtual IServiceProvider Start()
+        public virtual void Start()
         {
             // Agregar las dependencias provistas por otros ensamblados(propios o de 3ros)
             RegisterDependencies();
@@ -54,9 +53,6 @@ namespace Goofy.Application.Core
 
             // Eliminar servicios IDesignTimeService del contenedor de dependencias
             RemoveDesignTimeServices();
-
-            IServiceProvider serviceProvider = _services.BuildServiceProvider();
-            return serviceProvider;
         }
 
 
@@ -92,14 +88,14 @@ namespace Goofy.Application.Core
         //    {
         //        d.ConfigureServices(_services);
         //    });
+
         protected virtual void RegisterDependencies()
         {
-            //All objects UnitOfWork added
-            var contextTypes = _pluginAssemblies.GetAssemblies.FindClassesOfType<IUnitOfWork>();
-            foreach (var context in contextTypes)
-            {
-                _services.AddSingleton(context);
-            }
+        }
+
+        protected void RegisterAdapterServices(IEnumerable<Assembly> assemblies)
+        {
+            Services.AddTypeAdpaterServices(assemblies);
         }
 
 
@@ -108,10 +104,10 @@ namespace Goofy.Application.Core
 
         protected virtual void RemoveDesignTimeServices()
         {
-            var servicesForDeleting = _services.Where(ServiceIsDesignTimeService).ToArray();
+            var servicesForDeleting = Services.Where(ServiceIsDesignTimeService).ToArray();
             foreach (var serviceDescriptor in servicesForDeleting)
             {
-                _services.Remove(serviceDescriptor);
+                Services.Remove(serviceDescriptor);
                 /* TODO: Chequear que no da NullReferenceException si el servicio se registró
                     usando un Factory
                 */

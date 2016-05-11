@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNet.Mvc;
-
+﻿using System;
+using System.Reflection;
+using System.Linq;
+using System.Linq.Expressions;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Http.OData.Query;
+using Microsoft.AspNet.Mvc;
+using Breeze.ContextProvider;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
-using Breeze.ContextProvider;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System;
-using System.Linq.Expressions;
-using System.Web.Http.OData.Query;
 
 namespace Goofy.Web.Core.Controllers
 {
@@ -20,7 +19,7 @@ namespace Goofy.Web.Core.Controllers
         protected BaseReadOnlyController(IServiceMapper<TEntity, TViewModel> service, ContextProvider provider)
         {
             Service = service;
-            //Provider = provider;
+            Provider = provider;
         }
 
         public IServiceMapper<TEntity, TViewModel> Service { get; }
@@ -28,17 +27,17 @@ namespace Goofy.Web.Core.Controllers
         public virtual IQueryable<TViewModel> GetQuery(ODataQueryOptions<TViewModel> options)
         {
             var query = Service.GetAll().AsQueryable();
-            //if (options?.OrderBy == null)
-            //{
-            var keyProperty =
+            if (options?.OrderBy == null)
+            {
+                var keyProperty =
                     typeof(TViewModel).GetProperties().Last(e => e.GetCustomAttribute(typeof(KeyAttribute)) != null);
 
-            var parameter = Expression.Parameter(typeof(TViewModel), "obj");
-            var body = Expression.Property(parameter, keyProperty.Name);
-            var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
+                var parameter = Expression.Parameter(typeof(TViewModel), "obj");
+                var body = Expression.Property(parameter, keyProperty.Name);
+                var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
 
-            query = query.OrderBy(exp);
-            //}
+                query = query.OrderBy(exp);
+            }
             return query;
         }
 

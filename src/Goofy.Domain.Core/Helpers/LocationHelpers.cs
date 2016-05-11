@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Goofy.Application.Core
+namespace Goofy.Domain.Core
 {
-    public static class LocationExtensions
+    public static class LocationHelpers
     {
         /*
             TODO: Hacer tests para esto, 

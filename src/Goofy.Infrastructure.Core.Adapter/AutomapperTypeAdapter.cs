@@ -5,7 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Goofy.Domain.Core.Service.Adapter;
 
-namespace Goofy.Infrastructure.Core.Adapters
+namespace Goofy.Infrastructure.Core.Adapter
 {
     /// <summary>
     ///     Automapper type adapter implementation

@@ -11,7 +11,6 @@ paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
-                  'Plugins',
                   //'Goofy.Application.Plugins',
                   //'Goofy.Application.Plugins.DTO',
                   //'Goofy.Domain.Plugins',
@@ -48,7 +47,8 @@ function candidateAssemblies(compName)
                 'Goofy.Domain.' + compName,
                 'Goofy.Application.' + compName + '.DTO',
                 'Goofy.Infrastructure.' + compName + '.Adapter',
-                'Goofy.Infrastructure.'  + compName + '.Data'
+                'Goofy.Infrastructure.' + compName + '.Data',
+                'Goofy.Web.' + compName
            ];
 }
 

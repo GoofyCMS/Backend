@@ -6,11 +6,11 @@ namespace Goofy.Application.Core.Extensions
 {
     public static class ServiceCollectionsExtensions
     {
-        public static IServiceProvider ConfigureServices(this IServiceCollection services)
+        public static void StartEngine(this IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
             var engine = serviceProvider.GetRequiredService<IEngine>();
-            return engine.Start();
+            engine.Start();
         }
     }
 }
