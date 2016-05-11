@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using Goofy.Domain.Core.Service.Data;
+using Goofy.Infrastructure.Core.Data.Configuration;
+using Microsoft.Extensions.OptionsModel;
 
 namespace Goofy.Infrastructure.Core.Data.Service
 {
@@ -11,8 +13,8 @@ namespace Goofy.Infrastructure.Core.Data.Service
     /// </summary>
     public class UnitOfWork : DbContext, IUnitOfWork
     {
-        public UnitOfWork(string connection)
-            : base(connection)
+        public UnitOfWork(IOptions<DataAccessConfiguration> configurationOptions)
+            : base(configurationOptions.Value.ConnectionString)
         {
             Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }

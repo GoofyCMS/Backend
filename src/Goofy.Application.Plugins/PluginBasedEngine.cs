@@ -5,6 +5,7 @@ using Goofy.Domain.Core.Abstractions;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Plugins;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,9 +19,10 @@ namespace Goofy.Application.Plugins
         public PluginBasedEngine(
                                  IServiceCollection services,
                                  IGoofyAssemblyProvider coreAssembliesProvider,
-                                 IPluginAssemblyProvider pluginAssemblyProvider
+                                 IPluginAssemblyProvider pluginAssemblyProvider,
+                                 ILogger<PluginBasedEngine> logger
                                 )
-            : base(services, coreAssembliesProvider)
+            : base(services, coreAssembliesProvider, logger)
         {
             _pluginAssemblyProvider = pluginAssemblyProvider;
         }
