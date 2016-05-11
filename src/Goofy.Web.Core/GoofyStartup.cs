@@ -21,7 +21,7 @@ namespace Goofy.Web.Core
         {
             LoggerFactory = loggerFactory;
             ConfigurationBuilder = new ConfigurationBuilder();
-            ConfigurationBuilder.SetBasePath(string.Format("{0}\\bin", app.ApplicationBasePath));
+            ConfigurationBuilder.SetBasePath(app.ApplicationBasePath);
             ConfigurationBuilder.AddJsonFile("appsettings.json");
             Configuration = ConfigurationBuilder.Build();
         }
