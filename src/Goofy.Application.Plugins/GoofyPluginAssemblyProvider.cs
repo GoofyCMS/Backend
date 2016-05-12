@@ -57,15 +57,18 @@ namespace Goofy.Application.Plugins
         {
             _componentsAssemblies = new List<Assembly>();
 
-            var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
-            foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
+            if (Directory.Exists(PluginsDirectoryPath))
             {
-                using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, pluginFolder)))
+                var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
+                foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
                 {
-                    foreach (var dll in Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly))
+                    using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, pluginFolder)))
                     {
-                        var dllName = Path.GetFileNameWithoutExtension(dll);
-                        _componentsAssemblies.Add(assemblyLoadContext.Load(dllName));
+                        foreach (var dll in Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly))
+                        {
+                            var dllName = Path.GetFileNameWithoutExtension(dll);
+                            _componentsAssemblies.Add(assemblyLoadContext.Load(dllName));
+                        }
                     }
                 }
             }

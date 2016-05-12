@@ -23,13 +23,17 @@ namespace Goofy.Application.Plugins.Services
         void StartPluginsConfiguration()
         {
             _plugins = new Dictionary<string, IEnumerable<Assembly>>();
-            foreach (var pluginFolder in Directory.EnumerateDirectories(_pluginAssemblyProvider.PluginsDirectoryPath))
-            {
-                var dlls = Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly)
-                                    .Select(Path.GetFileNameWithoutExtension);
 
-                _plugins.Add(Path.GetDirectoryName(pluginFolder),
-                            _pluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
+            if (Directory.Exists(_pluginAssemblyProvider.PluginsDirectoryPath))
+            {
+                foreach (var pluginFolder in Directory.EnumerateDirectories(_pluginAssemblyProvider.PluginsDirectoryPath))
+                {
+                    var dlls = Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly)
+                                        .Select(Path.GetFileNameWithoutExtension);
+
+                    _plugins.Add(Path.GetDirectoryName(pluginFolder),
+                                _pluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
+                }
             }
         }
 
