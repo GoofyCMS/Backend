@@ -6,6 +6,7 @@ using Goofy.Web.Plugins.Extensions;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Logging;
+using Goofy.Web.Plugins.Providers;
 
 namespace Goofy.Web.Plugins
 {
@@ -20,6 +21,7 @@ namespace Goofy.Web.Plugins
         {
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddPluginBasedCore();
+            services.AddSingleton<PluginContextProvider>();
             services.AddMvcServices();
             services.StartEngine();
         }

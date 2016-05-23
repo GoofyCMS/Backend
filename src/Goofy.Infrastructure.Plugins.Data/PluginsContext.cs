@@ -2,15 +2,15 @@
 using Goofy.Domain.Plugins.Entity;
 using Goofy.Infrastructure.Core.Data.Service;
 using Goofy.Infrastructure.Plugins.Data.Configuration;
-using Goofy.Infrastructure.Core.Data.Configuration;
-using Microsoft.Extensions.OptionsModel;
+using System;
+using Goofy.Domain.Plugins.Service.Data;
 
 namespace Goofy.Infrastructure.Plugins.Data
 {
-    public class PluginsContext : UnitOfWork
+    public class PluginsContext : UnitOfWork, IPluginUnitOfWork
     {
-        public PluginsContext(IOptions<DataAccessConfiguration> configurationOptions)
-            : base(configurationOptions)
+        public PluginsContext(IServiceProvider services)
+            : base(services)
         {
             Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = true;

@@ -2,7 +2,7 @@
 using Breeze.ContextProvider;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
-
+using Newtonsoft.Json.Linq;
 
 namespace Goofy.Web.Core.Controllers
 {
@@ -17,10 +17,11 @@ namespace Goofy.Web.Core.Controllers
             _serviceMapper = serviceMapper;
         }
 
-        // GET: /<controller>/
-        public IActionResult Index()
+        [Route("save")]
+        [HttpPost]
+        public virtual SaveResult SaveChanges(JObject saveBundle)
         {
-            return View();
+            return Provider.SaveChanges(saveBundle);
         }
     }
 }

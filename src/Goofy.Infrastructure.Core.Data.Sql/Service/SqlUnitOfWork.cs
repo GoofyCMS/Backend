@@ -1,13 +1,12 @@
-﻿using Goofy.Infrastructure.Core.Data.Configuration;
-using Goofy.Infrastructure.Core.Data.Service;
-using Microsoft.Extensions.OptionsModel;
+﻿using Goofy.Infrastructure.Core.Data.Service;
+using System;
 
 namespace Goofy.Infrastructure.Core.Data.Sql.Service
 {
     public abstract class SqlUnitOfWork : UnitOfWork
     {
-        public SqlUnitOfWork(IOptions<DataAccessConfiguration> configurationOptions)
-            : base(configurationOptions)
+        public SqlUnitOfWork(IServiceProvider services)
+            : base(services)
         {
         }
     }

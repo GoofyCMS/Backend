@@ -5,19 +5,21 @@ using System.Collections.Generic;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Infrastructure.Core.Data.Configuration;
 using Microsoft.Extensions.OptionsModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Goofy.Infrastructure.Core.Data.Service
 {
     /// <summary>
     ///     Contract for UnitOfWork pattern.
     /// </summary>
-    public class UnitOfWork : DbContext, IUnitOfWork
+    public abstract class UnitOfWork : DbContext, IUnitOfWork
     {
-        public UnitOfWork(IOptions<DataAccessConfiguration> configurationOptions)
-            : base(configurationOptions.Value.ConnectionString)
+        public UnitOfWork(IServiceProvider services)
+            : base(services.GetRequiredService<IOptions<DataAccessConfiguration>>().Value.ConnectionString)
         {
             Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }
+        string GetConnectionString() { return ""; }
 
         /// <summary>
         ///     Gets the TEntity repository.
