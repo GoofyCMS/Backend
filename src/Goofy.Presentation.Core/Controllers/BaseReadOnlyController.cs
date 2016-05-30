@@ -9,7 +9,7 @@ using Breeze.ContextProvider;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
 
-namespace Goofy.Web.Core.Controllers
+namespace Goofy.Presentation.Core.Controllers
 {
     public class BaseReadOnlyController<TEntity, TViewModel, TKey> : Controller
         where TEntity : BaseEntity

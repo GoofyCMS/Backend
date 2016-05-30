@@ -15,7 +15,7 @@
     "Microsoft.AspNet.Hosting": "1.0.0-rc1-final",
     "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final",
     "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
-    "Goofy.Web.Core": "1.0.0"
+    "Goofy.Presentation.Core": "1.0.0"
   },
   "commands": {
     "test": "xunit.runner.dnx"

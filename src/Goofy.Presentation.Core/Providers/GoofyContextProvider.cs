@@ -13,7 +13,7 @@ using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Core;
 
-namespace Goofy.Web.Core.Providers
+namespace Goofy.Presentation.Core.Providers
 {
     public abstract class BaseContextProvider<TContext> : ContextProvider where TContext : class, new()
     {

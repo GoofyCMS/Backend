@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Goofy.Domain.Core.Entity;
-using Goofy.Web.Core.Controllers;
+using Goofy.Presentation.Core.Controllers;
 using Goofy.Application.Core.Service;
-using Goofy.Web.Core.Providers;
+using Goofy.Presentation.Core.Providers;
 using Goofy.Domain.Core.Service.Data;
 using System.Threading.Tasks;
 using Goofy.Infrastructure.Core.Adapter;

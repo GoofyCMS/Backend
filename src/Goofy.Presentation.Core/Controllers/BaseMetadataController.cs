@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
 
-namespace Goofy.Web.Core.Controllers
+namespace Goofy.Presentation.Core.Controllers
 {
     [AllowAnonymous]
     public abstract class BaseMetadataController : Controller

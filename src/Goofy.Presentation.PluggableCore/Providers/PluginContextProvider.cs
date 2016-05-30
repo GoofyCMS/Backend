@@ -1,6 +1,6 @@
 ﻿using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Infrastructure.Plugins.Data;
-using Goofy.Web.Core.Providers;
+using Goofy.Presentation.Core.Providers;
 using System;
 
 namespace Goofy.Presentation.PluggableCore.Providers

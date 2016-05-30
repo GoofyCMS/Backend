@@ -1,6 +1,6 @@
-{
+﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Web.Core Class Library",
+  "description": "Goofy.Presentation.Core Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",

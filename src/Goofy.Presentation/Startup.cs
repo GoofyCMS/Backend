@@ -3,7 +3,7 @@ using Goofy.Presentation.PluggableCore;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 
-namespace Goofy.Web
+namespace Goofy.Presentation
 {
     public class Startup : GoofyPluginBasedStartup
     {

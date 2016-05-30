@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Goofy.Web.Core;
+using Goofy.Presentation.Core;
 using Goofy.Application.Plugins.DependencyInjection;
 using Goofy.Application.Core.Extensions;
 using Goofy.Presentation.PluggableCore.Extensions;

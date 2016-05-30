@@ -8,7 +8,7 @@ using Goofy.Application.Core.Extensions;
 using Goofy.Application.Core.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace Goofy.Web.Core
+namespace Goofy.Presentation.Core
 {
     public class GoofyStartup
     {

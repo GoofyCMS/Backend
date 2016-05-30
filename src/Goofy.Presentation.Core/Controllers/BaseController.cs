@@ -4,7 +4,7 @@ using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
 using Newtonsoft.Json.Linq;
 
-namespace Goofy.Web.Core.Controllers
+namespace Goofy.Presentation.Core.Controllers
 {
     public class BaseController<TEntity, TViewModel, TKey> : BaseReadOnlyController<TEntity, TViewModel, TKey>
         where TEntity : BaseEntity where TViewModel : class
