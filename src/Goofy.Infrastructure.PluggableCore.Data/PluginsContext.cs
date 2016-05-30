@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
 using Goofy.Domain.Plugins.Entity;
 using Goofy.Infrastructure.Core.Data.Service;
-using Goofy.Infrastructure.Plugins.Data.Configuration;
+using Goofy.Infrastructure.PluggableCore.Data.Configuration;
 using System;
 using Goofy.Domain.Plugins.Service.Data;
 
-namespace Goofy.Infrastructure.Plugins.Data
+namespace Goofy.Infrastructure.PluggableCore.Data
 {
     public class PluginsContext : UnitOfWork, IPluginUnitOfWork
     {

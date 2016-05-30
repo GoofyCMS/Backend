@@ -1,5 +1,5 @@
 ﻿using Goofy.Domain.Core.Service.Adapter;
-using Goofy.Infrastructure.Plugins.Data;
+using Goofy.Infrastructure.PluggableCore.Data;
 using Goofy.Presentation.Core.Providers;
 using System;
 

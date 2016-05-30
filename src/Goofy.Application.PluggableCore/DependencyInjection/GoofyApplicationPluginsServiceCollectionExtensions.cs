@@ -2,7 +2,7 @@
 using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Application.PluggableCore.Services;
 using Goofy.Domain.Plugins.Service.Data;
-using Goofy.Infrastructure.Plugins.Data;
+using Goofy.Infrastructure.PluggableCore.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Goofy.Application.PluggableCore.DependencyInjection

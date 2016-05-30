@@ -8,7 +8,7 @@
   "dependencies": {
     "Goofy.Domain.Plugins": "1.0.0",
     "Goofy.Infrastructure.PluggableCore.Adapter": "1.0.0",
-    "Goofy.Infrastructure.Plugins.Data": "1.0.0",
+    "Goofy.Infrastructure.PluggableCore.Data": "1.0.0",
     "Goofy.Application.Core": "1.0.0",
     "Goofy.Application.PluggableCore.DTO": "1.0.0"
   },

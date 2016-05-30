@@ -1,7 +1,7 @@
 ﻿using Goofy.Domain.Plugins.Entity;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Goofy.Infrastructure.Plugins.Data.Configuration
+namespace Goofy.Infrastructure.PluggableCore.Data.Configuration
 {
     public class PluginConfiguration : EntityTypeConfiguration<Plugin>
     {
