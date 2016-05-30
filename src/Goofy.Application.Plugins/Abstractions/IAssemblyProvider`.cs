@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 
-namespace Goofy.Domain.Core.Abstractions
+namespace Goofy.Application.Plugins.Abstractions
 {
     public interface IAssemblyProvider_
     {

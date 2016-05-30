@@ -2,10 +2,10 @@
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
-using Goofy.Domain.Core.Abstractions;
 using Microsoft.Extensions.Logging;
+using Goofy.Application.Plugins.Abstractions;
 
-namespace Goofy.Application.Core
+namespace Goofy.Application.Plugins
 {
     public class GoofyAssemblyProvider : IGoofyAssemblyProvider
     {

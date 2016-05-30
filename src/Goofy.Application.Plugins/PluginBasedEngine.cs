@@ -1,7 +1,7 @@
 ﻿using Goofy.Application.Core;
+using Goofy.Application.Plugins.Abstractions;
 using Goofy.Application.Plugins.Services;
 using Goofy.Domain.Core;
-using Goofy.Domain.Core.Abstractions;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Plugins;
 using Microsoft.Extensions.DependencyInjection;

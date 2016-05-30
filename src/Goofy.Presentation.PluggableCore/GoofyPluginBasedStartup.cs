@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Goofy.Presentation.Core;
 using Goofy.Application.Plugins.DependencyInjection;
-using Goofy.Application.Core.Extensions;
 using Goofy.Presentation.PluggableCore.Extensions;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Logging;
 using Goofy.Presentation.PluggableCore.Providers;
+using Goofy.Application.Plugins.Extensions;
 
 namespace Goofy.Presentation.PluggableCore
 {
@@ -20,7 +20,7 @@ namespace Goofy.Presentation.PluggableCore
         public override void ConfigureServices(IServiceCollection services)
         {
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            services.AddPluginBasedCore();
+            services.AddPluggableCore();
             services.AddSingleton<PluginContextProvider>();
             services.AddMvcServices();
             services.StartEngine();

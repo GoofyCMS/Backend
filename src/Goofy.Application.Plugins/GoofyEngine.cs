@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Goofy.Domain.Core.Abstractions;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Goofy.Application.Plugins.Abstractions;
 
-namespace Goofy.Application.Core
+namespace Goofy.Application.Plugins
 {
     public class GoofyEngine : IEngine
     {

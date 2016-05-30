@@ -1,5 +1,4 @@
-﻿using Goofy.Domain.Plugins;
-//using Goofy.Presentation.PluggableCore.Controllers;
+﻿using Goofy.Application.Plugins;
 using Goofy.Presentation.PluggableCore.Providers;
 using Goofy.WebFramework.Mvc;
 using Microsoft.AspNet.Mvc.Infrastructure;

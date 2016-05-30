@@ -4,11 +4,10 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Mvc.Infrastructure;
-using Goofy.Domain.Plugins;
+using Goofy.Application.Plugins;
 
 namespace Goofy.WebFramework.Mvc
 {
-
     public class GoofyMvcAssemblyProvider : DefaultAssemblyProvider
     {
         private readonly IPluginAssemblyProvider _pluginAssemblyProvider;
