@@ -11,7 +11,8 @@ using Goofy.Domain.Core.Service.Adapter;
 
 namespace Goofy.Web.Core.Controllers
 {
-    public class BaseReadOnlyController<TEntity, TViewModel, TKey> : Controller where TEntity : BaseEntity
+    public class BaseReadOnlyController<TEntity, TViewModel, TKey> : Controller
+        where TEntity : BaseEntity
         where TViewModel : class
     {
         protected readonly ContextProvider Provider;
@@ -41,8 +42,7 @@ namespace Goofy.Web.Core.Controllers
             return query;
         }
 
-        [Route("")]
-        [HttpGet]
+        [HttpGet("pepe")]
         public virtual IActionResult Get(ODataQueryOptions<TViewModel> options = null)
         {
             return Ok(GetQuery(options));
