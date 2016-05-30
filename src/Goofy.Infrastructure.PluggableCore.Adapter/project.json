@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Infrastructure.Plugins.Adapter Class Library",
+  "description": "Goofy.Infrastructure.PluggableCore.Adapter Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
