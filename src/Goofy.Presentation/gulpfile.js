@@ -40,8 +40,7 @@ function getComponentOutputFolder(componentName) {
     return '{0}/{1}'.format(paths.componentsOutputFolder, componentName);
 }
 
-function candidateAssemblies(compName)
-{
+function candidateAssemblies(compName) {
     return [
                 'Goofy.Application.' + compName,
                 'Goofy.Domain.' + compName,
@@ -49,7 +48,7 @@ function candidateAssemblies(compName)
                 'Goofy.Infrastructure.' + compName + '.Adapter',
                 'Goofy.Infrastructure.' + compName + '.Data',
                 'Goofy.Web.' + compName
-           ];
+    ];
 }
 
 function copyComponents() {
