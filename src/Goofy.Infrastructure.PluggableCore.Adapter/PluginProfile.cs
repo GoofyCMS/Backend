@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Goofy.Domain.Plugins.Entity;
+using Goofy.Domain.PluggableCore.Entity;
 using Goofy.Application.PluggableCore.DTO;
 
 namespace Goofy.Infrastructure.Plugins.Adapter

@@ -6,7 +6,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Goofy.Domain.Plugins": "1.0.0",
+    "Goofy.Domain.PluggableCore": "1.0.0",
     "Goofy.Infrastructure.Core.Data": "1.0.0"
   },
   "frameworks": {

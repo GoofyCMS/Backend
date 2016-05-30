@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity;
-using Goofy.Domain.Plugins.Entity;
+using Goofy.Domain.PluggableCore.Entity;
 using Goofy.Infrastructure.Core.Data.Service;
 using Goofy.Infrastructure.PluggableCore.Data.Configuration;
 using System;
-using Goofy.Domain.Plugins.Service.Data;
+using Goofy.Domain.PluggableCore.Service.Data;
 
 namespace Goofy.Infrastructure.PluggableCore.Data
 {

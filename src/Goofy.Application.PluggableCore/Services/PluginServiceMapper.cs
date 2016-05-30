@@ -2,7 +2,7 @@
 using Goofy.Application.Core.Service;
 using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Domain.Plugins.Service.Data;
+using Goofy.Domain.PluggableCore.Service.Data;
 
 namespace Goofy.Application.PluggableCore.Services
 {

@@ -1,7 +1,7 @@
 ﻿
 using Goofy.Domain.Core.Entity;
 
-namespace Goofy.Domain.Plugins.Entity
+namespace Goofy.Domain.PluggableCore.Entity
 {
     public class Plugin : BaseEntity
     {

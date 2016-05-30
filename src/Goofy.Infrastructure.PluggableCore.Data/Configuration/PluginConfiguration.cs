@@ -1,4 +1,4 @@
-﻿using Goofy.Domain.Plugins.Entity;
+﻿using Goofy.Domain.PluggableCore.Entity;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Goofy.Infrastructure.PluggableCore.Data.Configuration

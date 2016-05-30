@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Domain.Plugins Class Library",
+  "description": "Goofy.Domain.PluggableCore Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
