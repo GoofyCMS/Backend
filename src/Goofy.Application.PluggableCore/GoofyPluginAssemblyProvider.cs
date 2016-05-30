@@ -2,10 +2,9 @@
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
-using Goofy.Domain.Plugins;
 using Microsoft.Extensions.Logging;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public class GoofyPluginAssemblyProvider : IPluginAssemblyProvider
     {

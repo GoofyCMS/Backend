@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Goofy.Application.Plugins.Abstractions;
+using Goofy.Application.PluggableCore.Abstractions;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public class GoofyEngine : IEngine
     {

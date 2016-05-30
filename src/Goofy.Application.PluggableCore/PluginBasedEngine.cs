@@ -1,16 +1,14 @@
-﻿using Goofy.Application.Core;
-using Goofy.Application.Plugins.Abstractions;
-using Goofy.Application.Plugins.Services;
+﻿using Goofy.Application.PluggableCore.Abstractions;
+using Goofy.Application.PluggableCore.Services;
 using Goofy.Domain.Core;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Domain.Plugins;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public class PluginBasedEngine : GoofyEngine
     {

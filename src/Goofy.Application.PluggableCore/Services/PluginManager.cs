@@ -4,9 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Goofy.Domain.Plugins;
 
-namespace Goofy.Application.Plugins.Services
+namespace Goofy.Application.PluggableCore.Services
 {
     public class PluginManager : IPluginManager
     {

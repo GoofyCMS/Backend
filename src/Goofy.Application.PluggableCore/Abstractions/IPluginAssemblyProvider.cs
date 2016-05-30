@@ -1,6 +1,6 @@
-﻿using Goofy.Application.Plugins.Abstractions;
+﻿using Goofy.Application.PluggableCore.Abstractions;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public interface IPluginAssemblyProvider : IAssemblyProvider_
     {

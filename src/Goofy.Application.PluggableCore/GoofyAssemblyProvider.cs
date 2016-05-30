@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
-using Goofy.Application.Plugins.Abstractions;
+using Goofy.Application.PluggableCore.Abstractions;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public class GoofyAssemblyProvider : IGoofyAssemblyProvider
     {

@@ -4,7 +4,7 @@ using Goofy.Domain.Plugins.Entity;
 using Goofy.Application.Plugins.DTO;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
-using Goofy.Application.Plugins.Services;
+using Goofy.Application.PluggableCore.Services;
 using Goofy.Presentation.PluggableCore.Providers;
 
 namespace Goofy.Presentation.PluggableCore.Controllers

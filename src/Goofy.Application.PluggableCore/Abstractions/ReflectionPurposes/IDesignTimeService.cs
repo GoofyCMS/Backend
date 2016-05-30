@@ -1,5 +1,5 @@
 ﻿
-namespace Goofy.Application.Plugins.Abstractions
+namespace Goofy.Application.PluggableCore.Abstractions
 {
     /*
         Los servicios que implementen esta interfaz serán removidos del

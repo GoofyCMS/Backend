@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Mvc.Infrastructure;
-using Goofy.Application.Plugins;
+using Goofy.Application.PluggableCore;
 
 namespace Goofy.WebFramework.Mvc
 {

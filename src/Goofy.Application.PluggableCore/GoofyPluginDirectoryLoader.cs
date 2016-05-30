@@ -3,13 +3,13 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace Goofy.Application.Plugins
+namespace Goofy.Application.PluggableCore
 {
     public class GoofyPluginDirectoryLoader : IAssemblyLoader
     {
         private readonly IAssemblyLoadContext _assemblyLoadContext;
         private readonly string _pluginDirectoryPath;
-                
+
         public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string componentsDirectoryPath)
         {
             _assemblyLoadContext = assemblyLoadContext;

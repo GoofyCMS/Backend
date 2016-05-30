@@ -1,7 +1,7 @@
-﻿using Goofy.Application.Plugins.Abstractions;
+﻿using Goofy.Application.PluggableCore.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Goofy.Application.Plugins.Extensions
+namespace Goofy.Application.PluggableCore.Extensions
 {
     public static class ServiceCollectionsExtensions
     {

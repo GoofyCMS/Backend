@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Goofy.Application.Plugins.Abstractions
+namespace Goofy.Application.PluggableCore.Abstractions
 {
     public interface IDependencyRegistrar : ISortableTask
     {

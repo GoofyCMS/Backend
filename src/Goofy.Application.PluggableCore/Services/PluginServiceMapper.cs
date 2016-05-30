@@ -4,7 +4,7 @@ using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Plugins.Service.Data;
 
-namespace Goofy.Application.Plugins.Services
+namespace Goofy.Application.PluggableCore.Services
 {
     public class PluginServiceMapper<TEntity, TViewModel> : ServiceMapper<TEntity, TViewModel>
         where TEntity : BaseEntity

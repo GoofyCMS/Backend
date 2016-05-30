@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Goofy.Application.Plugins")]
+[assembly: AssemblyTitle("Goofy.Application.PluggableCore")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Goofy.Application.Plugins")]
+[assembly: AssemblyProduct("Goofy.Application.PluggableCore")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,4 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7c344bbc-b2a0-4d00-836a-3b48e58b2964")]
+[assembly: Guid("5efdc06b-71be-4200-9d5b-96833ad29532")]

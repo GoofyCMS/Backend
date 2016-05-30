@@ -1,5 +1,5 @@
 ﻿
-namespace Goofy.Application.Plugins.Services
+namespace Goofy.Application.PluggableCore.Services
 {
     public class IPluginManager
     {

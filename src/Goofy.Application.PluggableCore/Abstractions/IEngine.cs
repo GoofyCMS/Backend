@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Goofy.Application.Plugins.Abstractions
+namespace Goofy.Application.PluggableCore.Abstractions
 {
     public interface IEngine
     {
