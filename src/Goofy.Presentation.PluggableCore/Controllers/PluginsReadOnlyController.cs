@@ -5,9 +5,9 @@ using Goofy.Application.Plugins.DTO;
 using Goofy.Web.Core.Controllers;
 using Microsoft.AspNet.Mvc;
 using Goofy.Application.Plugins.Services;
-using Goofy.Web.Plugins.Providers;
+using Goofy.Presentation.PluggableCore.Providers;
 
-namespace Goofy.Web.Plugins.Controllers
+namespace Goofy.Presentation.PluggableCore.Controllers
 {
     [Route("plugins")]
     public class PluginsReadOnlyController : BaseReadOnlyController<Plugin, PluginItem, int>

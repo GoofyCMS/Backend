@@ -7,8 +7,8 @@
 
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>f953931a-404e-4008-a989-910591e2d191</ProjectGuid>
-    <RootNamespace>Goofy.Web.Plugins</RootNamespace>
+    <ProjectGuid>3d719581-0a2b-4bd1-acfd-7c41404e2220</ProjectGuid>
+    <RootNamespace>Goofy.Presentation.PluggableCore</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>

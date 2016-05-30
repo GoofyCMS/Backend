@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Hosting;
-using Goofy.Web.Plugins;
+using Goofy.Presentation.PluggableCore;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 

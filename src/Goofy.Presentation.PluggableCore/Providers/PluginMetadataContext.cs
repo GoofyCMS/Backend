@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Goofy.Application.Plugins.DTO;
 
-namespace Goofy.Web.Plugins.Providers
+namespace Goofy.Presentation.PluggableCore.Providers
 {
     public class PluginMetadataContext : DbContext
     {

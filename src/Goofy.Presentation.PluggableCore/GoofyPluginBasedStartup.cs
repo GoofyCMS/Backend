@@ -2,13 +2,13 @@
 using Goofy.Web.Core;
 using Goofy.Application.Plugins.DependencyInjection;
 using Goofy.Application.Core.Extensions;
-using Goofy.Web.Plugins.Extensions;
+using Goofy.Presentation.PluggableCore.Extensions;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Logging;
-using Goofy.Web.Plugins.Providers;
+using Goofy.Presentation.PluggableCore.Providers;
 
-namespace Goofy.Web.Plugins
+namespace Goofy.Presentation.PluggableCore
 {
     public class GoofyPluginBasedStartup : GoofyStartup
     {

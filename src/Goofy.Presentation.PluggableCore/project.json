@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Web.Plugins Class Library",
+  "description": "Goofy.Presentation.PluggableCore Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
@@ -9,12 +9,7 @@
     "Goofy.Web.Core": "1.0.0",
     "Goofy.Application.Plugins": "1.0.0"
   },
-
   "frameworks": {
-    "net451": {
-      "frameworkAssemblies": {
-        "System.Runtime": ""
-      }
-    }
+    "net451": { }
   }
 }

@@ -3,7 +3,7 @@ using Goofy.Infrastructure.Plugins.Data;
 using Goofy.Web.Core.Providers;
 using System;
 
-namespace Goofy.Web.Plugins.Providers
+namespace Goofy.Presentation.PluggableCore.Providers
 {
     public class PluginContextProvider : BaseContextProvider<PluginMetadataContext>
     {

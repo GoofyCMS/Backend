@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNet.Mvc;
 using Goofy.Web.Core.Controllers;
-using Goofy.Web.Plugins.Providers;
+using Goofy.Presentation.PluggableCore.Providers;
 
-namespace Goofy.Web.Plugins.Controllers
+namespace Goofy.Presentation.PluggableCore.Controllers
 {
     [Route("api/plugins")]
     public class PluginsMetadataController : BaseMetadataController
