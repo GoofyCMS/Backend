@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Goofy.Application.Plugins.DTO
+namespace Goofy.Application.PluggableCore.DTO
 {
     public class PluginItem
     {

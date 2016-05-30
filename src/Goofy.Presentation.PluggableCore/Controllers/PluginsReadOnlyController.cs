@@ -1,7 +1,5 @@
-﻿using Breeze.ContextProvider;
-using Goofy.Domain.Core.Service.Adapter;
-using Goofy.Domain.Plugins.Entity;
-using Goofy.Application.Plugins.DTO;
+﻿using Goofy.Domain.Plugins.Entity;
+using Goofy.Application.PluggableCore.DTO;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
 using Goofy.Application.PluggableCore.Services;

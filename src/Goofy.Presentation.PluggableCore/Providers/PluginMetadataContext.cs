@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Goofy.Application.Plugins.DTO;
+using Goofy.Application.PluggableCore.DTO;
 
 namespace Goofy.Presentation.PluggableCore.Providers
 {

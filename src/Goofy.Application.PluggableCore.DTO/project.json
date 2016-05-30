@@ -1,12 +1,11 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Application.Plugins.DTO Class Library",
+  "description": "Goofy.Application.PluggableCore.DTO Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
-  "dependencies": {
-  },
+
   "frameworks": {
     "net451": {
       "frameworkAssemblies": {

@@ -10,7 +10,7 @@
     "Goofy.Infrastructure.Plugins.Adapter": "1.0.0",
     "Goofy.Infrastructure.Plugins.Data": "1.0.0",
     "Goofy.Application.Core": "1.0.0",
-    "Goofy.Application.Plugins.DTO": "1.0.0"
+    "Goofy.Application.PluggableCore.DTO": "1.0.0"
   },
   "frameworks": {
     "net451": {
