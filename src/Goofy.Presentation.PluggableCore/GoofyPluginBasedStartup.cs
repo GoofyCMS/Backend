@@ -7,6 +7,9 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Logging;
 using Goofy.Presentation.PluggableCore.Providers;
 using Goofy.Application.PluggableCore.Extensions;
+using Microsoft.AspNet.Builder;
+using Goofy.Security.UserModel;
+using Goofy.Security.DependencyInjection;
 
 namespace Goofy.Presentation.PluggableCore
 {
@@ -21,9 +24,15 @@ namespace Goofy.Presentation.PluggableCore
         {
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddPluggableCore();
+            services.AddSecurity();
             services.AddSingleton<PluginContextProvider>();
             services.AddMvcServices();
             services.StartEngine();
+        }
+
+        public void Configure(IApplicationBuilder builder)
+        {
+            builder.UseIdentity();
         }
     }
 }
