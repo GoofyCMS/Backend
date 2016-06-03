@@ -11,11 +11,7 @@ paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
-                  //'Goofy.Application.Plugins',
-                  //'Goofy.Application.Plugins.DTO',
-                  //'Goofy.Domain.Plugins',
-                  //'Goofy.Infrastructure.Plugins.Adapter',
-                  //'Goofy.Infrastructure.Plugins.Data'
+    "Blog"
 ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];
