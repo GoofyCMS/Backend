@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core.Service.Adapter;
 
-namespace Goofy.Infrastructure.Core.Adapter.DependencyInjection
+namespace Goofy.Infrastructure.Core.Adapter.Extensions
 {
     public static class CoreAdapterServiceCollectionExtensions
     {

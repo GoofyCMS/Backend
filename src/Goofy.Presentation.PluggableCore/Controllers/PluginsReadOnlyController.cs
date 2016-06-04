@@ -2,15 +2,15 @@
 using Goofy.Application.PluggableCore.DTO;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
-using Goofy.Application.PluggableCore.Services;
 using Goofy.Presentation.PluggableCore.Providers;
+using Goofy.Domain.PluggableCore.Service.Adapter;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
 {
     [Route("plugins")]
     public class PluginsReadOnlyController : BaseReadOnlyController<Plugin, PluginItem, int>
     {
-        public PluginsReadOnlyController(PluginServiceMapper<Plugin, PluginItem> service, PluginContextProvider provider)
+        public PluginsReadOnlyController(IPluginServiceMapper<Plugin, PluginItem> service, PluginContextProvider provider)
             : base(service, provider)
         {
         }

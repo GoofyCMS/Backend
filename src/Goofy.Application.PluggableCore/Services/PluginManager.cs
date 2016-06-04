@@ -50,6 +50,15 @@ namespace Goofy.Application.PluggableCore.Services
             }
         }
 
+        public IEnumerable<Assembly> GetPluginAssembly
+        {
+            get
+            {
+                return _pluginAssemblyProvider.GetAssemblies;
+            }
+        }
+
+
         public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
         {
             return _plugins.Values.SelectMany(assemblies => assemblies.Where(ass => Regex.IsMatch(ass.GetName().Name, GetPattern(layer))));
@@ -67,7 +76,7 @@ namespace Goofy.Application.PluggableCore.Services
             }
         }
 
-        public void Install(int pluginId) { }
-        public void Uninstall(int pluginId) { }
+        public void Unable(int pluginId) { }
+        public void Disable(int pluginId) { }
     }
 }

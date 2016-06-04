@@ -30,9 +30,12 @@ namespace Goofy.Presentation.PluggableCore
             services.StartEngine();
         }
 
-        public void Configure(IApplicationBuilder builder)
+        public override void Configure(IApplicationBuilder builder, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            builder.UseIdentity();
+            if (!env.IsDevelopment())   
+            {
+                builder.UseIdentity();
+            }
         }
     }
 }

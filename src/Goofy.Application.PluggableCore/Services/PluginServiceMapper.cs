@@ -3,10 +3,11 @@ using Goofy.Application.Core.Service;
 using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.PluggableCore.Service.Data;
+using Goofy.Domain.PluggableCore.Service.Adapter;
 
 namespace Goofy.Application.PluggableCore.Services
 {
-    public class PluginServiceMapper<TEntity, TViewModel> : ServiceMapper<TEntity, TViewModel>
+    public class PluginServiceMapper<TEntity, TViewModel> : ServiceMapper<TEntity, TViewModel>, IPluginServiceMapper<TEntity, TViewModel>
         where TEntity : BaseEntity
         where TViewModel : class
     {

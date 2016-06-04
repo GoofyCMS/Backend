@@ -10,15 +10,15 @@ namespace Goofy.Application.PluggableCore
         private readonly IAssemblyLoadContext _assemblyLoadContext;
         private readonly string _pluginDirectoryPath;
 
-        public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string componentsDirectoryPath)
+        public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string pluginDirectoryPath)
         {
             _assemblyLoadContext = assemblyLoadContext;
-            _pluginDirectoryPath = componentsDirectoryPath;
+            _pluginDirectoryPath = pluginDirectoryPath;
         }
 
         public Assembly Load(AssemblyName assemblyName)
         {
-            return _assemblyLoadContext.LoadFile(Path.Combine(_pluginDirectoryPath, assemblyName.Name + ".dll"));
+            return _assemblyLoadContext.LoadFile(Path.Combine(_pluginDirectoryPath, "Blog", assemblyName.Name + ".dll"));
         }
 
         public IntPtr LoadUnmanagedLibrary(string name)

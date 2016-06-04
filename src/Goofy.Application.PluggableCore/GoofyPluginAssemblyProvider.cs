@@ -59,9 +59,9 @@ namespace Goofy.Application.PluggableCore
             if (Directory.Exists(PluginsDirectoryPath))
             {
                 var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
-                foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
+                using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, PluginsDirectoryPath)))
                 {
-                    using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, pluginFolder)))
+                    foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
                     {
                         foreach (var dll in Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly))
                         {

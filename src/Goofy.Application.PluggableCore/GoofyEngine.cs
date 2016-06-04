@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using Goofy.Infrastructure.Core.Adapter.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Goofy.Application.PluggableCore.Abstractions;
+using System.Collections.Generic;
+using Goofy.Infrastructure.Core.Adapter.Extensions;
 
 namespace Goofy.Application.PluggableCore
 {
@@ -13,7 +13,6 @@ namespace Goofy.Application.PluggableCore
     {
         protected IServiceCollection Services { get; private set; }
         protected IGoofyAssemblyProvider CoreAssembliesProvider { get; private set; }
-
         //protected GoofyCoreConfiguration _goofyCoreConfiguration;
 
         private readonly ILogger<GoofyEngine> _logger;
@@ -49,7 +48,7 @@ namespace Goofy.Application.PluggableCore
             //Correr tareas de inicio provistas por otros ensamblados(propios o de 3ros)
             //if (GoofyCoreConfiguration.RunStartupTasks)
             //{
-            RunStartupTasks();
+            //RunStartupTasks();
             //}
 
             // Eliminar servicios IDesignTimeService del contenedor de dependencias
@@ -57,22 +56,8 @@ namespace Goofy.Application.PluggableCore
         }
 
 
-        private void ExecActionForeachSortableType<T>(Action<T> action) where T : ISortableTask
-        {
-            /* 
-               TODO: FIX THIS
-           */
-            //var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
-            //                                       .Select(t => (T)ActivatorUtilities.CreateInstance(_services.BuildServiceProvider(), t));
-            //var assemblers = depAssemblerTypes.OrderBy(s => s.Order);
-            //foreach (var depAssembler in assemblers)
-            //{
-            //    action(depAssembler);
-            //}
-        }
-
-        private void ExecActionForeachType<T>(Action<T> action)
-        {
+        //private void ExecActionForeachType<T>(Action<T> action)
+        //{
             /* 
                 TODO: FIX THIS
             */
@@ -82,7 +67,7 @@ namespace Goofy.Application.PluggableCore
             //{
             //    action(depAssembler);
             //}
-        }
+        //}
 
         //protected virtual void RegisterDependencies()
         //    => ExecActionForeachSortableType<IDependencyRegistrar>(d =>
@@ -92,16 +77,26 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual void RegisterDependencies()
         {
+            RegisterAdapterServices();
         }
 
-        protected void RegisterAdapterServices(IEnumerable<Assembly> assemblies)
+        protected virtual void RegisterAdapterServices()
+        {
+            RegisterAdapterServices(CoreAssembliesProvider.GetAssemblies.Where(ass => ass.GetName().Name == "Goofy.Infrastructure.Plugins.Adapter").Concat(GetdditionalAdapterAssemblies()));
+        }
+
+        private void RegisterAdapterServices(IEnumerable<Assembly> assemblies)
         {
             Services.AddTypeAdpaterServices(assemblies);
         }
 
+        protected virtual IEnumerable<Assembly> GetdditionalAdapterAssemblies()
+        {
+            return new Assembly[] { };
+        }
 
-        protected virtual void RunStartupTasks()
-            => ExecActionForeachSortableType<IRunAtStartup>(startupTask => startupTask.Run());
+        //protected virtual void RunStartupTasks()
+        //    => ExecActionForeachSortableType<IRunAtStartup>(startupTask => startupTask.Run());
 
         protected virtual void RemoveDesignTimeServices()
         {
