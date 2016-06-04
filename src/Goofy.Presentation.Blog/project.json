@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Presentation.Blog Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Goofy.Application.Blog": "1.0.0",
+    "Goofy.Application.Blog.DTO": "1.0.0",
+    "Goofy.Presentation.Core": "1.0.0"
+  },
+  "frameworks": {
+    "net451": { }
+  }
+}
