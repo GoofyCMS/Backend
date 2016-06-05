@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Reflection;
 using System;
+using System.Linq;
 
 namespace Goofy.Application.PluggableCore
 {
@@ -37,6 +38,13 @@ namespace Goofy.Application.PluggableCore
             {
                 var dependencyRegistrarClass = (IDependencyRegistrar)Activator.CreateInstance(registrarClass);
                 dependencyRegistrarClass.ConfigureServices(Services);
+            }
+
+            //AddExtraDependencies
+            foreach (var dependenciesAdder in Services.Where(s => s.ServiceType != null && s.ServiceType == typeof(PluginDependenciesAdder)).Select(s => s.ImplementationType).ToArray())
+            {
+                var dependenciesAdderInstance = (PluginDependenciesAdder)Activator.CreateInstance(dependenciesAdder);
+                dependenciesAdderInstance.AddPluginExtraDependencies(Services, _pluginManager);
             }
         }
 

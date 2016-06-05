@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Goofy.Application.PluggableCore.Abstractions;
 
 namespace Goofy.Application.PluggableCore.Services
 {
@@ -11,11 +12,9 @@ namespace Goofy.Application.PluggableCore.Services
     {
         private Dictionary<string, IEnumerable<Assembly>> _plugins;
 
-        private readonly IPluginAssemblyProvider _pluginAssemblyProvider;
-
         public PluginManager(IPluginAssemblyProvider pluginAssemblyProvider)
         {
-            _pluginAssemblyProvider = pluginAssemblyProvider;
+            PluginAssemblyProvider = pluginAssemblyProvider;
             StartPluginsConfiguration();
         }
 
@@ -23,15 +22,15 @@ namespace Goofy.Application.PluggableCore.Services
         {
             _plugins = new Dictionary<string, IEnumerable<Assembly>>();
 
-            if (Directory.Exists(_pluginAssemblyProvider.PluginsDirectoryPath))
+            if (Directory.Exists(PluginAssemblyProvider.PluginsDirectoryPath))
             {
-                foreach (var pluginFolder in Directory.EnumerateDirectories(_pluginAssemblyProvider.PluginsDirectoryPath))
+                foreach (var pluginFolder in Directory.EnumerateDirectories(PluginAssemblyProvider.PluginsDirectoryPath))
                 {
                     var dlls = Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly)
                                         .Select(Path.GetFileNameWithoutExtension);
 
                     _plugins.Add(Path.GetDirectoryName(pluginFolder),
-                                _pluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
+                                PluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
                 }
             }
         }
@@ -46,7 +45,7 @@ namespace Goofy.Application.PluggableCore.Services
                     return "Goofy.Infrastructure.*";
                 case AppLayer.Application:
                     return "Goofy.Application.*";
-                default: return "Goofy.Web.*";
+                default: return "Goofy.Presentation.*";
             }
         }
 
@@ -54,10 +53,15 @@ namespace Goofy.Application.PluggableCore.Services
         {
             get
             {
-                return _pluginAssemblyProvider.GetAssemblies;
+                return PluginAssemblyProvider.GetAssemblies;
             }
         }
 
+        public IPluginAssemblyProvider PluginAssemblyProvider
+        {
+            get;
+            private set;
+        }
 
         public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
         {

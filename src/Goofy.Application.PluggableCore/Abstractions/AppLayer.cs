@@ -1,5 +1,5 @@
 ﻿
-namespace Goofy.Application.PluggableCore.Services
+namespace Goofy.Application.PluggableCore.Abstractions
 {
     public enum AppLayer
     {

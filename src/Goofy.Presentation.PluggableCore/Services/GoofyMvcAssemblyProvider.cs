@@ -4,23 +4,23 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Mvc.Infrastructure;
-using Goofy.Application.PluggableCore;
+using Goofy.Application.PluggableCore.Abstractions;
 
 namespace Goofy.WebFramework.Mvc
 {
     public class GoofyMvcAssemblyProvider : DefaultAssemblyProvider
     {
-        private readonly IPluginAssemblyProvider _pluginAssemblyProvider;
+        private readonly IPluginManager _pluginManager;
         private readonly string[] _referenceAssemblies;
 
         public GoofyMvcAssemblyProvider(
                                          ILibraryManager libraryManager,
-                                         IPluginAssemblyProvider pluginAssemblyProvider,
+                                         IPluginManager pluginManager,
                                          string[] referenceAssemblies = null
                                         )
             : base(libraryManager)
         {
-            _pluginAssemblyProvider = pluginAssemblyProvider;
+            _pluginManager = pluginManager;
             _referenceAssemblies = referenceAssemblies;
         }
 
@@ -31,7 +31,7 @@ namespace Goofy.WebFramework.Mvc
 
         protected override IEnumerable<Library> GetCandidateLibraries()
         {
-            return _pluginAssemblyProvider.GetAssemblies.Concat(new[] { GetType().Assembly }).Select(
+            return _pluginManager.GetAssembliesPerLayer(AppLayer.Presentation).Concat(new[] { GetType().Assembly }).Select(
                     x => new Library(x.FullName, null, null, null, Enumerable.Empty<string>(),
                         new[] { new AssemblyName(x.FullName) }));
         }
@@ -39,7 +39,7 @@ namespace Goofy.WebFramework.Mvc
         private string PluginPath(Assembly assembly)
         {
             var assemblyName = assembly.GetName().Name;
-            return Path.Combine(_pluginAssemblyProvider.PluginsDirectoryPath, assemblyName, assemblyName + ".dll");
+            return Path.Combine(_pluginManager.PluginAssemblyProvider.PluginsDirectoryPath, assemblyName, assemblyName + ".dll");
         }
     }
 }

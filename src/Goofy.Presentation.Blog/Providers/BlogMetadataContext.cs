@@ -11,6 +11,6 @@ namespace Goofy.Presentation.Blog.Providers
             Database.SetInitializer<BlogMetadataContext>(null);
         }
 
-        public virtual IDbSet<ArticleItem> Plugins { get; set; }
+        public virtual IDbSet<ArticleItem> Articles { get; set; }
     }
 }

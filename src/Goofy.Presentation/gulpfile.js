@@ -43,7 +43,7 @@ function candidateAssemblies(compName) {
                 'Goofy.Application.' + compName + '.DTO',
                 'Goofy.Infrastructure.' + compName + '.Adapter',
                 'Goofy.Infrastructure.' + compName + '.Data',
-                'Goofy.Web.' + compName
+                'Goofy.Presentation.' + compName
     ];
 }
 

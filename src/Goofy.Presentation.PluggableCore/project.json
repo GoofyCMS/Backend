@@ -8,7 +8,8 @@
   "dependencies": {
     "Goofy.Presentation.Core": "1.0.0",
     "Goofy.Application.PluggableCore": "1.0.0",
-    "Goofy.Security": "1.0.0"
+    "Goofy.Security": "1.0.0",
+    "Microsoft.AspNet.Cors": "6.0.0-rc1-final"
   },
   "frameworks": {
     "net451": { }

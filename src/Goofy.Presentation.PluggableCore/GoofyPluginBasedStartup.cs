@@ -25,14 +25,14 @@ namespace Goofy.Presentation.PluggableCore
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddPluggableCore();
             services.AddSecurity();
-            services.AddSingleton<PluginContextProvider>();
             services.AddMvcServices();
             services.StartEngine();
         }
 
         public override void Configure(IApplicationBuilder builder, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (!env.IsDevelopment())   
+            base.Configure(builder, env, loggerFactory);
+            if (!env.IsDevelopment())
             {
                 builder.UseIdentity();
             }

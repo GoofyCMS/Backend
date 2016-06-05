@@ -58,15 +58,15 @@ namespace Goofy.Application.PluggableCore
 
         //private void ExecActionForeachType<T>(Action<T> action)
         //{
-            /* 
-                TODO: FIX THIS
-            */
-            //var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
-            //                                       .Select(t => (T)ActivatorUtilities.CreateInstance(_services.BuildServiceProvider(), t));
-            //foreach (var depAssembler in depAssemblerTypes)
-            //{
-            //    action(depAssembler);
-            //}
+        /* 
+            TODO: FIX THIS
+        */
+        //var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
+        //                                       .Select(t => (T)ActivatorUtilities.CreateInstance(_services.BuildServiceProvider(), t));
+        //foreach (var depAssembler in depAssemblerTypes)
+        //{
+        //    action(depAssembler);
+        //}
         //}
 
         //protected virtual void RegisterDependencies()
@@ -92,7 +92,7 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual IEnumerable<Assembly> GetdditionalAdapterAssemblies()
         {
-            return new Assembly[] { };
+            return Enumerable.Empty<Assembly>();
         }
 
         //protected virtual void RunStartupTasks()

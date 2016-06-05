@@ -64,6 +64,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.Blog.DTO"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.Blog", "src\Goofy.Application.Blog\Goofy.Application.Blog.xproj", "{B1D1F626-1282-416D-A228-3169C906355F}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Presentation.Blog", "src\Goofy.Presentation.Blog\Goofy.Presentation.Blog.xproj", "{C976E329-03A6-411B-A237-5F5A4C776CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +148,10 @@ Global
 		{B1D1F626-1282-416D-A228-3169C906355F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D1F626-1282-416D-A228-3169C906355F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1D1F626-1282-416D-A228-3169C906355F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C976E329-03A6-411B-A237-5F5A4C776CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C976E329-03A6-411B-A237-5F5A4C776CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C976E329-03A6-411B-A237-5F5A4C776CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C976E329-03A6-411B-A237-5F5A4C776CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +183,6 @@ Global
 		{4F7F0A36-EE70-4509-B2B3-FC733FC4E322} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{5C415D53-7565-4618-B24C-319AE6F6F5E7} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{B1D1F626-1282-416D-A228-3169C906355F} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
+		{C976E329-03A6-411B-A237-5F5A4C776CEB} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 	EndGlobalSection
 EndGlobal
