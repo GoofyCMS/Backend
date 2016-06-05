@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Goofy.Application.PluggableCore.Abstractions;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.Extensions;
+using Goofy.Application.PluggableCore.Extensions;
 
 namespace Goofy.Application.PluggableCore
 {
@@ -48,32 +49,12 @@ namespace Goofy.Application.PluggableCore
             //Correr tareas de inicio provistas por otros ensamblados(propios o de 3ros)
             //if (GoofyCoreConfiguration.RunStartupTasks)
             //{
-            //RunStartupTasks();
+            RunStartupTasks();
             //}
 
             // Eliminar servicios IDesignTimeService del contenedor de dependencias
             RemoveDesignTimeServices();
         }
-
-
-        //private void ExecActionForeachType<T>(Action<T> action)
-        //{
-        /* 
-            TODO: FIX THIS
-        */
-        //var depAssemblerTypes = _resourcesLoader.FindClassesOfType<T>()
-        //                                       .Select(t => (T)ActivatorUtilities.CreateInstance(_services.BuildServiceProvider(), t));
-        //foreach (var depAssembler in depAssemblerTypes)
-        //{
-        //    action(depAssembler);
-        //}
-        //}
-
-        //protected virtual void RegisterDependencies()
-        //    => ExecActionForeachSortableType<IDependencyRegistrar>(d =>
-        //    {
-        //        d.ConfigureServices(_services);
-        //    });
 
         protected virtual void RegisterDependencies()
         {
@@ -95,8 +76,24 @@ namespace Goofy.Application.PluggableCore
             return Enumerable.Empty<Assembly>();
         }
 
-        //protected virtual void RunStartupTasks()
-        //    => ExecActionForeachSortableType<IRunAtStartup>(startupTask => startupTask.Run());
+        protected virtual void RunStartupTasks()
+        {
+
+            foreach (var startupTaskType in CoreAssembliesProvider.GetAssemblies
+                                                                  .Concat(GetAdditonalStartupAssemblies())
+                                                                  .FindClassesOfType<IRunAtStartup>()
+                                                                  .Select(Activator.CreateInstance)
+                                                                  .Cast<IRunAtStartup>()
+                                                                  .OrderBy(s => s.Order))
+            {
+                startupTaskType.Run();
+            }
+        }
+
+        protected virtual IEnumerable<Assembly> GetAdditonalStartupAssemblies()
+        {
+            return Enumerable.Empty<Assembly>();
+        }
 
         protected virtual void RemoveDesignTimeServices()
         {
