@@ -42,7 +42,7 @@ namespace Goofy.Presentation.Core.Controllers
             return query;
         }
 
-        [HttpGet("pepe")]
+        [HttpGet("")]
         public virtual IActionResult Get(ODataQueryOptions<TViewModel> options = null)
         {
             return Ok(GetQuery(options));
