@@ -1,9 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Linq;
-using System.Linq.Expressions;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Http.OData.Query;
+﻿using System.Linq;
 using Microsoft.AspNet.Mvc;
 using Breeze.ContextProvider;
 using Goofy.Domain.Core.Entity;
@@ -25,27 +20,27 @@ namespace Goofy.Presentation.Core.Controllers
 
         public IServiceMapper<TEntity, TViewModel> Service { get; }
 
-        public virtual IQueryable<TViewModel> GetQuery(ODataQueryOptions<TViewModel> options)
+        public virtual IQueryable<TViewModel> GetQuery(/*ODataQueryOptions<TViewModel> options*/)
         {
             var query = Service.GetAll().AsQueryable();
-            if (options?.OrderBy == null)
-            {
-                var keyProperty =
-                    typeof(TViewModel).GetProperties().Last(e => e.GetCustomAttribute(typeof(KeyAttribute)) != null);
+            //if (options?.OrderBy == null)
+            //{
+            //    var keyProperty =
+            //        typeof(TViewModel).GetProperties().Last(e => e.GetCustomAttribute(typeof(KeyAttribute)) != null);
 
-                var parameter = Expression.Parameter(typeof(TViewModel), "obj");
-                var body = Expression.Property(parameter, keyProperty.Name);
-                var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
+            //    var parameter = Expression.Parameter(typeof(TViewModel), "obj");
+            //    var body = Expression.Property(parameter, keyProperty.Name);
+            //    var exp = Expression.Lambda<Func<TViewModel, TKey>>(body, parameter);
 
-                query = query.OrderBy(exp);
-            }
+            //    query = query.OrderBy(exp);
+            //}
             return query;
         }
 
         [HttpGet("")]
-        public virtual IActionResult Get(ODataQueryOptions<TViewModel> options = null)
+        public virtual IActionResult Get(/*ODataQueryOptions<TViewModel> options = null*/)
         {
-            return Ok(GetQuery(options));
+            return Ok(GetQuery(/*options*/));
         }
     }
 }
