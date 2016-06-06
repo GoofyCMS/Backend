@@ -29,7 +29,7 @@ namespace Goofy.Application.PluggableCore.Services
                     var dlls = Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly)
                                         .Select(Path.GetFileNameWithoutExtension);
 
-                    _plugins.Add(Path.GetDirectoryName(pluginFolder),
+                    _plugins.Add(new DirectoryInfo(pluginFolder).Name,
                                 PluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
                 }
             }
@@ -61,6 +61,14 @@ namespace Goofy.Application.PluggableCore.Services
         {
             get;
             private set;
+        }
+
+        public IEnumerable<string> GetPlugins
+        {
+            get
+            {
+                return _plugins.Keys;
+            }
         }
 
         public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)

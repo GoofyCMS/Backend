@@ -78,11 +78,11 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual void RunStartupTasks()
         {
-
+            var serviceProvider = Services.BuildServiceProvider();
             foreach (var startupTaskType in CoreAssembliesProvider.GetAssemblies
                                                                   .Concat(GetAdditonalStartupAssemblies())
                                                                   .FindClassesOfType<IRunAtStartup>()
-                                                                  .Select(Activator.CreateInstance)
+                                                                  .Select(taskType => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, taskType))
                                                                   .Cast<IRunAtStartup>()
                                                                   .OrderBy(s => s.Order))
             {
