@@ -12,6 +12,7 @@ namespace Goofy.Infrastructure.PluggableCore.Data
         public PluginsContext(string connectionString)
             : base(connectionString)
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<PluginsContext>());
             Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = true;
         }

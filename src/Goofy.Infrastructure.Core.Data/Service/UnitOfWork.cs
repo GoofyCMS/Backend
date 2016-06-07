@@ -3,22 +3,30 @@ using System.Data.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Infrastructure.Core.Data.Configuration;
-using Microsoft.Extensions.OptionsModel;
-using Microsoft.Extensions.DependencyInjection;
+using Goofy.Infrastructure.Core.Data.Utils;
 
 namespace Goofy.Infrastructure.Core.Data.Service
 {
-    /// <summary>
+    /// <summary>   
     ///     Contract for UnitOfWork pattern.
     /// </summary>
+    /// 
     public abstract class UnitOfWork : DbContext, IUnitOfWork
     {
         public UnitOfWork(string connectionString)
             : base(connectionString)
         {
+            SetNullInitializer();
             Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }
+
+        private void SetNullInitializer()
+        {
+            var nullInitiliazerType = typeof(SetNullTableInitializer<>).MakeGenericType(GetType());
+            dynamic nullInitializer = Activator.CreateInstance(nullInitiliazerType);
+            nullInitializer.Exec();
+        }
+
         string GetConnectionString() { return ""; }
 
         /// <summary>

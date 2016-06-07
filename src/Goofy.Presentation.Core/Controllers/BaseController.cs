@@ -9,12 +9,10 @@ namespace Goofy.Presentation.Core.Controllers
     public class BaseController<TEntity, TViewModel, TKey> : BaseReadOnlyController<TEntity, TViewModel, TKey>
         where TEntity : BaseEntity where TViewModel : class
     {
-        private readonly IServiceMapper<TEntity, TViewModel> _serviceMapper;
 
         public BaseController(IServiceMapper<TEntity, TViewModel> serviceMapper, ContextProvider provider)
             : base(serviceMapper, provider)
         {
-            _serviceMapper = serviceMapper;
         }
 
         [Route("save")]

@@ -63,7 +63,12 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual void RegisterAdapterServices()
         {
-            RegisterAdapterServices(CoreAssembliesProvider.GetAssemblies.Where(ass => ass.GetName().Name == "Goofy.Infrastructure.Plugins.Adapter").Concat(GetdditionalAdapterAssemblies()));
+            RegisterAdapterServices(CoreAssembliesProvider.GetAssemblies.Where(IsAdapterAssembly).Concat(GetdditionalAdapterAssemblies()));
+        }
+        private bool IsAdapterAssembly(Assembly assembly)
+        {
+            var assemblyName = assembly.GetName().Name;
+            return assemblyName.StartsWith("Goofy.Infrastructure.") && assemblyName.EndsWith(".Adapter");
         }
 
         private void RegisterAdapterServices(IEnumerable<Assembly> assemblies)

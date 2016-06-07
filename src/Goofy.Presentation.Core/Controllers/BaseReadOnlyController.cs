@@ -12,17 +12,17 @@ namespace Goofy.Presentation.Core.Controllers
     {
         protected readonly ContextProvider Provider;
 
-        protected BaseReadOnlyController(IServiceMapper<TEntity, TViewModel> service, ContextProvider provider)
+        protected BaseReadOnlyController(IServiceMapper<TEntity, TViewModel> serviceMapper, ContextProvider provider)
         {
-            Service = service;
+            ServiceMapper = serviceMapper;
             Provider = provider;
         }
 
-        public IServiceMapper<TEntity, TViewModel> Service { get; }
+        public IServiceMapper<TEntity, TViewModel> ServiceMapper { get; }
 
         public virtual IQueryable<TViewModel> GetQuery(/*ODataQueryOptions<TViewModel> options*/)
         {
-            var query = Service.GetAll().AsQueryable();
+            var query = ServiceMapper.GetAll().AsQueryable();
             //if (options?.OrderBy == null)
             //{
             //    var keyProperty =
