@@ -40,7 +40,7 @@ namespace Goofy.Application.PluggableCore
                 if (unitOfWorkType != null)
                 {
                     var unitOfWork = (IUnitOfWork)_services.GetRequiredService(unitOfWorkType);
-                    if (plugin.Installed)
+                    if (plugin.Enabled)
                     {
                         //create tables if not exist
                         unitOfWork.CreateTablesIfNotExist();

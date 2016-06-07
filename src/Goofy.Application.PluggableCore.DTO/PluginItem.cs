@@ -7,6 +7,6 @@ namespace Goofy.Application.PluggableCore.DTO
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool Installed { get; set; }
+        public bool Enabled { get; set; }
     }
 }

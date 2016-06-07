@@ -33,7 +33,7 @@ namespace Goofy.Infrastructure.PluggableCore.Data
             {
                 if (!currentPlugins.Where(p => p.Name == loadedPlugin).Any())
                 {
-                    pluginsRepository.Add(new Plugin { Name = loadedPlugin, Installed = false });
+                    pluginsRepository.Add(new Plugin { Name = loadedPlugin, Enabled = false });
                 }
             }
             _pluginsContext.SaveChanges();

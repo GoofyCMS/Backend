@@ -10,5 +10,7 @@ namespace Goofy.Application.PluggableCore.Abstractions
         IEnumerable<Assembly> GetPluginAssembly { get; }
         IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer);
         IEnumerable<Assembly> GetAssembliesByPluginName(string pluginName);
+        PluginEnabledDisabledResult Enable(int pluginId);
+        PluginEnabledDisabledResult Disable(int pluginId);
     }
 }
