@@ -7,7 +7,8 @@
   "licenseUrl": "",
   "dependencies": {
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
+    "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+    "Microsoft.AspNet.Identity.EntityFramework6": "3.0.0"
   },
   "frameworks": {
     "net451": { }

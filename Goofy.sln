@@ -68,6 +68,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Presentation.Blog", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.PluggableCore.Abstractions", "src\Goofy.Application.PluggableCore.Abstractions\Goofy.Application.PluggableCore.Abstractions.xproj", "{552C7396-42F4-4202-98D3-55016E0BD6D9}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.AspNet.Identity.EntityFramework6", "src\Microsoft.AspNet.Identity.EntityFramework6\Microsoft.AspNet.Identity.EntityFramework6.xproj", "{7713A205-86EC-4282-AE8B-47376E3D23E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +160,10 @@ Global
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,5 +197,6 @@ Global
 		{B1D1F626-1282-416D-A228-3169C906355F} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{C976E329-03A6-411B-A237-5F5A4C776CEB} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{552C7396-42F4-4202-98D3-55016E0BD6D9} = {7C058438-69B3-4EA7-9F3A-14A88C48DF26}
+		{7713A205-86EC-4282-AE8B-47376E3D23E1} = {AB61EB72-D085-4A14-844A-6AC0575D0B23}
 	EndGlobalSection
 EndGlobal
