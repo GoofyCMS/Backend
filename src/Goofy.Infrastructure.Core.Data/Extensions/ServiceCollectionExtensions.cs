@@ -54,6 +54,7 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
                        var dataAccessConfig = s.GetRequiredService<IOptions<DataAccessConfiguration>>();
                        return ActivatorUtilities.CreateInstance(s, unitOfWorkObjectType, new object[] { dataAccessConfig.Value.ConnectionString });
                    });
+                services.AddUnitOfWork(unitOfWorkObjectType);
             }
             else
             {

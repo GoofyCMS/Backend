@@ -4,14 +4,14 @@ using Goofy.Application.Blog.DTO;
 using Goofy.Presentation.Blog.Providers;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
-
+using Goofy.Domain.Blog.Service.Adapter;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
     [Route("api/article/ArticleItems")]
     public class BlogController : BaseController<Article, ArticleItem, int>
     {
-        public BlogController(BlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)
+        public BlogController(IBlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)
             : base(serviceMapper, provider)
         {
         }
