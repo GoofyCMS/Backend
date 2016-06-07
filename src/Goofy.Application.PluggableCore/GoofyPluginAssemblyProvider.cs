@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 
 namespace Goofy.Application.PluggableCore
 {
@@ -12,7 +14,7 @@ namespace Goofy.Application.PluggableCore
         private readonly IAssemblyLoaderContainer _assemblyLoaderContainer;
         private readonly IAssemblyLoadContextAccessor _assemblyLoadContextAccessor;
         private readonly ILogger<GoofyPluginAssemblyProvider> _logger;
-        private List<Assembly> _componentsAssemblies;
+        private IDictionary<string, IEnumerable<Assembly>> _pluginAssemblies;
 
         protected string _pluginDirectoryName = "plugins";
 
@@ -44,30 +46,44 @@ namespace Goofy.Application.PluggableCore
         {
             get
             {
-                if (_componentsAssemblies == null)
+                if (_pluginAssemblies == null)
                 {
                     LoadAssemblies();
                 }
-                return _componentsAssemblies;
+                return _pluginAssemblies.Values.SelectMany(vls => vls);
+            }
+        }
+
+        public IDictionary<string, IEnumerable<Assembly>> PluginAssemblies
+        {
+            get
+            {
+                if (_pluginAssemblies == null)
+                {
+                    LoadAssemblies();
+                }
+                return _pluginAssemblies;
             }
         }
 
         protected void LoadAssemblies()
         {
-            _componentsAssemblies = new List<Assembly>();
-
+            _pluginAssemblies = new Dictionary<string, IEnumerable<Assembly>>();
             if (Directory.Exists(PluginsDirectoryPath))
             {
                 var assemblyLoadContext = _assemblyLoadContextAccessor.Default;
                 using (_assemblyLoaderContainer.AddLoader(new GoofyPluginDirectoryLoader(assemblyLoadContext, PluginsDirectoryPath)))
                 {
+                    List<Assembly> assembliesPerPlugin;
                     foreach (var pluginFolder in Directory.EnumerateDirectories(PluginsDirectoryPath))
                     {
+                        assembliesPerPlugin = new List<Assembly>();
                         foreach (var dll in Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly))
                         {
                             var dllName = Path.GetFileNameWithoutExtension(dll);
-                            _componentsAssemblies.Add(assemblyLoadContext.Load(dllName));
+                            assembliesPerPlugin.Add(assemblyLoadContext.Load(dllName));
                         }
+                        _pluginAssemblies.Add(new DirectoryInfo(pluginFolder).Name, assembliesPerPlugin);
                     }
                 }
             }

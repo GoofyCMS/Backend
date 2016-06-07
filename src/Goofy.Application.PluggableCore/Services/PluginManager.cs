@@ -9,13 +9,14 @@ using Goofy.Domain.PluggableCore.Service.Data;
 using Goofy.Domain.PluggableCore.Entity;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Core;
+using Goofy.Domain.PluggableCore.Extensions;
 using Goofy.Infrastructure.Core.Data.Utils;
 
 namespace Goofy.Application.PluggableCore.Services
 {
     public class PluginManager : IPluginManager
     {
-        private Dictionary<string, IEnumerable<Assembly>> _plugins;
+        //private IDictionary<string, IEnumerable<Assembly>> _plugins;
         private readonly IRepository<Plugin> _pluginRepository;
         private readonly IServiceProvider _services;
 
@@ -23,28 +24,11 @@ namespace Goofy.Application.PluggableCore.Services
         {
 
             PluginAssemblyProvider = pluginAssemblyProvider;
-            StartPluginsConfiguration();
             PluginContext = pluginContext;
             _pluginRepository = PluginContext.Set<Plugin>();
             _services = services;
         }
 
-        void StartPluginsConfiguration()
-        {
-            _plugins = new Dictionary<string, IEnumerable<Assembly>>();
-
-            if (Directory.Exists(PluginAssemblyProvider.PluginsDirectoryPath))
-            {
-                foreach (var pluginFolder in Directory.EnumerateDirectories(PluginAssemblyProvider.PluginsDirectoryPath))
-                {
-                    var dlls = Directory.EnumerateFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly)
-                                        .Select(Path.GetFileNameWithoutExtension);
-
-                    _plugins.Add(new DirectoryInfo(pluginFolder).Name,
-                                PluginAssemblyProvider.GetAssemblies.Where(ass => dlls.Contains(ass.GetName().Name)).ToArray());
-                }
-            }
-        }
 
         string GetPattern(AppLayer layer)
         {
@@ -60,25 +44,17 @@ namespace Goofy.Application.PluggableCore.Services
             }
         }
 
-        public IEnumerable<Assembly> GetPluginAssembly
-        {
-            get
-            {
-                return PluginAssemblyProvider.GetAssemblies;
-            }
-        }
-
         public IPluginAssemblyProvider PluginAssemblyProvider
         {
             get;
             private set;
         }
 
-        public IEnumerable<string> GetPlugins
+        public IRepository<Plugin> Plugins
         {
             get
             {
-                return _plugins.Keys;
+                return _pluginRepository;
             }
         }
 
@@ -86,14 +62,14 @@ namespace Goofy.Application.PluggableCore.Services
 
         public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
         {
-            return _plugins.Values.SelectMany(assemblies => assemblies.Where(ass => Regex.IsMatch(ass.GetName().Name, GetPattern(layer))));
+            return PluginAssemblyProvider.PluginAssemblies.Values.SelectMany(assemblies => assemblies.Where(ass => Regex.IsMatch(ass.GetName().Name, GetPattern(layer))));
         }
 
         public IEnumerable<Assembly> GetAssembliesByPluginName(string pluginName)
         {
             try
             {
-                return _plugins[pluginName];
+                return PluginAssemblyProvider.PluginAssemblies[pluginName];
             }
             catch (KeyNotFoundException)
             {
@@ -103,7 +79,7 @@ namespace Goofy.Application.PluggableCore.Services
 
         public PluginEnabledDisabledResult Enable(int pluginId)
         {
-            var plugin = GetPlugin(pluginId);
+            var plugin = Plugins.GetPluginById(pluginId);
             if (plugin == null)
                 return PluginEnabledDisabledResult.NotFound;
             if (plugin.Enabled)
@@ -119,7 +95,7 @@ namespace Goofy.Application.PluggableCore.Services
 
         public PluginEnabledDisabledResult Disable(int pluginId)
         {
-            var plugin = GetPlugin(pluginId);
+            var plugin = Plugins.GetPluginById(pluginId);
             if (plugin == null)
                 return PluginEnabledDisabledResult.NotFound;
             if (!plugin.Enabled)
@@ -133,10 +109,6 @@ namespace Goofy.Application.PluggableCore.Services
             return PluginEnabledDisabledResult.Ok;
         }
 
-        private Plugin GetPlugin(int pluginId)
-        {
-            return _pluginRepository.Find(pluginId);
-        }
 
         private IUnitOfWork GetUnitOfWork(string pluginName)
         {

@@ -29,7 +29,7 @@ namespace Goofy.Infrastructure.PluggableCore.Data
         {
             var pluginsRepository = _pluginsContext.Set<Plugin>();
             var currentPlugins = pluginsRepository.GetAll().ToArray();
-            foreach (var loadedPlugin in _pluginManager.GetPlugins)
+            foreach (var loadedPlugin in _pluginManager.PluginAssemblyProvider.PluginAssemblies.Keys)
             {
                 if (!currentPlugins.Where(p => p.Name == loadedPlugin).Any())
                 {

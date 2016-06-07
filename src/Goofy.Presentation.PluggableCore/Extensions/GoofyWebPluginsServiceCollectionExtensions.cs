@@ -17,7 +17,8 @@ namespace Goofy.Presentation.PluggableCore.Extensions
             services.AddScoped<PluginContextProvider>();
             services.AddScoped(typeof(PluginDependenciesAdder), typeof(PluginsContextAdder));
             services.AddMvc();
-            services.AddCors(options => 
+
+            services.AddCors(options =>
                              {
                                  options.AddPolicy("AllowNoOne", builder => builder.WithOrigins("http://192.168.1.2:8000")
                                                                                  .AllowAnyHeader()
@@ -37,6 +38,7 @@ namespace Goofy.Presentation.PluggableCore.Extensions
                         provider.GetRequiredService<IPluginManager>()
                         );
                 });
+            services.AddScoped<IActionSelector, GoofyActionSelector>();
         }
     }
 }
