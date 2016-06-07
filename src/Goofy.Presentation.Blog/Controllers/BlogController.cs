@@ -23,11 +23,5 @@ namespace Goofy.Presentation.Blog.Controllers
             return "hola_soy_blog_controller";
         }
 
-        [HttpGet("test_find_repository_method")]
-        public void TestFindRepositoryMethod()
-        {
-            var serviceMapper = ((BaseContextProvider<BlogMetadataContext>)Provider).FindRepository(typeof(ArticleItem));
-
-        }
     }
 }

@@ -158,10 +158,7 @@ namespace Goofy.Presentation.Core.Providers
             }
         }
 
-        /*
-            TODO: FIX THIS
-        */
-        public dynamic FindRepository(Type viewModelType)
+        private dynamic FindRepository(Type viewModelType)
         {
             //preguntar si es seguro que aquí el tipo de origen va a ser uno solo????
             var sourceType = _typeAdapterFactory.GetSourceTypes(viewModelType).FirstOrDefault();
