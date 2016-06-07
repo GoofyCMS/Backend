@@ -1,7 +1,7 @@
 ﻿using Goofy.Application.PluggableCore.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using Goofy.Domain.Blog.Service.Adapter;
 using Goofy.Infrastructure.Blog.Data;
+using Goofy.Infrastructure.Core.Data.Extensions;
 
 namespace Goofy.Application.Blog.DependencyInjection
 {
@@ -19,7 +19,7 @@ namespace Goofy.Application.Blog.DependencyInjection
         {
             //services.AddSingleton<IBlogUnitOfWork, BlogContext>();
             //services.AddSingleton(typeof(IBlogServiceMapper<,>), typeof(BlogServiceMapper<,>));
-            services.AddSingleton<BlogContext>();
+            services.AddUnitOfWork<BlogContext>();
             services.AddSingleton(typeof(BlogServiceMapper<,>));
         }
     }

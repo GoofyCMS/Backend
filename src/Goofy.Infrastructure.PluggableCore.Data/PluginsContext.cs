@@ -9,8 +9,8 @@ namespace Goofy.Infrastructure.PluggableCore.Data
 {
     public class PluginsContext : UnitOfWork, IPluginUnitOfWork
     {
-        public PluginsContext(IServiceProvider services)
-            : base(services)
+        public PluginsContext(string connectionString)
+            : base(connectionString)
         {
             Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = true;

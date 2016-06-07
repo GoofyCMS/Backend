@@ -1,14 +1,15 @@
-﻿using Goofy.Domain.Core.Service.Adapter;
-using Goofy.Infrastructure.PluggableCore.Data;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Presentation.Core.Providers;
-using System;
+using Goofy.Domain.PluggableCore.Service.Data;
 
 namespace Goofy.Presentation.PluggableCore.Providers
 {
     public class PluginContextProvider : BaseContextProvider<PluginMetadataContext>
     {
         public PluginContextProvider(IServiceProvider services, ITypeAdapterFactory typeAdapterFactory)
-            : base(new PluginsContext(services), typeAdapterFactory)
+            : base(services.GetRequiredService<IPluginUnitOfWork>(), typeAdapterFactory)
         {
         }
     }

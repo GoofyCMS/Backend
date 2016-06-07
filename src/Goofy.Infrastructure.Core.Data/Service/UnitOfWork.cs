@@ -14,8 +14,8 @@ namespace Goofy.Infrastructure.Core.Data.Service
     /// </summary>
     public abstract class UnitOfWork : DbContext, IUnitOfWork
     {
-        public UnitOfWork(IServiceProvider services)
-            : base(services.GetRequiredService<IOptions<DataAccessConfiguration>>().Value.ConnectionString)
+        public UnitOfWork(string connectionString)
+            : base(connectionString)
         {
             Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }

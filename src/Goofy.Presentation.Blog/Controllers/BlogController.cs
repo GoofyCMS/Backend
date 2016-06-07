@@ -15,5 +15,11 @@ namespace Goofy.Presentation.Blog.Controllers
             : base(serviceMapper, provider)
         {
         }
+
+        [HttpGet("hola_soy_blog_controller")]
+        public string HolaSoyBlogController()
+        {
+            return "hola_soy_blog_controller";
+        }
     }
 }

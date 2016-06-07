@@ -28,8 +28,6 @@ namespace Goofy.Presentation.Core.Providers
             _contextProvider = new EFContextProvider<TContext>();
         }
 
-        [FromServices]
-        public IServiceProvider ServiceProvider { get; set; }
 
         public override IDbConnection GetDbConnection()
         {

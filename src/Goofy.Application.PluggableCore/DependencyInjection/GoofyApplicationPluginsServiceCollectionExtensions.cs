@@ -5,6 +5,8 @@ using Goofy.Domain.PluggableCore.Service.Adapter;
 using Goofy.Domain.PluggableCore.Service.Data;
 using Goofy.Infrastructure.PluggableCore.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Goofy.Infrastructure.Core.Data.Extensions;
+
 
 namespace Goofy.Application.PluggableCore.DependencyInjection
 {
@@ -17,7 +19,7 @@ namespace Goofy.Application.PluggableCore.DependencyInjection
             services.AddSingleton<IPluginAssemblyProvider, GoofyPluginAssemblyProvider>();
             services.AddSingleton<IPluginManager, PluginManager>();
             services.AddSingleton(typeof(IPluginServiceMapper<,>), typeof(PluginServiceMapper<,>));
-            services.AddSingleton(typeof(IPluginUnitOfWork), typeof(PluginsContext));
+            services.AddUnitOfWork(typeof(IPluginUnitOfWork), typeof(PluginsContext));
             services.AddSingleton<IEngine, PluginBasedEngine>();
             return services;
         }
