@@ -9,7 +9,7 @@ namespace Goofy.Presentation.PluggableCore.Providers
     public class PluginContextProvider : BaseContextProvider<PluginMetadataContext>
     {
         public PluginContextProvider(IServiceProvider services, ITypeAdapterFactory typeAdapterFactory)
-            : base(services.GetRequiredService<IPluginUnitOfWork>(), typeAdapterFactory)
+            : base(services, services.GetRequiredService<IPluginUnitOfWork>(), typeAdapterFactory)
         {
         }
     }

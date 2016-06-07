@@ -20,9 +20,11 @@ namespace Goofy.Presentation.Core.Providers
         private readonly IUnitOfWork _context;
         private readonly ITypeAdapterFactory _typeAdapterFactory;
         private readonly EFContextProvider<TContext> _contextProvider;
+        private readonly IServiceProvider _services;
 
-        protected BaseContextProvider(IUnitOfWork context, ITypeAdapterFactory typeAdapterFactory)
+        protected BaseContextProvider(IServiceProvider services, IUnitOfWork context, ITypeAdapterFactory typeAdapterFactory)
         {
+            _services = services;
             _context = context;
             _typeAdapterFactory = typeAdapterFactory;
             _contextProvider = new EFContextProvider<TContext>();
@@ -156,31 +158,31 @@ namespace Goofy.Presentation.Core.Providers
             }
         }
 
-        private dynamic FindRepository(Type type)
+        /*
+            TODO: FIX THIS
+        */
+        public dynamic FindRepository(Type viewModelType)
         {
-            /*
-               TODO: Fix this
-            */
-            //var sourceType = _typeAdapterFactory.GetSourceTypes(type).FirstOrDefault();
-            //if (sourceType == null)
-            //    throw new Exception($"Map for '{type.Name}' not found");
+            //preguntar si es seguro que aquí el tipo de origen va a ser uno solo????
+            var sourceType = _typeAdapterFactory.GetSourceTypes(viewModelType).FirstOrDefault();
+            if (sourceType == null)
+                throw new Exception($"Map for '{viewModelType.Name}' not found");
 
-            //var repositoryType = typeof(IRepository<>).MakeGenericType(sourceType);
-            //var repository = ServiceProvider.GetRequiredService(repositoryType);
-
-            //var repository = Container.Resolve(repositoryType, _name,
-            //    new ParameterOverride("unitOfWork", _context));
-            //if (repository == null)
-            //    throw new Exception($"Repository for '{type.Name}' not found");
-
-            //var serviceType = typeof(IServiceMapper<,>).MakeGenericType(sourceType, type);
-            //var serviceMapper = Container.Resolve(serviceType, _name,
-            //    new ParameterOverride("unitOfWork", _context), new ParameterOverride("repository", repository));
-            //if (serviceMapper == null)
-            //    throw new Exception($"Service mapper for '{type.Name}' not found");
-
-            //return serviceMapper;
-            return null;
+            //Temporal solution for dynamic IServiceMapper resolving
+            var iServiceMapperType = typeof(IServiceMapper<,>).MakeGenericType(sourceType, viewModelType);
+            foreach (var type in sourceType.Assembly.DefinedTypes)
+            {
+                try
+                {
+                    var possibleServiceMapper = type.MakeGenericType(sourceType, viewModelType);
+                    if (iServiceMapperType.IsAssignableFrom(possibleServiceMapper))
+                    {
+                        return _services.GetService(possibleServiceMapper);
+                    }
+                }
+                catch { }
+            }
+            throw new Exception("No suitable IServiceMapper interface found..");
         }
     }
 }

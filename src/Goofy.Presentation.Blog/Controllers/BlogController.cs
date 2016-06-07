@@ -5,6 +5,7 @@ using Goofy.Presentation.Blog.Providers;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
 using Goofy.Domain.Blog.Service.Adapter;
+using Goofy.Presentation.Core.Providers;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
@@ -20,6 +21,13 @@ namespace Goofy.Presentation.Blog.Controllers
         public string HolaSoyBlogController()
         {
             return "hola_soy_blog_controller";
+        }
+
+        [HttpGet("test_find_repository_method")]
+        public void TestFindRepositoryMethod()
+        {
+            var serviceMapper = ((BaseContextProvider<BlogMetadataContext>)Provider).FindRepository(typeof(ArticleItem));
+
         }
     }
 }

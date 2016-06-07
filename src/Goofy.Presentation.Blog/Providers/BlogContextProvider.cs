@@ -9,7 +9,7 @@ namespace Goofy.Presentation.Blog.Providers
     public class BlogContextProvider : BaseContextProvider<BlogMetadataContext>
     {
         public BlogContextProvider(IServiceProvider services, ITypeAdapterFactory typeAdapterFactory)
-            : base(services.GetRequiredService<BlogContext>(), typeAdapterFactory)
+            : base(services, services.GetRequiredService<BlogContext>(), typeAdapterFactory)
         {
         }
     }

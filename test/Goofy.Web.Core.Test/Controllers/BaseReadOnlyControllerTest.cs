@@ -117,7 +117,7 @@ namespace Goofy.Web.Core.Test.Controllers
     }
     public class MockContextProvider : BaseContextProvider<FakeContext>
     {
-        public MockContextProvider(MockUnitOfWork unitOfWork, ITypeAdapterFactory factory = null) : base(unitOfWork, factory) { }
+        public MockContextProvider(MockUnitOfWork unitOfWork, ITypeAdapterFactory factory = null) : base(null, unitOfWork, factory) { }
     }
 
     public class MockServerStartup
