@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using Goofy.Application.PluggableCore.Extensions;
+using Goofy.Domain.Core;
 
 namespace Goofy.Presentation.PluggableCore.Services
 {

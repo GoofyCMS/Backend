@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Goofy.Application.PluggableCore.Abstractions;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.Extensions;
-using Goofy.Application.PluggableCore.Extensions;
+using Goofy.Domain.Core;
 
 namespace Goofy.Application.PluggableCore
 {
