@@ -22,9 +22,9 @@ namespace Goofy.Presentation.PluggableCore
 
         public override void ConfigureServices(IServiceCollection services)
         {
+            base.ConfigureServices(services);
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddPluggableCore();
-            services.AddSecurity();
             services.AddMvcServices();
             services.StartEngine();
         }

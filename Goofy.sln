@@ -70,6 +70,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.Pluggable
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.AspNet.Identity.EntityFramework6", "src\Microsoft.AspNet.Identity.EntityFramework6\Microsoft.AspNet.Identity.EntityFramework6.xproj", "{7713A205-86EC-4282-AE8B-47376E3D23E1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Configuration", "Goofy.Configuration", "{510B061F-0ED7-42E6-9389-5CBD64AF1C09}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Configuration", "src\Goofy.Configuration\Goofy.Configuration.xproj", "{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +168,10 @@ Global
 		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7713A205-86EC-4282-AE8B-47376E3D23E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,5 +206,7 @@ Global
 		{C976E329-03A6-411B-A237-5F5A4C776CEB} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{552C7396-42F4-4202-98D3-55016E0BD6D9} = {7C058438-69B3-4EA7-9F3A-14A88C48DF26}
 		{7713A205-86EC-4282-AE8B-47376E3D23E1} = {AB61EB72-D085-4A14-844A-6AC0575D0B23}
+		{510B061F-0ED7-42E6-9389-5CBD64AF1C09} = {4C0C1FEE-798F-4092-8652-F1FCD748F46E}
+		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C} = {510B061F-0ED7-42E6-9389-5CBD64AF1C09}
 	EndGlobalSection
 EndGlobal

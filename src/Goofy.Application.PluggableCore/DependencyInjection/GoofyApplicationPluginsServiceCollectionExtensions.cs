@@ -1,5 +1,4 @@
-﻿using Goofy.Application.Core.DependencyInjection;
-using Goofy.Application.PluggableCore.Abstractions;
+﻿using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Application.PluggableCore.Services;
 using Goofy.Domain.PluggableCore.Service.Adapter;
 using Goofy.Domain.PluggableCore.Service.Data;
@@ -14,7 +13,6 @@ namespace Goofy.Application.PluggableCore.DependencyInjection
     {
         public static IServiceCollection AddPluggableCore(this IServiceCollection services)
         {
-            services.AddGoofyCore();
             services.AddSingleton<IGoofyAssemblyProvider, GoofyAssemblyProvider>();
             services.AddSingleton<IPluginAssemblyProvider, GoofyPluginAssemblyProvider>();
             services.AddSingleton<IPluginManager, PluginManager>();

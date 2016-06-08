@@ -15,12 +15,13 @@
     "Breeze.Server.ContextProvider": "1.5.5",
     "Breeze.Server.ContextProvider.EF6": "1.5.5",
     "Breeze.Server.WebApi2": "1.5.5",
-    "Goofy.Application.Core": "1.0.0",
     "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+    "Goofy.Application.Core": "1.0.0",
+    "Goofy.Security": "1.0.0"
   },
   "frameworks": {
     "net451": {

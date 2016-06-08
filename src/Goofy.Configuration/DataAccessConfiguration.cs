@@ -1,5 +1,5 @@
 ﻿
-namespace Goofy.Infrastructure.Core.Data.Configuration
+namespace Goofy.Configuration
 {
     public class DataAccessConfiguration
     {

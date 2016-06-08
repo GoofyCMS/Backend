@@ -1,21 +1,27 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Goofy.Security.UserModel;
+using Microsoft.AspNet.Identity.EntityFramework6;
+using Goofy.Configuration;
+using Microsoft.Extensions.OptionsModel;
 
 namespace Goofy.Security.DependencyInjection
 {
     public static class GoofySecurityServiceCollectionExtensions
     {
-        public static IServiceCollection AddSecurity(this IServiceCollection services)
+        public static IServiceCollection AddGoofySecurity(this IServiceCollection services)
         {
-            services.AddIdentity<User, Role>();
-            //services.AddSingleton<UserManager<IdentityUser>>();
-            //services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>();
-            //services.AddSingleton<IdentityDbContext<IdentityUser>>();
-            //services.AddSingleton<SignInManager>();
-            //            private readonly UserManager<ApplicationUser> _userManager;
-            //private readonly SignInManager<ApplicationUser> _signInManager;
+            services.AddScoped<IdentityDbContext<GoofyUser>>(context =>
+            {
+                var connectionString = context.GetRequiredService<IOptions<DataAccessConfiguration>>().Value.ConnectionString;
+                return new GoofyDbContext(connectionString);
+            });
+            //Configure Identity middleware with ApplicationUser and the EF6 IdentityDbContext
+            services.AddIdentity<GoofyUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<IdentityDbContext<GoofyUser>>()
+            .AddDefaultTokenProviders();
             return services;
         }
     }

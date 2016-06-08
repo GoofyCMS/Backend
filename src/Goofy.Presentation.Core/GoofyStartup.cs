@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Builder;
 
-using Goofy.Application.Core.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Goofy.Configuration.DependencyInjection;
+using Goofy.Security.DependencyInjection;
 
 namespace Goofy.Presentation.Core
 {
@@ -30,7 +31,9 @@ namespace Goofy.Presentation.Core
         public virtual void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddGoofyCore();//agregar las dependencias del Framework Goofy
+            services.AddInstance(services);
+            services.AddGoofyConfiguration();
+            services.AddGoofySecurity();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
