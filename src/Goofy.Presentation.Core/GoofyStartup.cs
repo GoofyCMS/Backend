@@ -61,10 +61,6 @@ namespace Goofy.Presentation.Core
                 catch { }
             }
 
-            /*
-                Está cableado, se podría buscar una mejor forma de configurarlo, usando la componente
-                Goofy.Component.Auth
-            */
             app.UseIdentity();
 
             app.UseMvc(routes =>

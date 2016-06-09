@@ -32,10 +32,6 @@ namespace Goofy.Presentation.PluggableCore
         public override void Configure(IApplicationBuilder builder, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             base.Configure(builder, env, loggerFactory);
-            if (!env.IsDevelopment())
-            {
-                builder.UseIdentity();
-            }
         }
     }
 }
