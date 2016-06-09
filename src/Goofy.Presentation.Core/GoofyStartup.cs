@@ -6,7 +6,6 @@ using Microsoft.AspNet.Builder;
 
 using Microsoft.Extensions.PlatformAbstractions;
 using Goofy.Configuration.DependencyInjection;
-using Goofy.Security.DependencyInjection;
 
 namespace Goofy.Presentation.Core
 {
@@ -33,7 +32,6 @@ namespace Goofy.Presentation.Core
             // Add framework services.
             services.AddInstance(services);
             services.AddGoofyConfiguration();
-            services.AddGoofySecurity();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,7 +11,8 @@
     "Goofy.Infrastructure.PluggableCore.Data": "1.0.0",
     "Goofy.Application.Core": "1.0.0",
     "Goofy.Application.PluggableCore.Abstractions": "1.0.0",
-    "Goofy.Application.PluggableCore.DTO": "1.0.0"
+    "Goofy.Application.PluggableCore.DTO": "1.0.0",
+    "Goofy.Security": "1.0.0"
   },
   "frameworks": {
     "net451": {

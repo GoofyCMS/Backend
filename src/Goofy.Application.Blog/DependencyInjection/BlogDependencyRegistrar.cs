@@ -4,6 +4,7 @@ using Goofy.Infrastructure.Blog.Data;
 using Goofy.Infrastructure.Core.Data.Extensions;
 using Goofy.Domain.Blog.Service.Data;
 using Goofy.Domain.Blog.Service.Adapter;
+using Goofy.Security.Extensions;
 
 namespace Goofy.Application.Blog.DependencyInjection
 {
@@ -21,6 +22,7 @@ namespace Goofy.Application.Blog.DependencyInjection
         {
             services.AddUnitOfWork(typeof(IBlogUnitOfWork), typeof(BlogContext));
             services.AddSingleton(typeof(IBlogServiceMapper<,>), typeof(BlogServiceMapper<,>));
+            services.AddCrudPermissions("Article");
         }
     }
 }

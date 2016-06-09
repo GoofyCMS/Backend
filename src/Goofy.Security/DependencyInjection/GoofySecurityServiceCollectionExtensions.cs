@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework6;
 using Goofy.Configuration;
 using Microsoft.Extensions.OptionsModel;
 using Goofy.Security.Services;
+using Goofy.Security.Extensions;
 
 namespace Goofy.Security.DependencyInjection
 {
@@ -26,6 +27,9 @@ namespace Goofy.Security.DependencyInjection
 
             services.AddScoped<IUserSign, UserSign>();
             services.AddScoped<IUserRegister, UserRegister>();
+
+            services.AddCrudPermissions("GoofyUser", "GoofyRole");
+            services.BuildPermissions();
             return services;
         }
     }
