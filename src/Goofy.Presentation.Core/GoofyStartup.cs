@@ -65,7 +65,7 @@ namespace Goofy.Presentation.Core
                 Está cableado, se podría buscar una mejor forma de configurarlo, usando la componente
                 Goofy.Component.Auth
             */
-            //app.UseIdentity();
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {

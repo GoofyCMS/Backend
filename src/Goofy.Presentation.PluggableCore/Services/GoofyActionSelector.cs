@@ -44,7 +44,7 @@ namespace Microsoft.AspNet.Mvc
 
         private List<ActionDescriptor> FilterOnlyActiveActions(IReadOnlyList<ActionDescriptor> actions)
         {
-            return actions.Where(ActionsInActiveComponents).ToList();
+            return actions?.Where(ActionsInActiveComponents).ToList();
         }
 
         private bool ActionsInActiveComponents(ActionDescriptor actionDescriptor)

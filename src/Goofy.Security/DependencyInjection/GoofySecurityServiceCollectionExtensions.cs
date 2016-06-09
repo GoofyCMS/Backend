@@ -3,6 +3,7 @@ using Goofy.Security.UserModel;
 using Microsoft.AspNet.Identity.EntityFramework6;
 using Goofy.Configuration;
 using Microsoft.Extensions.OptionsModel;
+using Goofy.Security.Services;
 
 namespace Goofy.Security.DependencyInjection
 {
@@ -22,6 +23,9 @@ namespace Goofy.Security.DependencyInjection
             })
             .AddEntityFrameworkStores<IdentityDbContext<GoofyUser>>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserSign, UserSign>();
+            services.AddScoped<IUserRegister, UserRegister>();
             return services;
         }
     }
