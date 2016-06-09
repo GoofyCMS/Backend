@@ -5,6 +5,7 @@ using Goofy.Configuration;
 using Microsoft.Extensions.OptionsModel;
 using Goofy.Security.Services;
 using Goofy.Security.Extensions;
+using Microsoft.AspNet.Identity;
 
 namespace Goofy.Security.DependencyInjection
 {
@@ -18,11 +19,12 @@ namespace Goofy.Security.DependencyInjection
                 return new GoofyDbContext(connectionString);
             });
             //Configure Identity middleware with ApplicationUser and the EF6 IdentityDbContext
-            services.AddIdentity<GoofyUser, IdentityRole>(config =>
+            services.AddIdentity<GoofyUser, GoofyRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<IdentityDbContext<GoofyUser>>()
+            .AddRoleManager<GoofyRoleManager<GoofyRole>>()
             .AddDefaultTokenProviders();
 
             services.AddScoped<IUserSign, UserSign>();

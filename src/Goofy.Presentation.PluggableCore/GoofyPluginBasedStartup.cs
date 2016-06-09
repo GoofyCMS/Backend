@@ -7,7 +7,6 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Logging;
 using Goofy.Application.PluggableCore.Extensions;
 using Microsoft.AspNet.Builder;
-using Goofy.Security.DependencyInjection;
 
 namespace Goofy.Presentation.PluggableCore
 {
@@ -25,7 +24,6 @@ namespace Goofy.Presentation.PluggableCore
             services.AddPluggableCore();
             services.AddMvcServices();
             services.StartEngine();
-            services.AddGoofySecurity();
         }
 
         public override void Configure(IApplicationBuilder builder, IHostingEnvironment env, ILoggerFactory loggerFactory)

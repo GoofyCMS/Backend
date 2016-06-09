@@ -32,9 +32,10 @@ namespace Goofy.Security.Extensions
                 {
                     options.AddResourceCrudPermissions(res);
                 }
+                Resources = null; /*La forma en la que esto se procesa me permite seguir agregando 
+                                    recursos hasta que no se haga el primer request*/
             });
 
-            Resources = null;
             return services;
         }
     }
