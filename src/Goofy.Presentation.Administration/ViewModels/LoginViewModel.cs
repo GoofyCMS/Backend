@@ -2,7 +2,7 @@
 
 namespace Goofy.Presentation.Administration.ViewModels
 {
-    public class Login
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]

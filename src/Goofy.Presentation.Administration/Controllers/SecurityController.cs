@@ -39,7 +39,7 @@ namespace Goofy.Presentation.PluggableCore.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> LogIn([FromBody]Login model)
+        public async Task<IActionResult> LogIn([FromBody]LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
