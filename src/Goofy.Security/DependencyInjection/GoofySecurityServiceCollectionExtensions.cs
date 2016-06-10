@@ -22,6 +22,9 @@ namespace Goofy.Security.DependencyInjection
             services.AddIdentity<GoofyUser, GoofyRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
+                config.Cookies.ApplicationCookie.CookieName = "GoofyFramework";
+                config.Cookies.ApplicationCookie.LoginPath = new Microsoft.AspNet.Http.PathString("/administration/forbidden");
+                config.Cookies.ApplicationCookie.AccessDeniedPath = new Microsoft.AspNet.Http.PathString("/administration/forbidden");
             })
             .AddEntityFrameworkStores<IdentityDbContext<GoofyUser>>()
             .AddRoleManager<GoofyRoleManager<GoofyRole>>()

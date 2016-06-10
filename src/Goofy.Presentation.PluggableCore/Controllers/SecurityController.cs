@@ -40,7 +40,19 @@ namespace Goofy.Presentation.PluggableCore.Controllers
                     return Ok();
                 }
             }
-            return HttpUnauthorized();
+            return ForbiddenResult();
+        }
+
+        [HttpGet("forbidden")]
+        [AllowAnonymous]
+        public IActionResult Forbidden()
+        {
+            return ForbiddenResult();
+        }
+
+        private HttpStatusCodeResult ForbiddenResult()
+        {
+            return new HttpStatusCodeResult(403);
         }
 
         [HttpGet("test_something")]
