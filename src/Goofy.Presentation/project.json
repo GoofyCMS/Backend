@@ -8,6 +8,7 @@
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Goofy.Presentation.PluggableCore": "1.0.0",
+    "Goofy.Presentation.Administration": "1.0.0",
     "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": "1.0.0"
   },
 

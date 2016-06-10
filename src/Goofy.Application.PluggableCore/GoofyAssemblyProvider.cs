@@ -15,7 +15,7 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual HashSet<string> ReferenceAssemblies { get; } = new HashSet<string>()
         {
-            "Goofy.Domain.Core"
+            "Goofy.Domain.Core",
         };
 
         public GoofyAssemblyProvider(ILibraryManager libraryManager,

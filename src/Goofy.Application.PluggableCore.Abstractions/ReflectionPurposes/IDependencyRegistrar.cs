@@ -2,7 +2,7 @@
 
 namespace Goofy.Application.PluggableCore.Abstractions
 {
-    public interface IDependencyRegistrar : ISortableTask
+    public interface IDependencyRegistrar
     {
         void ConfigureServices(IServiceCollection services);
     }
