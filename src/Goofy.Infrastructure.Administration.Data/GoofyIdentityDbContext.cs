@@ -14,6 +14,8 @@ namespace Goofy.Infrastructure.Administration.Data
         protected override void OnModelCreating(DbModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            var role = builder.Entity<GoofyRole>();
+            role.Property(t => t.Description).HasMaxLength(256);
         }
     }
 }

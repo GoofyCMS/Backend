@@ -7,5 +7,6 @@ namespace Goofy.Domain.Administration.Entity
     /// </summary>
     public class GoofyRole : IdentityRole
     {
+        public string Description { get; set; }
     }
 }
