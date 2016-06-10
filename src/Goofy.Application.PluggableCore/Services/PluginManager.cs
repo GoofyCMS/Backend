@@ -11,6 +11,7 @@ using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Core;
 using Goofy.Domain.PluggableCore.Extensions;
 using Goofy.Infrastructure.Core.Data.Utils;
+using Goofy.Application.PluggableCore.Extensions;
 
 namespace Goofy.Application.PluggableCore.Services
 {
@@ -27,21 +28,6 @@ namespace Goofy.Application.PluggableCore.Services
             PluginContext = pluginContext;
             _pluginRepository = PluginContext.Set<Plugin>();
             _services = services;
-        }
-
-
-        string GetPattern(AppLayer layer)
-        {
-            switch (layer)
-            {
-                case AppLayer.Domain:
-                    return "Goofy.Domain.*";
-                case AppLayer.Infrastructure:
-                    return "Goofy.Infrastructure.*";
-                case AppLayer.Application:
-                    return "Goofy.Application.*";
-                default: return "Goofy.Presentation.*";
-            }
         }
 
         public IPluginAssemblyProvider PluginAssemblyProvider
@@ -62,7 +48,7 @@ namespace Goofy.Application.PluggableCore.Services
 
         public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
         {
-            return PluginAssemblyProvider.PluginAssemblies.Values.SelectMany(assemblies => assemblies.Where(ass => Regex.IsMatch(ass.GetName().Name, GetPattern(layer))));
+            return PluginAssemblyProvider.PluginAssemblies.Values.SelectMany(assemblies => assemblies.GetAssembliesPerLayer(layer));
         }
 
         public IEnumerable<Assembly> GetAssembliesByPluginName(string pluginName)

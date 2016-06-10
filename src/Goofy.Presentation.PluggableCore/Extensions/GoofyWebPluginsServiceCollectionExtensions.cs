@@ -35,7 +35,8 @@ namespace Goofy.Presentation.PluggableCore.Extensions
                 {
                     return new GoofyMvcAssemblyProvider(
                         provider.GetRequiredService<ILibraryManager>(),
-                        provider.GetRequiredService<IPluginManager>()
+                        provider.GetRequiredService<IPluginManager>(),
+                        provider.GetRequiredService<IGoofyAssemblyProvider>()
                         );
                 });
             services.AddScoped<IActionSelector, GoofyActionSelector>();

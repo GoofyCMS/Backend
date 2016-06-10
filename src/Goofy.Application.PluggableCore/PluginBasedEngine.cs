@@ -34,12 +34,6 @@ namespace Goofy.Application.PluggableCore
 
         private void AddPluginDependencies()
         {
-            foreach (var registrarClass in _pluginManager.GetAssembliesPerLayer(AppLayer.Application).FindClassesOfType<IDependencyRegistrar>())
-            {
-                var dependencyRegistrarClass = (IDependencyRegistrar)Activator.CreateInstance(registrarClass);
-                dependencyRegistrarClass.ConfigureServices(Services);
-            }
-
             //AddExtraDependencies
             foreach (var dependenciesAdder in Services.Where(s => s.ServiceType != null && s.ServiceType == typeof(PluginDependenciesAdder)).Select(s => s.ImplementationType).ToArray())
             {
@@ -51,6 +45,11 @@ namespace Goofy.Application.PluggableCore
         protected override IEnumerable<Assembly> GetdditionalAdapterAssemblies()
         {
             return _pluginManager.GetInfrastructureAdapterAssemblies();
+        }
+
+        protected override IEnumerable<Assembly> GetAdditionalDependencyRegistrarAssemblies()
+        {
+            return _pluginManager.GetAssembliesPerLayer(AppLayer.Application);
         }
     }
 }

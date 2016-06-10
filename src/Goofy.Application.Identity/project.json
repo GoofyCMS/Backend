@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Application.Identity Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Goofy.Domain.Identity": "1.0.0",
+    "Goofy.Infrastructure.Identity.Data": "1.0.0",
+    "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final"
+  },
+  "frameworks": {
+    "net451": { }
+  }
+}

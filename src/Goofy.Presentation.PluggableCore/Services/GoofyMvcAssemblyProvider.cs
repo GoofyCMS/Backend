@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNet.Mvc.Infrastructure;
 using Goofy.Application.PluggableCore.Abstractions;
+using Goofy.Application.PluggableCore.Extensions;
 
 namespace Goofy.WebFramework.Mvc
 {
@@ -12,16 +13,19 @@ namespace Goofy.WebFramework.Mvc
     {
         private readonly IPluginManager _pluginManager;
         private readonly string[] _referenceAssemblies;
+        private readonly IGoofyAssemblyProvider _systemAssembliesProvider;
 
         public GoofyMvcAssemblyProvider(
                                          ILibraryManager libraryManager,
                                          IPluginManager pluginManager,
+                                         IGoofyAssemblyProvider systemAssembliesProvider,
                                          string[] referenceAssemblies = null
                                         )
             : base(libraryManager)
         {
             _pluginManager = pluginManager;
             _referenceAssemblies = referenceAssemblies;
+            _systemAssembliesProvider = systemAssembliesProvider;
         }
 
         protected override HashSet<string> ReferenceAssemblies
@@ -31,9 +35,13 @@ namespace Goofy.WebFramework.Mvc
 
         protected override IEnumerable<Library> GetCandidateLibraries()
         {
-            return _pluginManager.GetAssembliesPerLayer(AppLayer.Presentation).Concat(new[] { GetType().Assembly }).Select(
-                    x => new Library(x.FullName, null, null, null, Enumerable.Empty<string>(),
-                        new[] { new AssemblyName(x.FullName) }));
+            return _pluginManager.GetAssembliesPerLayer(AppLayer.Presentation)
+                                 .Concat(_systemAssembliesProvider.GetAssemblies.GetAssembliesPerLayer(AppLayer.Presentation))
+                                 .Select(x =>
+                                 {
+                                     return new Library(x.FullName, null, null, null, Enumerable.Empty<string>(),
+                                                        new[] { new AssemblyName(x.FullName) });
+                                 });
         }
 
         private string PluginPath(Assembly assembly)

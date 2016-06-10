@@ -1,15 +1,19 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Domain.Administration Class Library",
+  "description": "Goofy.Infrastructure.Identity.Data Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Goofy.Domain.Core": "1.0.0",
+    "EntityFramework": "6.1.3",
     "Goofy.Domain.Identity": "1.0.0"
   },
   "frameworks": {
-    "net451": { }
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Data": ""
+      }
+    }
   }
 }

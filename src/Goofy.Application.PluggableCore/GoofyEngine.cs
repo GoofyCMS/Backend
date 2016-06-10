@@ -7,6 +7,7 @@ using Goofy.Application.PluggableCore.Abstractions;
 using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Adapter.Extensions;
 using Goofy.Domain.Core;
+using Goofy.Application.PluggableCore.Extensions;
 
 namespace Goofy.Application.PluggableCore
 {
@@ -59,12 +60,43 @@ namespace Goofy.Application.PluggableCore
         protected virtual void RegisterDependencies()
         {
             RegisterAdapterServices();
+            RunDepedencyRegistrarTasks();
         }
+
+        #region Run DependencyRegistrar Tasks
+
+        protected virtual void RunDepedencyRegistrarTasks()
+        {
+            RunDependencyRegistrarTasks(CoreAssembliesProvider.GetAssemblies
+                                                              .GetAssembliesPerLayer(AppLayer.Application)
+                                                              .Concat(GetAdditionalDependencyRegistrarAssemblies()));
+        }
+
+        protected virtual void RunDependencyRegistrarTasks(IEnumerable<Assembly> assemblies)
+        {
+            foreach (var registrarClass in assemblies.FindClassesOfType<IDependencyRegistrar>())
+            {
+                var dependencyRegistrarClass = (IDependencyRegistrar)Activator.CreateInstance(registrarClass);
+                dependencyRegistrarClass.ConfigureServices(Services);
+            }
+        }
+
+        protected virtual IEnumerable<Assembly> GetAdditionalDependencyRegistrarAssemblies()
+        {
+            return Enumerable.Empty<Assembly>();
+        }
+
+
+        #endregion
+
+
+        #region Register Adapters 
 
         protected virtual void RegisterAdapterServices()
         {
             RegisterAdapterServices(CoreAssembliesProvider.GetAssemblies.Where(IsAdapterAssembly).Concat(GetdditionalAdapterAssemblies()));
         }
+
         private bool IsAdapterAssembly(Assembly assembly)
         {
             var assemblyName = assembly.GetName().Name;
@@ -80,6 +112,10 @@ namespace Goofy.Application.PluggableCore
         {
             return Enumerable.Empty<Assembly>();
         }
+
+        #endregion
+
+
 
         protected virtual void RunStartupTasks()
         {
