@@ -4,7 +4,7 @@ using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Configuration;
 using Goofy.Domain.Administration.Entity;
 using Goofy.Infrastructure.Administration.Data;
-using Goofy.Infrastructure.Identity.Data;
+using Goofy.Infrastructure.Identity.Data.Service;
 using Goofy.Security.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;

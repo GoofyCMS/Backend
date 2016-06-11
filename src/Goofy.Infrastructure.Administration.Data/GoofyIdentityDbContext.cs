@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Goofy.Domain.Administration.Entity;
-using Goofy.Infrastructure.Identity.Data;
+using Goofy.Infrastructure.Identity.Data.Service;
 
 namespace Goofy.Infrastructure.Administration.Data
 {

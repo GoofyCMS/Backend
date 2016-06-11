@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Infrastructure.Annotations;
 using Goofy.Domain.Identity.Entity;
 
-namespace Goofy.Infrastructure.Identity.Data
+namespace Goofy.Infrastructure.Identity.Data.Service
 {
     /// <summary>
     /// Base class for the Entity Framework database context used for identity.

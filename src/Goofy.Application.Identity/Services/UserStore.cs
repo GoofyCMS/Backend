@@ -1,5 +1,5 @@
 ﻿using Goofy.Domain.Identity.Entity;
-using Goofy.Infrastructure.Identity.Data;
+using Goofy.Infrastructure.Identity.Data.Service;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
