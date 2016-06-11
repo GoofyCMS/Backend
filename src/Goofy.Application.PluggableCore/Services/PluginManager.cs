@@ -1,16 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Domain.PluggableCore.Service.Data;
 using Goofy.Domain.PluggableCore.Entity;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Domain.Core;
 using Goofy.Domain.PluggableCore.Extensions;
-using Goofy.Infrastructure.Core.Data.Utils;
 using Goofy.Application.PluggableCore.Extensions;
 
 namespace Goofy.Application.PluggableCore.Services
@@ -74,8 +70,6 @@ namespace Goofy.Application.PluggableCore.Services
             _pluginRepository.Modify(plugin);
             PluginContext.SaveChanges();
 
-            var unitOfWork = GetUnitOfWork(plugin.Name);
-            unitOfWork?.CreateTablesIfNotExist();
             return PluginEnabledDisabledResult.Ok;
         }
 
@@ -90,19 +84,7 @@ namespace Goofy.Application.PluggableCore.Services
             _pluginRepository.Modify(plugin);
             PluginContext.SaveChanges();
 
-            var unitOfWork = GetUnitOfWork(plugin.Name);
-            unitOfWork?.DropTables();
             return PluginEnabledDisabledResult.Ok;
-        }
-
-
-        private IUnitOfWork GetUnitOfWork(string pluginName)
-        {
-            var assemblies = GetAssembliesPerLayer(AppLayer.Infrastructure).Where(ass => ass.GetName().Name.Contains(pluginName));
-            var unitOfWorkType = assemblies.FindClassesOfType<IUnitOfWork>().FirstOrDefault();
-            if (unitOfWorkType != null)
-                return (IUnitOfWork)_services.GetService(unitOfWorkType);
-            return null;
         }
     }
 }

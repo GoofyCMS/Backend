@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Infrastructure.Core.Data.Utils;
 
 namespace Goofy.Infrastructure.Core.Data.Service
 {
@@ -16,18 +15,8 @@ namespace Goofy.Infrastructure.Core.Data.Service
         public UnitOfWork(string connectionString)
             : base(connectionString)
         {
-            SetNullInitializer();
             Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
         }
-
-        private void SetNullInitializer()
-        {
-            var nullInitiliazerType = typeof(SetNullTableInitializer<>).MakeGenericType(GetType());
-            dynamic nullInitializer = Activator.CreateInstance(nullInitiliazerType);
-            nullInitializer.Exec();
-        }
-
-        string GetConnectionString() { return ""; }
 
         /// <summary>
         ///     Gets the TEntity repository.

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using Goofy.Domain.PluggableCore.Entity;
 using Goofy.Infrastructure.Core.Data.Service;
 using Goofy.Infrastructure.PluggableCore.Data.Configuration;
@@ -12,7 +11,6 @@ namespace Goofy.Infrastructure.PluggableCore.Data
         public PluginsContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<PluginsContext>());
             Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = true;
         }
