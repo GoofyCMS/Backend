@@ -1,6 +1,4 @@
-﻿
-using Goofy.Security.Entity;
-using Microsoft.AspNet.Authorization;
+﻿using Microsoft.AspNet.Authorization;
 
 namespace Goofy.Security.Extensions
 {
