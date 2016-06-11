@@ -1,18 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
+using Goofy.Domain.Identity.Entity;
 using Goofy.Domain.Core.Service.Data;
-using System.Collections;
+using System.Collections.Generic;
 using Goofy.Infrastructure.Core.Data.Service;
+using System.Collections;
 
 namespace Goofy.Infrastructure.Identity.Data.Service
 {
-    public class IdentityUnitOfWork : IdentityDbContext, IUnitOfWork
+    public class IdentityUnitOfWork<TUser> : IdentityDbContext<TUser>, IUnitOfWork
+        where TUser : IdentityUser
     {
         public IdentityUnitOfWork(string connectionString)
             : base(connectionString)
         {
-            Configuration.ProxyCreationEnabled = Configuration.LazyLoadingEnabled = false;
+
         }
+
+        string GetConnectionString() { return ""; }
 
         /// <summary>
         ///     Gets the TEntity repository.
@@ -47,5 +51,6 @@ namespace Goofy.Infrastructure.Identity.Data.Service
         {
             return Database.SqlQuery(type, query, parameters);
         }
+
     }
 }

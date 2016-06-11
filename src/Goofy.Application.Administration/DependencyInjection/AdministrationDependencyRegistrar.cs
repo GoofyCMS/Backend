@@ -18,7 +18,7 @@ namespace Goofy.Application.Administration.DependencyInjection
             services.AddScoped<IdentityDbContext<GoofyUser>>(context =>
             {
                 var connectionString = context.GetRequiredService<IOptions<DataAccessConfiguration>>().Value.ConnectionString;
-                return new AdministrationDbContext(connectionString);
+                return new AdministrationContext(connectionString);
             });
             //Configure Identity middleware with ApplicationUser and the EF6 IdentityDbContext
             services.AddIdentity<GoofyUser, GoofyRole>(config =>
