@@ -5,7 +5,9 @@
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
-
+  "dependencies": {
+    "Goofy.Domain.Core": "1.0.0"
+  },
   "frameworks": {
     "net451": { }
   }

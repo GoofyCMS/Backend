@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Goofy.Domain.Core.Entity;
+using System;
 
 namespace Goofy.Domain.Identity.Entity
 {
     public class IdentityUserRole : IdentityUserRole<string> { }
-    public class IdentityUserRole<TKey> where TKey : IEquatable<TKey>
+    public class IdentityUserRole<TKey> : BaseEntity where TKey : IEquatable<TKey>
     {
         /// <summary> 
         /// Gets or sets the primary key of the user that is linked to a role. 

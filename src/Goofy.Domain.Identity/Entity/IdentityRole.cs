@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Goofy.Domain.Core.Entity;
 
 namespace Goofy.Domain.Identity.Entity
 {
@@ -30,7 +31,7 @@ namespace Goofy.Domain.Identity.Entity
     ///     Represents a Role entity
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public class IdentityRole<TKey> where TKey : IEquatable<TKey>
+    public class IdentityRole<TKey> : BaseEntity where TKey : IEquatable<TKey>
     {
         /// <summary>
         /// Initializes a new instance of <see cref="IdentityRole{TKey}"/>.

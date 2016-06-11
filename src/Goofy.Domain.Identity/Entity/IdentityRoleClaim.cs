@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Goofy.Domain.Core.Entity;
+using System;
 
 namespace Goofy.Domain.Identity.Entity
 {
@@ -15,7 +16,7 @@ namespace Goofy.Domain.Identity.Entity
     /// Represents a claim that is granted to all users within a role.
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public class IdentityRoleClaim<TKey> where TKey : IEquatable<TKey>
+    public class IdentityRoleClaim<TKey> : BaseEntity where TKey : IEquatable<TKey>
     {
         /// <summary>
         /// Gets or sets the identifier for this role claim.
