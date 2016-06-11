@@ -1,8 +1,9 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Goofy.Security.Extensions;
 
-namespace Goofy.Security.Extensions
+namespace Goofy.Security
 {
     public static class SecurityServiceCollectionExtensions
     {

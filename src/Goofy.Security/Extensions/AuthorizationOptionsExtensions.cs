@@ -1,4 +1,5 @@
 ﻿
+using Goofy.Security.Entity;
 using Microsoft.AspNet.Authorization;
 
 namespace Goofy.Security.Extensions
@@ -7,10 +8,10 @@ namespace Goofy.Security.Extensions
     {
         public static void AddResourceCrudPermissions(this AuthorizationOptions options, string resource)
         {
-            options.AddPolicy($"RequireCreate{resource}", policy => policy.RequireClaim($"CanCreate{resource}"));
-            options.AddPolicy($"RequireRead{resource}", policy => policy.RequireClaim($"CanRead{resource}"));
-            options.AddPolicy($"RequireUpdate{resource}", policy => policy.RequireClaim($"CanUpdate{resource}"));
-            options.AddPolicy($"RequireDelete{resource}", policy => policy.RequireClaim($"CanDelete{resource}"));
+            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Create), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Create)));
+            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Read), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Read)));
+            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Update), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Update)));
+            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Delete), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Delete)));
         }
     }
 }
