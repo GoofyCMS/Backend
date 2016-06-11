@@ -1,7 +1,9 @@
 ﻿using Goofy.Domain.Administration.Entity;
+using Goofy.Presentation.Administration.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
@@ -18,18 +20,23 @@ namespace Goofy.Presentation.PluggableCore.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<GoofyRole> Get()
+        public IEnumerable<RoleViewModel> Get()
         {
-            return _roleManager.Roles;
+            return _roleManager.Roles.Select(r => new RoleViewModel { Name = r.Name, Description = r.Description });
         }
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]GoofyRole value)
+        public async Task<IActionResult> Post([FromBody]RoleViewModel role)
         {
             if (ModelState.IsValid)
             {
-                var result = await _roleManager.CreateAsync(value);
+                var newRole = new GoofyRole
+                {
+                    Name = role.Name,
+                    Description = role.Description
+                };
+                var result = await _roleManager.CreateAsync(newRole);
                 if (result.Succeeded)
                 {
                     return Ok();
