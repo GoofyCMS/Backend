@@ -6,7 +6,7 @@ namespace Goofy.Security.Extensions
 {
     public static class SecurityServiceCollectionExtensions
     {
-        static HashSet<string> Resources { get; set; } = new HashSet<string>();
+        public static HashSet<string> Resources { get; set; } = new HashSet<string>();
 
         public static void AddCrudPermissions(this IServiceCollection services, params string[] resources)
         {

@@ -20,23 +20,6 @@ namespace Goofy.Presentation.PluggableCore.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("create_admin")]
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateUser()
-        {
-            var user = new GoofyUser
-            {
-                UserName = "cyberboy.havana@gmail.com",
-                Email = "cyberboy.havana@gmail.com"
-            };
-            var result = await _userManager.CreateAsync(user, "Admin!234");
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return new ObjectResult(result);
-        }
-
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> LogIn([FromBody]LoginViewModel model)
