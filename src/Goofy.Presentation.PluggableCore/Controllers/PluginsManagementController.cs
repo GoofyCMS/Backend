@@ -7,7 +7,7 @@ using System;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
 {
-    [Route("api/plugins")]
+    [Route("api/plugin")]
     public class PluginsManagementController : Controller
     {
         private readonly IPluginManager _pluginManager;

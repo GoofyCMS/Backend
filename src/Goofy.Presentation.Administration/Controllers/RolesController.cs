@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
 {
-    [Route("administration/roles")]
+    [Route("administration/role")]
     public class RolesController : Controller
     {
         private readonly RoleManager<GoofyRole> _roleManager;

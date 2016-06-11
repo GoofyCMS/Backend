@@ -7,7 +7,7 @@ using Goofy.Domain.PluggableCore.Service.Adapter;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
 {
-    [Route("api/plugins/PluginItems")]
+    [Route("api/plugin/PluginItems")]
     public class PluginsReadOnlyController : BaseReadOnlyController<Plugin, PluginItem, int>
     {
         public PluginsReadOnlyController(IPluginServiceMapper<Plugin, PluginItem> service, PluginContextProvider provider)

@@ -11,6 +11,6 @@ namespace Goofy.Presentation.PluggableCore.Providers
             Database.SetInitializer<PluginMetadataContext>(null);
         }
 
-        public virtual IDbSet<PluginItem> Plugins { get; set; }
+        public virtual IDbSet<PluginItem> PluginItems { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Goofy.Presentation.PluggableCore.Providers;
 
 namespace Goofy.Presentation.PluggableCore.Controllers
 {
-    [Route("api/plugins")]
+    [Route("api/plugin")]
     public class PluginsMetadataController : BaseMetadataController
     {
         public PluginsMetadataController(IServiceProvider serviceProvider)

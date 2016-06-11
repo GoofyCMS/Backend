@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Goofy.Presentation.Administration.Controllers
 {
-    [Route("administration/users")]
+    [Route("administration/user")]
     public class UserController : Controller
     {
         private readonly RoleManager<GoofyRole> _roleManager;

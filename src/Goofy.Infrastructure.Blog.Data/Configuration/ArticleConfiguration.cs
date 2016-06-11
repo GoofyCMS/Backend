@@ -9,7 +9,7 @@ namespace Goofy.Infrastructure.Blog.Data.Configuration
         {
             ToTable("Article");
 
-            HasKey(t => t.ArticleId);
+            HasKey(t => t.Id);
 
             Property(t => t.Content).IsRequired();
 

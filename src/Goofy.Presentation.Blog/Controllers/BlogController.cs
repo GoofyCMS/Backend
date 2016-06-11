@@ -9,7 +9,7 @@ using Goofy.Presentation.Core.Providers;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
-    [Route("api/article/ArticleItems")]
+    [Route("api/blog/ArticleItems")]
     public class BlogController : BaseController<Article, ArticleItem, int>
     {
         public BlogController(IBlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)

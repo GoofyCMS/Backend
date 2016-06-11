@@ -3,7 +3,7 @@ using Goofy.Application.Blog.DTO;
 
 namespace Goofy.Presentation.Blog.Providers
 {
-    public class BlogMetadataContext: DbContext
+    public class BlogMetadataContext : DbContext
     {
         static BlogMetadataContext()
         {
@@ -11,6 +11,6 @@ namespace Goofy.Presentation.Blog.Providers
             Database.SetInitializer<BlogMetadataContext>(null);
         }
 
-        public virtual IDbSet<ArticleItem> Articles { get; set; }
+        public virtual IDbSet<ArticleItem> ArticleItems { get; set; }
     }
 }
