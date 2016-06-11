@@ -4,9 +4,9 @@ using Goofy.Infrastructure.Identity.Data.Service;
 
 namespace Goofy.Infrastructure.Administration.Data
 {
-    public class GoofyIdentityDbContext : IdentityDbContext<GoofyUser>
+    public class AdministrationDbContext : IdentityDbContext<GoofyUser>
     {
-        public GoofyIdentityDbContext(string connectionString)
+        public AdministrationDbContext(string connectionString)
             : base(connectionString)
         {
         }
