@@ -9,12 +9,12 @@ namespace Goofy.Presentation.PluggableCore.Controllers
 {
     [Authorize]
     [Route("administration")]
-    public class SecurityController : Controller
+    public class LoginController : Controller
     {
         private readonly SignInManager<GoofyUser> _signInManager;
         private readonly UserManager<GoofyUser> _userManager;
 
-        public SecurityController(SignInManager<GoofyUser> signInManager, UserManager<GoofyUser> userManager)
+        public LoginController(SignInManager<GoofyUser> signInManager, UserManager<GoofyUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
