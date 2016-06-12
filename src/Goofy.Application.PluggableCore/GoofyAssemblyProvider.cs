@@ -26,7 +26,7 @@ namespace Goofy.Application.PluggableCore
         }
 
 
-        public IEnumerable<Assembly> GetAssemblies
+        public IEnumerable<Assembly> Assemblies
         {
             get
             {

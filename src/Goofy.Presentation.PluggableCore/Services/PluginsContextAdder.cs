@@ -1,19 +1,20 @@
-﻿using Goofy.Application.PluggableCore.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
-using Goofy.Presentation.Core.Providers;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System;
 using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using Goofy.Domain.Core;
+using Goofy.Application.PluggableCore.Abstractions;
+using Goofy.Application.PluggableCore.Extensions;
+using Goofy.Presentation.Core.Providers;
 
 namespace Goofy.Presentation.PluggableCore.Services
 {
-    public class PluginsContextAdder : PluginDependenciesAdder
+    public class PluginsContextAdder : IDependencyRegistrar
     {
-        public override void AddPluginExtraDependencies(IServiceCollection services, IPluginManager manager)
+        public void ConfigureServices(IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
-            foreach (var contextProviderType in FindContextProvider(manager.GetAssembliesPerLayer(AppLayer.Presentation)))
+            foreach (var contextProviderType in FindContextProvider(assemblies.GetAssembliesPerLayer(AppLayer.Presentation)))
             {
                 services.AddSingleton(contextProviderType);
             }

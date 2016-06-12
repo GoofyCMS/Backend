@@ -36,7 +36,7 @@ namespace Goofy.WebFramework.Mvc
         protected override IEnumerable<Library> GetCandidateLibraries()
         {
             return _pluginManager.GetAssembliesPerLayer(AppLayer.Presentation)
-                                 .Concat(_systemAssembliesProvider.GetAssemblies.GetAssembliesPerLayer(AppLayer.Presentation))
+                                 .Concat(_systemAssembliesProvider.Assemblies.GetAssembliesPerLayer(AppLayer.Presentation))
                                  .Select(x =>
                                  {
                                      return new Library(x.FullName, null, null, null, Enumerable.Empty<string>(),

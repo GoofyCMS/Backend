@@ -18,7 +18,7 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
 
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services, Type unitOfWorkType)
         {
-            if (typeof(UnitOfWork).IsAssignableFrom(unitOfWorkType))
+            if (typeof(IUnitOfWork).IsAssignableFrom(unitOfWorkType))
             {
                 services.AddSingleton(unitOfWorkType,
                     s =>
@@ -46,7 +46,7 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
                 throw new ArgumentException("Invalid UnitOfWork type");
             }
 
-            if (typeof(UnitOfWork).IsAssignableFrom(unitOfWorkObjectType))
+            if (typeof(IUnitOfWork).IsAssignableFrom(unitOfWorkObjectType))
             {
                 services.AddSingleton(iUnitOfWorkInterface,
                    s =>

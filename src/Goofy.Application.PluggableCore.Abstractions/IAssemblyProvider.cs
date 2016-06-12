@@ -5,6 +5,6 @@ namespace Goofy.Application.PluggableCore.Abstractions
 {
     public interface IAssemblyProvider_
     {
-        IEnumerable<Assembly> GetAssemblies { get; }
+        IEnumerable<Assembly> Assemblies { get; }
     }
 }

@@ -42,7 +42,7 @@ namespace Goofy.Application.PluggableCore
             _logger = logger;
         }
 
-        public IEnumerable<Assembly> GetAssemblies
+        public IEnumerable<Assembly> Assemblies
         {
             get
             {

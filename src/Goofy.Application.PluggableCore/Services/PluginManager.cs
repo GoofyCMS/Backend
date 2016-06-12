@@ -42,9 +42,9 @@ namespace Goofy.Application.PluggableCore.Services
 
         public IPluginUnitOfWork PluginContext { get; private set; }
 
-        public IEnumerable<Assembly> GetAssembliesPerLayer(AppLayer layer)
+        public IEnumerable<Assembly> GetAssembliesPerLayer(params AppLayer[] layers)
         {
-            return PluginAssemblyProvider.PluginAssemblies.Values.SelectMany(assemblies => assemblies.GetAssembliesPerLayer(layer));
+            return PluginAssemblyProvider.PluginAssemblies.Values.SelectMany(assemblies => assemblies.GetAssembliesPerLayer(layers));
         }
 
         public IEnumerable<Assembly> GetAssembliesByPluginName(string pluginName)

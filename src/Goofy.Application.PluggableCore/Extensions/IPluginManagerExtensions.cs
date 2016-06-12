@@ -12,7 +12,7 @@ namespace Goofy.Application.PluggableCore.Extensions
     {
         public static IEnumerable<Assembly> GetInfrastructureAdapterAssemblies(this IPluginManager pluginManager)
         {
-            return pluginManager.PluginAssemblyProvider.GetAssemblies.GetInfrastructureAdapterAssemblies();
+            return pluginManager.PluginAssemblyProvider.Assemblies.GetInfrastructureAdapterAssemblies();
         }
 
         public static Plugin GetPluginContainigAssembly(this IPluginManager pluginManager, Assembly assembly)

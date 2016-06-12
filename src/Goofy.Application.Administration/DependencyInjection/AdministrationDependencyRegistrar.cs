@@ -1,20 +1,26 @@
-﻿using Goofy.Application.Administration.Services;
-using Goofy.Application.Identity.Extensions;
-using Goofy.Application.PluggableCore.Abstractions;
-using Goofy.Configuration;
-using Goofy.Domain.Administration.Entity;
-using Goofy.Infrastructure.Administration.Data;
-using Goofy.Infrastructure.Identity.Data.Service;
-using Goofy.Security.Extensions;
+﻿using System.Reflection;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
+using Goofy.Configuration;
+using Goofy.Security.Extensions;
+using Goofy.Domain.Administration.Entity;
+using Goofy.Application.Administration.Services;
+using Goofy.Application.Identity.Extensions;
+using Goofy.Application.PluggableCore.Abstractions;
+using Goofy.Infrastructure.Administration.Data;
+using Goofy.Infrastructure.Identity.Data.Service;
+using Goofy.Domain.Administration.Service.Data;
+using Goofy.Infrastructure.Core.Data.Extensions;
 
 namespace Goofy.Application.Administration.DependencyInjection
 {
     public class AdministrationDependencyRegistrar : IDependencyRegistrar
     {
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
+            services.AddUnitOfWork(typeof(IAdministrationUnitOfWork), typeof(AdministrationContext));
+
             services.AddScoped<IdentityDbContext<GoofyUser>>(context =>
             {
                 var connectionString = context.GetRequiredService<IOptions<DataAccessConfiguration>>().Value.ConnectionString;

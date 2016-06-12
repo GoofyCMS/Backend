@@ -67,8 +67,8 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual void RunDepedencyRegistrarTasks()
         {
-            RunDependencyRegistrarTasks(CoreAssembliesProvider.GetAssemblies
-                                                              .GetAssembliesPerLayer(AppLayer.Application)
+            RunDependencyRegistrarTasks(CoreAssembliesProvider.Assemblies
+                                                              .GetAssembliesPerLayer(AppLayer.Application, AppLayer.Presentation)
                                                               .Concat(GetAdditionalDependencyRegistrarAssemblies()));
         }
 
@@ -77,8 +77,13 @@ namespace Goofy.Application.PluggableCore
             foreach (var registrarClass in assemblies.FindClassesOfType<IDependencyRegistrar>())
             {
                 var dependencyRegistrarClass = (IDependencyRegistrar)Activator.CreateInstance(registrarClass);
-                dependencyRegistrarClass.ConfigureServices(Services);
+                dependencyRegistrarClass.ConfigureServices(Services, CoreAssembliesProvider.Assemblies.Concat(GetExtensionAssemblies()));
             }
+        }
+
+        protected virtual IEnumerable<Assembly> GetExtensionAssemblies()
+        {
+            return Enumerable.Empty<Assembly>();
         }
 
         protected virtual IEnumerable<Assembly> GetAdditionalDependencyRegistrarAssemblies()
@@ -94,7 +99,7 @@ namespace Goofy.Application.PluggableCore
 
         protected virtual void RegisterAdapterServices()
         {
-            RegisterAdapterServices(CoreAssembliesProvider.GetAssemblies.Where(IsAdapterAssembly).Concat(GetdditionalAdapterAssemblies()));
+            RegisterAdapterServices(CoreAssembliesProvider.Assemblies.Where(IsAdapterAssembly).Concat(GetdditionalAdapterAssemblies()));
         }
 
         private bool IsAdapterAssembly(Assembly assembly)
@@ -120,7 +125,7 @@ namespace Goofy.Application.PluggableCore
         protected virtual void RunStartupTasks()
         {
             var serviceProvider = Services.BuildServiceProvider();
-            foreach (var startupTaskType in CoreAssembliesProvider.GetAssemblies
+            foreach (var startupTaskType in CoreAssembliesProvider.Assemblies
                                                                   .Concat(GetAdditonalStartupAssemblies())
                                                                   .FindClassesOfType<IRunAtStartup>()
                                                                   .Select(taskType => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, taskType))

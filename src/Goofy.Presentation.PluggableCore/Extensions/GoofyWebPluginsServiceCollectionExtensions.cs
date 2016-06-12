@@ -1,6 +1,5 @@
 ﻿using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Presentation.PluggableCore.Providers;
-using Goofy.Presentation.PluggableCore.Services;
 using Goofy.WebFramework.Mvc;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Cors;
@@ -15,7 +14,6 @@ namespace Goofy.Presentation.PluggableCore.Extensions
         public static void AddMvcServices(this IServiceCollection services)
         {
             services.AddScoped<PluginContextProvider>();
-            services.AddScoped(typeof(PluginDependenciesAdder), typeof(PluginsContextAdder));
             services.AddMvc();
 
             services.AddCors(options =>
