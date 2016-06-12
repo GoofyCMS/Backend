@@ -1,0 +1,15 @@
+﻿using System.Data.Entity;
+
+namespace Goofy.Presentation.Administration.Providers
+{
+    public class AdministrationMetadataContext : DbContext
+    {
+        static AdministrationMetadataContext()
+        {
+            // Prevent attempt to initialize a database for this context
+            Database.SetInitializer<AdministrationMetadataContext>(null);
+        }
+
+        //public virtual IDbSet<ArticleItem> ArticleItems { get; set; }
+    }
+}
