@@ -15,25 +15,10 @@ namespace Goofy.Application.PluggableCore
     {
         protected IServiceCollection Services { get; private set; }
         protected IGoofyAssemblyProvider CoreAssembliesProvider { get; private set; }
-        //protected GoofyCoreConfiguration _goofyCoreConfiguration;
 
         private readonly ILogger<GoofyEngine> _logger;
 
-        //public GoofyCoreConfiguration GoofyCoreConfiguration
-        //{
-        //    get
-        //    {
-        //        if (_goofyCoreConfiguration == null)
-        //        {
-        //            _goofyCoreConfiguration = new GoofyCoreConfiguration();
-        //        }
-        //        return _goofyCoreConfiguration;
-        //    }
-        //}
-
-
-        public GoofyEngine(
-                           IServiceCollection services,
+        public GoofyEngine(IServiceCollection services,
                            IGoofyAssemblyProvider coreAssembliesProvider,
                            ILogger<GoofyEngine> logger)
         {
@@ -55,6 +40,9 @@ namespace Goofy.Application.PluggableCore
 
             // Eliminar servicios IDesignTimeService del contenedor de dependencias
             RemoveDesignTimeServices();
+
+            //Eliminar el servicio IServiceCollection
+            RemoveServiceCollection();
         }
 
         protected virtual void RegisterDependencies()
@@ -121,6 +109,7 @@ namespace Goofy.Application.PluggableCore
         #endregion
 
 
+        #region Run Startup Tasks
 
         protected virtual void RunStartupTasks()
         {
@@ -155,6 +144,8 @@ namespace Goofy.Application.PluggableCore
             }
         }
 
+        #endregion
+
         private bool ServiceIsDesignTimeService(ServiceDescriptor serviceDescriptor)
         {
             var serviceType = serviceDescriptor.ServiceType;
@@ -162,5 +153,12 @@ namespace Goofy.Application.PluggableCore
                 return typeof(IDesignTimeService).GetTypeInfo().IsAssignableFrom(serviceType.GetTypeInfo());
             return false;
         }
+
+        private void RemoveServiceCollection()
+        {
+            var serviceDescriptor = Services.Where(sd => sd.ServiceType == typeof(IServiceCollection)).First();
+            Services.Remove(serviceDescriptor);
+        }
+
     }
 }
