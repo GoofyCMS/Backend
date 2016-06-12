@@ -96,6 +96,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Identi
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.Identity", "src\Goofy.Application.Identity\Goofy.Application.Identity.xproj", "{4D3D05F1-8192-49F5-8D7A-4A5986624FB9}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.Administration.DTO", "src\Goofy.Application.Administration.DTO\Goofy.Application.Administration.DTO.xproj", "{26B9FE92-E618-426B-8151-A36C104D084A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -218,6 +220,10 @@ Global
 		{4D3D05F1-8192-49F5-8D7A-4A5986624FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D3D05F1-8192-49F5-8D7A-4A5986624FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D3D05F1-8192-49F5-8D7A-4A5986624FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B9FE92-E618-426B-8151-A36C104D084A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B9FE92-E618-426B-8151-A36C104D084A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B9FE92-E618-426B-8151-A36C104D084A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B9FE92-E618-426B-8151-A36C104D084A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -265,5 +271,6 @@ Global
 		{8E4218D2-2D3E-43A0-889A-61C5C6B247A8} = {25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}
 		{09B7E0D0-A2AC-4B24-9C8F-188A80CB7658} = {0D67212F-DC71-4114-836C-E8ABE90C5B03}
 		{4D3D05F1-8192-49F5-8D7A-4A5986624FB9} = {7B4446CD-F32A-4A43-B2EA-C683CA8A4288}
+		{26B9FE92-E618-426B-8151-A36C104D084A} = {7B4446CD-F32A-4A43-B2EA-C683CA8A4288}
 	EndGlobalSection
 EndGlobal
