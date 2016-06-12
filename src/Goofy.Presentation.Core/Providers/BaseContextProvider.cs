@@ -5,8 +5,6 @@ using System.Text;
 using System.Data;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Breeze.ContextProvider;
 using Breeze.ContextProvider.EF6;
 using Goofy.Domain.Core.Service.Adapter;

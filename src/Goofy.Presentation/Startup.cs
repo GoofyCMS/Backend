@@ -3,6 +3,7 @@ using Goofy.Presentation.PluggableCore;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNet.Builder;
 
 namespace Goofy.Presentation
 {
@@ -21,6 +22,40 @@ namespace Goofy.Presentation
             ConfigurationBuilder.AddJsonFile("appsettings.json");
             Configuration = ConfigurationBuilder.Build();
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddDebug();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseRuntimeInfoPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                try
+                {
+                    //using (var serviceScope = app.ApplicationServices.GetRequiredService < IServiceScop.CreateScope())
+                    //{
+                    //    serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                    //    .Database.Migrate();
+                    //}
+                }
+                catch { }
+            }
+
+            app.UseIdentity();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
 
         // Entry point for the application.

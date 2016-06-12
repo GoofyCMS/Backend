@@ -7,24 +7,19 @@
   "licenseUrl": "",
   "dependencies": {
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0-rc1-final",
     "Microsoft.Data.OData": "5.7.0",
     "Microsoft.Data.Edm": "5.7.0",
     "WebActivatorEx": "2.1.0",
     "Breeze.Server.ContextProvider": "1.5.5",
     "Breeze.Server.ContextProvider.EF6": "1.5.5",
     "Breeze.Server.WebApi2": "1.5.5",
-    "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
-    "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Goofy.Application.Core": "1.0.0"
   },
   "frameworks": {
     "net451": {
       "frameworkAssemblies": {
-        "System.Runtime": ""
+        "System.Runtime": "",
+        "System.Data": ""
       }
     }
   }
