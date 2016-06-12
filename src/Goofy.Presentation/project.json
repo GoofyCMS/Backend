@@ -5,6 +5,7 @@
   },
 
   "dependencies": {
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Goofy.Presentation.PluggableCore": "1.0.0",

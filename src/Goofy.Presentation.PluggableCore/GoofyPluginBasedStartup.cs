@@ -12,15 +12,9 @@ namespace Goofy.Presentation.PluggableCore
 {
     public class GoofyPluginBasedStartup : GoofyStartup
     {
-        public GoofyPluginBasedStartup(IHostingEnvironment env, IApplicationEnvironment app, ILoggerFactory loggerFactory)
-            : base(env, app, loggerFactory)
-        {
-        }
-
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
-            LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
             services.AddPluggableCore();
             services.AddMvcServices();
             services.StartEngine();
