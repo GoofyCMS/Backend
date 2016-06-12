@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
-using Goofy.Configuration;
 using Goofy.Security.Extensions;
 using Goofy.Domain.Administration.Entity;
 using Goofy.Application.Administration.Services;
@@ -12,6 +11,7 @@ using Goofy.Infrastructure.Administration.Data;
 using Goofy.Infrastructure.Identity.Data.Service;
 using Goofy.Domain.Administration.Service.Data;
 using Goofy.Infrastructure.Core.Data.Extensions;
+using Goofy.Infrastructure.Core.Data;
 
 namespace Goofy.Application.Administration.DependencyInjection
 {

@@ -46,9 +46,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Plugga
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.PluggableCore.Data", "src\Goofy.Infrastructure.PluggableCore.Data\Goofy.Infrastructure.PluggableCore.Data.xproj", "{CB7F46F5-2569-4CC0-AA7C-45E8CA208C92}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Infrastructure.PluggableCore", "Goofy.Infrastructure.PluggableCore", "{5936C092-DA5B-4431-BD54-96DA4F690B0D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{5936C092-DA5B-4431-BD54-96DA4F690B0D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Application.PluggableCore", "Goofy.Application.PluggableCore", "{7C058438-69B3-4EA7-9F3A-14A88C48DF26}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7C058438-69B3-4EA7-9F3A-14A88C48DF26}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Domain.PluggableCore", "src\Goofy.Domain.PluggableCore\Goofy.Domain.PluggableCore.xproj", "{217D1BB3-D8AC-4CEC-8163-91A3C73A6169}"
 EndProject
@@ -68,10 +68,6 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Presentation.Blog", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Application.PluggableCore.Abstractions", "src\Goofy.Application.PluggableCore.Abstractions\Goofy.Application.PluggableCore.Abstractions.xproj", "{552C7396-42F4-4202-98D3-55016E0BD6D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Configuration", "Goofy.Configuration", "{510B061F-0ED7-42E6-9389-5CBD64AF1C09}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Configuration", "src\Goofy.Configuration\Goofy.Configuration.xproj", "{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{1ABBCD30-57FD-4BCA-A3CE-2C569E2DF6CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Administration", "Goofy.Administration", "{A063A9D6-6C43-4485-B687-E5BC51850853}"
@@ -84,11 +80,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Admini
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Presentation.Administration", "src\Goofy.Presentation.Administration\Goofy.Presentation.Administration.xproj", "{E35332FA-7135-4E40-8673-95BC3BBE0651}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Application", "Goofy.Application", "{7B4446CD-F32A-4A43-B2EA-C683CA8A4288}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7B4446CD-F32A-4A43-B2EA-C683CA8A4288}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Domain", "Goofy.Domain", "{25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Infrastructure", "Goofy.Infrastructure", "{0D67212F-DC71-4114-836C-E8ABE90C5B03}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0D67212F-DC71-4114-836C-E8ABE90C5B03}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Domain.Identity", "src\Goofy.Domain.Identity\Goofy.Domain.Identity.xproj", "{8E4218D2-2D3E-43A0-889A-61C5C6B247A8}"
 EndProject
@@ -188,10 +184,6 @@ Global
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{552C7396-42F4-4202-98D3-55016E0BD6D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB6151CF-463A-4A6B-A1FB-E2F7B66FBC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB6151CF-463A-4A6B-A1FB-E2F7B66FBC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB6151CF-463A-4A6B-A1FB-E2F7B66FBC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -257,8 +249,6 @@ Global
 		{B1D1F626-1282-416D-A228-3169C906355F} = {1ABBCD30-57FD-4BCA-A3CE-2C569E2DF6CE}
 		{C976E329-03A6-411B-A237-5F5A4C776CEB} = {1ABBCD30-57FD-4BCA-A3CE-2C569E2DF6CE}
 		{552C7396-42F4-4202-98D3-55016E0BD6D9} = {7C058438-69B3-4EA7-9F3A-14A88C48DF26}
-		{510B061F-0ED7-42E6-9389-5CBD64AF1C09} = {4C0C1FEE-798F-4092-8652-F1FCD748F46E}
-		{02FB9C42-1037-4B2D-9D1A-0F8A259E105C} = {510B061F-0ED7-42E6-9389-5CBD64AF1C09}
 		{1ABBCD30-57FD-4BCA-A3CE-2C569E2DF6CE} = {BA7ACCCB-21B3-4FDE-99DF-092399AA0FFF}
 		{A063A9D6-6C43-4485-B687-E5BC51850853} = {4C0C1FEE-798F-4092-8652-F1FCD748F46E}
 		{BB6151CF-463A-4A6B-A1FB-E2F7B66FBC78} = {25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}

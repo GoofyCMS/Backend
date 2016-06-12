@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Goofy.Configuration.DependencyInjection;
 
 namespace Goofy.Presentation.Core
 {
@@ -10,7 +9,6 @@ namespace Goofy.Presentation.Core
         {
             // Add framework services.
             services.AddInstance(services);
-            services.AddGoofyConfiguration();
         }
     }
 }

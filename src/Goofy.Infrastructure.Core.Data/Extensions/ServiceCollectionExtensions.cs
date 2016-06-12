@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Infrastructure.Core.Data.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.OptionsModel;
-using Goofy.Configuration;
 
 namespace Goofy.Infrastructure.Core.Data.Extensions
 {

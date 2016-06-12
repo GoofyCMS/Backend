@@ -4,6 +4,8 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNet.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Goofy.Infrastructure.Core.Data;
 
 namespace Goofy.Presentation
 {
@@ -22,6 +24,12 @@ namespace Goofy.Presentation
             ConfigurationBuilder.AddJsonFile("appsettings.json");
             Configuration = ConfigurationBuilder.Build();
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
+        }
+
+        public override void ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<DataAccessConfiguration>(Configuration.GetSection("DataAccessConfiguration"));
+            base.ConfigureServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

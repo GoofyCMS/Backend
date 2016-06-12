@@ -6,7 +6,6 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Goofy.Configuration": "1.0.0",
     "Microsoft.AspNet.Authorization": "1.0.0-rc1-final"
   },
   "frameworks": {
