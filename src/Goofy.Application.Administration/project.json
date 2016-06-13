@@ -8,9 +8,10 @@
   "dependencies": {
     "Goofy.Application.Core": "1.0.0",
     "Goofy.Application.Identity": "1.0.0",
-    "Goofy.Application.PluggableCore.Abstractions": "1.0.0",
     "Goofy.Domain.Administration": "1.0.0",
+    "Goofy.Application.Administration.DTO": "1.0.0",
     "Goofy.Infrastructure.Administration.Data": "1.0.0",
+    "Goofy.Infrastructure.Administration.Adapter": "1.0.0",
     "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
     "Goofy.Security": "1.0.0"
   },

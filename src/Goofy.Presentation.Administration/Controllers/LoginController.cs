@@ -5,10 +5,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using System.Threading.Tasks;
 
-namespace Goofy.Presentation.PluggableCore.Controllers
+namespace Goofy.Presentation.Administration.Controllers
 {
     [Authorize]
-    [Route("administration")]
+    [Route("api/administration")]
     public class LoginController : Controller
     {
         private readonly SignInManager<GoofyUser> _signInManager;

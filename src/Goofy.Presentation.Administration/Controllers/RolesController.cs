@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Goofy.Presentation.PluggableCore.Controllers
+namespace Goofy.Presentation.Administration.Controllers
 {
-    [Route("administration/role")]
+    [Route("api/administration/role")]
     public class RolesController : Controller
     {
         private readonly RoleManager<GoofyRole> _roleManager;

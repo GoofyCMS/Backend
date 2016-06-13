@@ -6,12 +6,14 @@ using Goofy.Security.Extensions;
 using Goofy.Domain.Administration.Entity;
 using Goofy.Application.Administration.Services;
 using Goofy.Application.Identity.Extensions;
-using Goofy.Application.PluggableCore.Abstractions;
 using Goofy.Infrastructure.Administration.Data;
 using Goofy.Infrastructure.Identity.Data.Service;
 using Goofy.Domain.Administration.Service.Data;
 using Goofy.Infrastructure.Core.Data.Extensions;
 using Goofy.Infrastructure.Core.Data;
+using Goofy.Application.Core.Abstractions;
+using Goofy.Application.Administration.Services.Abstractions;
+using Goofy.Domain.Administration.Service.Adapter;
 
 namespace Goofy.Application.Administration.DependencyInjection
 {
@@ -20,6 +22,8 @@ namespace Goofy.Application.Administration.DependencyInjection
         public void ConfigureServices(IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
             services.AddUnitOfWork(typeof(IAdministrationUnitOfWork), typeof(AdministrationContext));
+            services.AddScoped(typeof(IAdministrationServiceMapper<,>), typeof(AdministrationServiceMapper<,>));
+            services.AddSingleton<IPluginManager, PluginManager>();
 
             services.AddScoped<IdentityDbContext<GoofyUser>>(context =>
             {

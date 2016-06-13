@@ -1,5 +1,5 @@
 ﻿using Goofy.Application.Core;
-using Goofy.Application.PluggableCore.Abstractions;
+using Goofy.Application.Core.Abstractions;
 using Goofy.Domain.Administration.Entity;
 using Goofy.Security;
 using Goofy.Security.Extensions;

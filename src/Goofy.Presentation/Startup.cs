@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNet.Hosting;
-using Goofy.Presentation.PluggableCore;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNet.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Infrastructure.Core.Data;
+using Goofy.Security.DependencyInjection;
+using Goofy.Application.DependencyInjection;
+using Goofy.Presentation.DependencyInjection;
 
 namespace Goofy.Presentation
 {
-    public class Startup : GoofyPluginBasedStartup
+    public class Startup
     {
         private ConfigurationBuilder ConfigurationBuilder { get; set; }
 
@@ -26,10 +28,13 @@ namespace Goofy.Presentation
             LoggerFactory.AddConsole(Configuration.GetSection("Logging"));
         }
 
-        public override void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DataAccessConfiguration>(Configuration.GetSection("DataAccessConfiguration"));
-            base.ConfigureServices(services);
+            services.AddGoofySecurity();
+            services.AddGoofy();
+            services.AddMvcServices();
+            services.StartEngine();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

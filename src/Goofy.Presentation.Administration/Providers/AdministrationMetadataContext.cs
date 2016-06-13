@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Goofy.Application.Administration.DTO;
+using System.Data.Entity;
 
 namespace Goofy.Presentation.Administration.Providers
 {
@@ -10,6 +11,6 @@ namespace Goofy.Presentation.Administration.Providers
             Database.SetInitializer<AdministrationMetadataContext>(null);
         }
 
-        //public virtual IDbSet<ArticleItem> ArticleItems { get; set; }
+        public virtual IDbSet<PluginItem> PluginItems { get; set; }
     }
 }

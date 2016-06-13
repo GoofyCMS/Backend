@@ -1,13 +1,13 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Goofy.Infrastructure.Administration.Data Class Library",
+  "description": "Goofy.Application Class Library",
   "authors": [ "leo" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Goofy.Domain.Administration": "1.0.0",
-    "Goofy.Infrastructure.Identity.Data": "1.0.0"
+    "Goofy.Application.Core": "1.0.0",
+    "Goofy.Security": "1.0.0"
   },
   "frameworks": {
     "net451": {

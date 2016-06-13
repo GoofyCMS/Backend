@@ -8,13 +8,12 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
-    "Goofy.Presentation.PluggableCore": "1.0.0",
     "Goofy.Presentation.Administration": "1.0.0",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
-    "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": "1.0.0"
+    "Goofy.Application": "1.0.0"
   },
 
   "commands": {
