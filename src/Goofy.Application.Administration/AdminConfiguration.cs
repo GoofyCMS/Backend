@@ -1,5 +1,5 @@
 ﻿
-namespace Goofy.Application.Core
+namespace Goofy.Application.Administration
 {
     public class AdminConfiguration
     {
