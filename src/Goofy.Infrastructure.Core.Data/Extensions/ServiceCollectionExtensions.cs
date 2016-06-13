@@ -18,7 +18,7 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
         {
             if (typeof(IUnitOfWork).IsAssignableFrom(unitOfWorkType))
             {
-                services.AddSingleton(unitOfWorkType,
+                services.AddScoped(unitOfWorkType,
                     s =>
                     {
                         var dataAccessConfig = s.GetRequiredService<IOptions<DataAccessConfiguration>>();
@@ -46,7 +46,7 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
 
             if (typeof(IUnitOfWork).IsAssignableFrom(unitOfWorkObjectType))
             {
-                services.AddSingleton(iUnitOfWorkInterface,
+                services.AddScoped(iUnitOfWorkInterface,
                    s =>
                    {
                        var dataAccessConfig = s.GetRequiredService<IOptions<DataAccessConfiguration>>();
