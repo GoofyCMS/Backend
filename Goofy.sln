@@ -60,11 +60,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Infrastructure.Admini
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Presentation.Administration", "src\Goofy.Presentation.Administration\Goofy.Presentation.Administration.xproj", "{E35332FA-7135-4E40-8673-95BC3BBE0651}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{7B4446CD-F32A-4A43-B2EA-C683CA8A4288}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Application.Administration", "Goofy.Application.Administration", "{7B4446CD-F32A-4A43-B2EA-C683CA8A4288}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GoofyDomain.Administration", "GoofyDomain.Administration", "{25EDB2AD-57B4-4B23-88D4-2353BE2D26BB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0D67212F-DC71-4114-836C-E8ABE90C5B03}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goofy.Infrastructure.Administration", "Goofy.Infrastructure.Administration", "{0D67212F-DC71-4114-836C-E8ABE90C5B03}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Goofy.Domain.Identity", "src\Goofy.Domain.Identity\Goofy.Domain.Identity.xproj", "{8E4218D2-2D3E-43A0-889A-61C5C6B247A8}"
 EndProject
