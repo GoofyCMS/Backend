@@ -7,5 +7,6 @@ namespace Goofy.Domain.Administration.Entity
     /// </summary>
     public class GoofyUser : IdentityUser
     {
+        public string Description { get; set; }
     }
 }

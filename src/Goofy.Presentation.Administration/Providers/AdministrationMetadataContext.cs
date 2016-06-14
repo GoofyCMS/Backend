@@ -12,5 +12,7 @@ namespace Goofy.Presentation.Administration.Providers
         }
 
         public virtual IDbSet<PluginItem> PluginItems { get; set; }
+        public virtual IDbSet<GoofyRoleItem> GoofyUserItems { get; set; }
+        public virtual IDbSet<IdentityRoleClaimItem> IdentityRoleClaimItems { get; set; }
     }
 }
