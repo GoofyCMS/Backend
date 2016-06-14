@@ -17,7 +17,7 @@ namespace Goofy.Presentation.Core.Controllers
 
         [Route("save")]
         [HttpPost]
-        public virtual SaveResult SaveChanges(JObject saveBundle)
+        public virtual SaveResult SaveChanges([FromBody] JObject saveBundle)
         {
             return Provider.SaveChanges(saveBundle);
         }
