@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNet.Authorization;
+using System.Collections.Generic;
 
 namespace Goofy.Security.Extensions
 {
     public static class AuthorizationOptionsExtensions
     {
-        public static void AddResourceCrudPermissions(this AuthorizationOptions options, string resource)
+        public static void AddResourceCrudPermissions(this AuthorizationOptions options, KeyValuePair<string, IEnumerable<CrudOperation>> resourcePermission)
         {
-            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Create), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Create)));
-            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Read), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Read)));
-            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Update), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Update)));
-            options.AddPolicy(SecurityUtils.GetPolicyName(resource, CrudOperation.Delete), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resource, CrudOperation.Delete)));
+            foreach (var permission in resourcePermission.Value)
+            {
+                options.AddPolicy(SecurityUtils.GetPolicyName(resourcePermission.Key, permission), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resourcePermission.Key, permission)));
+            }
         }
     }
 }
