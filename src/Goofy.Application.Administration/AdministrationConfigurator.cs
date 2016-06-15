@@ -1,5 +1,6 @@
 ﻿using Goofy.Application.Core.Abstractions;
 using Goofy.Domain.Administration.Entity;
+using Goofy.Domain.Administration.Service.Data;
 using Goofy.Security;
 using Goofy.Security.Extensions;
 using Microsoft.AspNet.Identity;
@@ -15,13 +16,16 @@ namespace Goofy.Application.Administration
         private readonly AdminConfiguration _adminConfig;
         private readonly RoleManager<GoofyRole> _roleManager;
         private readonly UserManager<GoofyUser> _userManager;
+        private readonly IAdministrationUnitOfWork _administrationContext;
 
         public AdministrationConfigurator(RoleManager<GoofyRole> roleManager,
                                           UserManager<GoofyUser> userManager,
+                                          IAdministrationUnitOfWork administrationContext,
                                           IOptions<AdminConfiguration> adminConfigOptions)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _administrationContext = administrationContext;
             _adminConfig = adminConfigOptions.Value;
         }
 
@@ -40,6 +44,31 @@ namespace Goofy.Application.Administration
 
             //Check Administrator User
             CreateAdministorIfNotExist();
+
+            //Crea Permissions
+            CreatePermissionsIfNotExist();
+        }
+
+        private void CreatePermissionsIfNotExist()
+        {
+            var permissionsRepository = _administrationContext.Set<Permission>();
+            var currentPermissions = permissionsRepository.GetAll().ToArray();
+
+            foreach (var r in SecurityServiceCollectionExtensions.Resources)
+            {
+                foreach (var operation in r.Value)
+                {
+                    var permissionName = SecurityUtils.GetPermissionName(r.Key, operation);
+                    if (currentPermissions.Where(p => p.Name == permissionName).Count() == 0)
+                    {
+                        permissionsRepository.Add(new Permission
+                        {
+                            Name = permissionName
+                        });
+                    }
+                }
+            }
+            _administrationContext.SaveChanges();
         }
 
         private void CreateAdministorIfNotExist()
@@ -89,11 +118,11 @@ namespace Goofy.Application.Administration
                 {
                     RaiseIdentityResultException(result);
                 }
-                foreach (var resource in SecurityServiceCollectionExtensions.Resources)
+                foreach (var r in SecurityServiceCollectionExtensions.Resources)
                 {
-                    foreach (var crudOperation in new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete })
+                    foreach (var crudOperation in r.Value)
                     {
-                        var claimName = SecurityUtils.GetPermissionName(resource, crudOperation);
+                        var claimName = SecurityUtils.GetPermissionName(r.Key, crudOperation);
                         result = _roleManager.AddClaimAsync(role, new Claim(claimName, "")).Result;
                         if (!result.Succeeded)
                         {
