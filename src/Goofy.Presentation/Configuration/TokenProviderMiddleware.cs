@@ -12,6 +12,9 @@ using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Goofy.Security.Services.Abstractions;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.IdentityModel.Tokens;
+using Microsoft.AspNet.Identity;
 
 namespace Goofy.Presentation
 {
@@ -93,17 +96,16 @@ namespace Goofy.Presentation
             };
             claims.AddRange(userClaims);
 
-            // Create the JWT and write it to a string
-            var jwt = new JwtSecurityToken(
-                issuer: _options.Issuer,
-                audience: _options.Audience,
-                claims: claims,
-                notBefore: now,
-                expires: now.Add(_options.Expiration),
-                signingCredentials: _options.SigningCredentials);
+            var identity = new ClaimsIdentity(claims, null);
+            var handler = new JwtSecurityTokenHandler();
+            var rsa = new RSACryptoServiceProvider(2048);
+            var rsaParams = rsa.ExportParameters(true);
+            var rsaKey = new RsaSecurityKey(rsaParams);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var encodedJwt = tokenHandler.WriteToken(jwt);
+            var secToken = handler.CreateToken(_options.Issuer, _options.Audience, identity, now, DateTime.UtcNow.AddDays(1), now,
+                new SigningCredentials(rsaKey, JwtAlgorithms.RSA_SHA256));
+
+            var encodedJwt = handler.WriteToken(secToken);
 
             var response = new
             {
