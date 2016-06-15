@@ -8,6 +8,13 @@ using Goofy.Infrastructure.Core.Data;
 using Goofy.Security.DependencyInjection;
 using Goofy.Application.DependencyInjection;
 using Goofy.Presentation.DependencyInjection;
+using System.IdentityModel.Tokens;
+using System.Text;
+using System;
+using Microsoft.AspNet.Authentication.JwtBearer;
+using Microsoft.Extensions.OptionsModel;
+using Microsoft.AspNet.Identity;
+using Goofy.Domain.Identity.Entity;
 
 namespace Goofy.Presentation
 {
@@ -39,9 +46,10 @@ namespace Goofy.Presentation
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
+                loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseRuntimeInfoPage();
@@ -60,15 +68,43 @@ namespace Goofy.Presentation
                 }
                 catch { }
             }
+            var secretKey = "mysupersecret_secretkey!123";
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
 
-            app.UseIdentity();
+            //var tokenValidationParameters = new TokenValidationParameters
+            //{
+            //    // The signing key must match!
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = signingKey,
 
+            //    // Validate the JWT Issuer (iss) claim
+            //    ValidateIssuer = true,
+            //    ValidIssuer = "ExampleIssuer",
+
+            //    // Validate the JWT Audience (aud) claim
+            //    ValidateAudience = true,
+            //    ValidAudience = "ExampleAudience",
+
+            //    // Validate the token expiry
+            //    ValidateLifetime = true,
+
+            //    // If you want to allow a certain amount of clock drift, set that here:
+            //    ClockSkew = TimeSpan.Zero
+            //};
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var options = new TokenProviderOptions
+            {
+                Audience = "ExampleAudience",
+                Issuer = "ExampleIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HMAC_SHA256),
+            };
+            app.UseMiddleware<TokenProviderMiddleware>(options);
         }
 
         // Entry point for the application.

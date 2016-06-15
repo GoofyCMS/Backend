@@ -14,6 +14,7 @@ using Goofy.Infrastructure.Core.Data;
 using Goofy.Application.Core.Abstractions;
 using Goofy.Application.Administration.Services.Abstractions;
 using Goofy.Domain.Administration.Service.Adapter;
+using Goofy.Security.Services.Abstractions;
 
 namespace Goofy.Application.Administration.DependencyInjection
 {
@@ -41,6 +42,8 @@ namespace Goofy.Application.Administration.DependencyInjection
             .AddEntityFrameworkStores<IdentityDbContext<GoofyUser>>()
             .AddRoleManager<GoofyRoleManager<GoofyRole>>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimProvider, UserClaimsProvider>();
 
             services.AddCrudPermissions("GoofyUser", "GoofyRole");
         }
