@@ -50,6 +50,9 @@ namespace Goofy.Infrastructure.Administration.Adapter
 
             CreateMap<IdentityUserClaimItem, IdentityUserClaim>();
             CreateMap<IdentityUserClaim, IdentityUserClaimItem>();
+
+            CreateMap<Permission, PermissionItem>();
+            CreateMap<PermissionItem, Permission>();
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Goofy.Presentation.Administration.Providers
         public virtual IDbSet<GoofyUserItem> GoofyUserItems { get; set; }
         public virtual IDbSet<IdentityUserClaimItem> IdentityUserClaimItems { get; set; }
         public virtual IDbSet<IdentityUserRoleItem> IdentityUserRoleItems { get; set; }
+        public virtual IDbSet<PermissionItem> PermissionItems { get; set; }
     }
 }

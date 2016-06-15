@@ -20,6 +20,7 @@ namespace Goofy.Infrastructure.Administration.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new PluginConfiguration());
             modelBuilder.Configurations.Add(new GoofyRoleConfiguration());
+            modelBuilder.Configurations.Add(new PermissionConfiguration());
         }
     }
 }
