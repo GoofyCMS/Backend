@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNet.Authorization;
 using Goofy.Security.Services;
+using System.Linq;
 
 namespace Goofy.Security.Extensions
 {
@@ -10,20 +11,31 @@ namespace Goofy.Security.Extensions
     {
         public static Dictionary<string, IEnumerable<CrudOperation>> Resources { get; set; } = new Dictionary<string, IEnumerable<CrudOperation>>();
 
-        public static void AddEntireCrudPermissions(this IServiceCollection services, params string[] resources)
+        public static void AddEntireCrudPermissions(this IServiceCollection services, params Type[] resources)
+        {
+            var resourcesName = resources.Select(t => ResourceNameFromType(t)).ToArray();
+            services.AddEntireCrudPermissions(resourcesName);
+        }
+
+        private static string ResourceNameFromType(Type t)
+        {
+            return t.FullName.Substring(t.FullName.LastIndexOf('.') + 1);
+        }
+
+        private static void AddEntireCrudPermissions(this IServiceCollection services, params string[] resourceName)
         {
             if (Resources == null)
             {
                 throw new InvalidOperationException();
             }
 
-            foreach (var r in resources)
+            foreach (var r in resourceName)
             {
                 services.AddCrudPermissions(r, new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete });
             }
         }
 
-        public static void AddCrudPermissions(this IServiceCollection services, string resource, params CrudOperation[] crudPermissions)
+        private static void AddCrudPermissions(this IServiceCollection services, string resource, params CrudOperation[] crudPermissions)
         {
             if (Resources == null)
             {

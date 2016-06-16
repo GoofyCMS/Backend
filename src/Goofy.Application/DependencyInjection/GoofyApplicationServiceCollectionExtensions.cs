@@ -12,7 +12,6 @@ namespace Goofy.Application.DependencyInjection
             services.AddSingleton<IPluginAssemblyProvider, GoofyPluginAssemblyProvider>();
             services.AddInstance(services);
             services.AddSingleton<IEngine, PluggableEngine>();
-            services.AddEntireCrudPermissions("Plugin");
             return services;
         }
 

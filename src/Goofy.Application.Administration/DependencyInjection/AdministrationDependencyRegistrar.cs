@@ -46,7 +46,7 @@ namespace Goofy.Application.Administration.DependencyInjection
             services.AddScoped<IUserClaimProvider, UserClaimProvider>();
             services.AddScoped<IRoleClaimProvider, RoleClaimProvider>();
 
-            services.AddEntireCrudPermissions("GoofyUser", "GoofyRole");
+            services.AddEntireCrudPermissions(typeof(GoofyUser), typeof(GoofyRole), typeof(Plugin));
         }
     }
 }
