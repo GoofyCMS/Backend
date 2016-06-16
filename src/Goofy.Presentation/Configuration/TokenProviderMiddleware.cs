@@ -76,8 +76,6 @@ namespace Goofy.Presentation
 
             var userClaimsProvider = context.ApplicationServices.GetRequiredService<IUserClaimProvider>();
 
-            // Specifically add the jti (nonce), iat (issued timestamp), and sub (subject/user) claims.
-            // You can add other claims here, if you want:
             var userClaims = userClaimsProvider.GetUserClaims(username, password);
             if (userClaims == null)
             {

@@ -43,7 +43,7 @@ namespace Goofy.Application.Administration.DependencyInjection
             .AddRoleManager<GoofyRoleManager<GoofyRole>>()
             .AddDefaultTokenProviders();
 
-            services.AddScoped<IUserClaimProvider, UserClaimsProvider>();
+            services.AddScoped<IUserClaimProvider, UserClaimProvider>();
 
             services.AddCrudPermissions("GoofyUser", "GoofyRole");
         }

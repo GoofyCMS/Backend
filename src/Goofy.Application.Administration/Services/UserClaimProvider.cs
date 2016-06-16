@@ -6,11 +6,11 @@ using Goofy.Domain.Administration.Entity;
 
 namespace Goofy.Application.Administration.Services
 {
-    public class UserClaimsProvider : IUserClaimProvider
+    public class UserClaimProvider : IUserClaimProvider
     {
         private readonly UserManager<GoofyUser> _userManager;
 
-        public UserClaimsProvider(UserManager<GoofyUser> userManager)
+        public UserClaimProvider(UserManager<GoofyUser> userManager)
         {
             _userManager = userManager;
         }
@@ -20,7 +20,13 @@ namespace Goofy.Application.Administration.Services
             var user = _userManager.FindByNameAsync(userName).Result;
             if (user == null)
                 return null;
-            return _userManager.GetClaimsAsync(user).Result;
+
+            var roles = _userManager.GetRolesAsync(user).Result;
+            var claims = new List<Claim>(new Claim[] { new Claim(ClaimTypes.Name, user.UserName) });
+            foreach (var r in roles) claims.Add(new Claim(ClaimTypes.Role, r));
+            foreach (var c in user.Claims) claims.Add(new Claim(c.ClaimType, c.ClaimValue));
+
+            return claims;
         }
     }
 }

@@ -55,6 +55,13 @@ namespace Goofy.Presentation.Administration.Controllers
             return "this is a testing action";
         }
 
+        [HttpGet("test_other")]
+        [Authorize(Roles = "Administrator")]
+        public string OtherTest()
+        {
+            return "this is other test";
+        }
+
         [HttpPost("logoff")]
         public async Task LogOff()
         {
