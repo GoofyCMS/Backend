@@ -15,13 +15,13 @@ namespace Goofy.Presentation.Administration.Controllers
             _pluginManager = pluginManager;
         }
 
-        [HttpGet("enable/{id}")]
+        [HttpPost("enable/{id}")]
         public IActionResult Enable(int id)
         {
             return Map(_pluginManager.Enable(id));
         }
 
-        [HttpGet("disable/{id}")]
+        [HttpPost("disable/{id}")]
         public IActionResult Disable(int id)
         {
             return Map(_pluginManager.Disable(id));

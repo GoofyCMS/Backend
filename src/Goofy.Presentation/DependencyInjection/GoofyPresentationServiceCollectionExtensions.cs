@@ -17,7 +17,7 @@ namespace Goofy.Presentation.DependencyInjection
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowNoOne", builder => builder.WithOrigins("http://192.168.1.2:8000", "http://localhost:8000")
+                options.AddPolicy("AllowNoOne", builder => builder.WithOrigins("http://localhost:8000")
                                                                 .AllowAnyHeader()
                                                                 .AllowAnyMethod()
                                                                 .DisallowCredentials());
