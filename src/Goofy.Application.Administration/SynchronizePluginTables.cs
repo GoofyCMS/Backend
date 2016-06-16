@@ -4,7 +4,6 @@ using Goofy.Domain.Administration.Entity;
 using Goofy.Domain.Administration.Service.Data;
 using Goofy.Domain.Core;
 using Goofy.Domain.Core.Service.Data;
-using Goofy.Infrastructure.Core.Data.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -41,16 +40,6 @@ namespace Goofy.Application.Administration
                 if (unitOfWorkType != null)
                 {
                     var unitOfWork = (IUnitOfWork)_services.GetRequiredService(unitOfWorkType);
-                    if (plugin.Enabled)
-                    {
-                        //create tables if not exist
-                        unitOfWork.CreateTablesIfNotExist();
-                    }
-                    else
-                    {
-                        //delete tables if exist
-                        unitOfWork.DropTables();
-                    }
                 }
             }
         }
