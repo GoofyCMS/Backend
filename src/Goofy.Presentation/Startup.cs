@@ -12,9 +12,7 @@ using System.IdentityModel.Tokens;
 using System.Text;
 using System;
 using Microsoft.AspNet.Authentication.JwtBearer;
-using Microsoft.Extensions.OptionsModel;
-using Microsoft.AspNet.Identity;
-using Goofy.Domain.Identity.Entity;
+using Goofy.Presentation.Configuration;
 
 namespace Goofy.Presentation
 {
@@ -108,6 +106,13 @@ namespace Goofy.Presentation
                 AutomaticChallenge = true,
                 TokenValidationParameters = tokenValidationParameters
             });
+
+            var authorizeOptions = new GoofyAuthorizeOptions
+            {
+                Path = "/permissions"
+            };
+
+            app.UseMiddleware<GoofyAuthorizeMiddleware>(authorizeOptions);
 
             app.UseMvc(routes =>
             {

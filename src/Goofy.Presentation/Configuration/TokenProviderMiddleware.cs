@@ -74,8 +74,14 @@ namespace Goofy.Presentation
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
 
-            var userClaimsProvider = context.ApplicationServices.GetRequiredService<IUserClaimProvider>();
+            if(username == "" || password == "")
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync("Invalid username or password.");
+                return;
+            }
 
+            var userClaimsProvider = context.ApplicationServices.GetRequiredService<IUserClaimProvider>();
             var userClaims = userClaimsProvider.GetUserClaims(username, password);
             if (userClaims == null)
             {
