@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Authorization;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Goofy.Security.Extensions
 {
@@ -9,7 +10,7 @@ namespace Goofy.Security.Extensions
         {
             foreach (var permission in resourcePermission.Value)
             {
-                options.AddPolicy(SecurityUtils.GetPolicyName(resourcePermission.Key, permission), policy => policy.Requirements.Add(new CustomRequireClaim(SecurityUtils.GetPermissionName(resourcePermission.Key, permission))));
+                options.AddPolicy(SecurityUtils.GetPolicyName(resourcePermission.Key, permission), policy => policy.Requirements.Add(new CustomRequireClaimRequirement(new Claim(SecurityUtils.GetPermissionName(resourcePermission.Key, permission), ""))));
             }
         }
     }

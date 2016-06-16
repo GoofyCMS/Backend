@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Goofy.Security.Extensions;
+using Goofy.Security.Services;
 
 namespace Goofy.Security.DependencyInjection
 {
@@ -8,6 +9,7 @@ namespace Goofy.Security.DependencyInjection
         public static IServiceCollection AddGoofySecurity(this IServiceCollection services)
         {
             services.BuildPermissions();
+            services.AddScoped<CustomRequireClaimService>();
             return services;
         }
     }

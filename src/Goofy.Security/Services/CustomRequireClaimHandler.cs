@@ -7,27 +7,19 @@ using Goofy.Security.Services.Abstractions;
 
 namespace Goofy.Security.Services
 {
-    public class CustomRequireClaimHandler : AuthorizationHandler<CustomRequireClaim>
+    public class CustomRequireClaimHandler : AuthorizationHandler<CustomRequireClaimRequirement>
     {
-        private readonly IRoleClaimProvider _roleClaimProvider;
+        private readonly CustomRequireClaimService _requireClaimService;
 
-        public CustomRequireClaimHandler(IRoleClaimProvider roleClaimProvider)
+        public CustomRequireClaimHandler(CustomRequireClaimService requireClaimService)
         {
-            _roleClaimProvider = roleClaimProvider;
+            _requireClaimService = requireClaimService;
         }
 
-        protected override void Handle(AuthorizationContext context, CustomRequireClaim requirement)
+        protected override void Handle(AuthorizationContext context, CustomRequireClaimRequirement requirement)
         {
-            if (context.User.HasClaim(c => c.Type == requirement.ClaimType))
-            {
+            if (_requireClaimService.UserHasClaim(context.User, requirement.Claim))
                 context.Succeed(requirement);
-                return;
-            }
-            var roles = context.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value).ToArray();
-            if (_roleClaimProvider.RoleClaims(roles).Any(c => c.Type == requirement.ClaimType))
-            {
-                context.Succeed(requirement);
-            }
         }
     }
 }
