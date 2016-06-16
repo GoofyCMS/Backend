@@ -35,37 +35,21 @@ namespace Goofy.Presentation.Services
 
         private List<ActionDescriptor> FilterOnlyActiveActions(IReadOnlyList<ActionDescriptor> actions)
         {
-
             if (actions == null)
                 return null;
             var actionController = actions.Where(a => a is ControllerActionDescriptor).Cast<ControllerActionDescriptor>();
             if (actionController.Count() == 0)
                 return null;
-            var pluginNames = GetPluginForValidActionDescriptors(actionController).ToArray();
+            var controllerPlugin = GetPluginForValidActionDescriptors(actionController).ToArray();
+            var pluginNames = controllerPlugin.Select(p => p.Value);
             var plugins = _pluginManager.Plugins.GetAll(a => pluginNames.Contains(a.Name)).ToArray();//Ver cuantas queries hace esto
 
-            actionController.Select(a => new { Action = a, PluginName = _pluginManager.PluginAssemblyProvider.GetPluginContainingAssembly(a.ControllerTypeInfo.Assembly) });
-            return actions?.Where(ActionsInActiveComponents).ToList();
+            return controllerPlugin.Where(c => plugins.FirstOrDefault(p => c.Value == p.Name)?.Enabled ?? true).Select(c => (ActionDescriptor)c.Key).ToList();
         }
 
-        private bool ActionsInActiveComponents(ActionDescriptor actionDescriptor)
+        public IEnumerable<KeyValuePair<ControllerActionDescriptor, string>> GetPluginForValidActionDescriptors(IEnumerable<ControllerActionDescriptor> actions)
         {
-            var controllerActionDescriptor = ;
-            if (controllerActionDescriptor != null)
-            {
-                var assembly = controllerActionDescriptor.ControllerTypeInfo.Assembly;
-                var plugin = _pluginManager.GetPluginContainigAssembly(assembly);
-                return plugin?.Enabled ?? true;
-            }
-            return true;
+            return actions.Select(a => new KeyValuePair<ControllerActionDescriptor, string>(a, _pluginManager.PluginAssemblyProvider.GetPluginContainingAssembly(a.ControllerTypeInfo.Assembly)));
         }
-
-        public IEnumerable<string> GetPluginForValidActionDescriptors(IEnumerable<ActionDescriptor> actions)
-        {
-            return actions.Where(a => a is ControllerActionDescriptor)
-                .Cast<ControllerActionDescriptor>()
-                .Select(a => _pluginManager.PluginAssemblyProvider.GetPluginContainingAssembly(a.ControllerTypeInfo.Assembly));
-        }
-
     }
 }

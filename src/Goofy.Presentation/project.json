@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -15,8 +15,7 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Goofy.Application": "1.0.0",
     "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final",
-    "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-    "Microsoft.Aspnet.Identity": "3.0.0-rc1-final"
+    "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final"
   },
 
   "commands": {
