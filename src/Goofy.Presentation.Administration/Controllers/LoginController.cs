@@ -62,6 +62,13 @@ namespace Goofy.Presentation.Administration.Controllers
             return "this is other test";
         }
 
+        [HttpGet("test_policies")]
+        [Authorize(Policy = "RequireDeleteArticle")]
+        public string OtherTestMore()
+        {
+            return "Yeah I fucking finish basic security features...";
+        }
+
         [HttpPost("logoff")]
         public async Task LogOff()
         {

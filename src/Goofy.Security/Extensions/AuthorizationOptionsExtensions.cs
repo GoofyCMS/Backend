@@ -9,7 +9,7 @@ namespace Goofy.Security.Extensions
         {
             foreach (var permission in resourcePermission.Value)
             {
-                options.AddPolicy(SecurityUtils.GetPolicyName(resourcePermission.Key, permission), policy => policy.RequireClaim(SecurityUtils.GetPermissionName(resourcePermission.Key, permission)));
+                options.AddPolicy(SecurityUtils.GetPolicyName(resourcePermission.Key, permission), policy => policy.Requirements.Add(new CustomRequireClaim(SecurityUtils.GetPermissionName(resourcePermission.Key, permission))));
             }
         }
     }

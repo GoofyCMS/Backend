@@ -89,11 +89,11 @@ namespace Goofy.Application.Administration
                 {
                     RaiseIdentityResultException(result);
                 }
-                foreach (var resource in SecurityServiceCollectionExtensions.Resources)
+                foreach (var r in SecurityServiceCollectionExtensions.Resources)
                 {
-                    foreach (var crudOperation in new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete })
+                    foreach (var crudOperation in r.Value)
                     {
-                        var claimName = SecurityUtils.GetPermissionName(resource, crudOperation);
+                        var claimName = SecurityUtils.GetPermissionName(r.Key, crudOperation);
                         result = _roleManager.AddClaimAsync(role, new Claim(claimName, "")).Result;
                         if (!result.Succeeded)
                         {
