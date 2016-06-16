@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.Authorization;
+using Goofy.Security.Services;
 
 namespace Goofy.Security.Extensions
 {
@@ -46,6 +48,7 @@ namespace Goofy.Security.Extensions
                 Resources = null; /*La forma en la que esto se procesa me permite seguir agregando 
                                         recursos hasta que no se haga el primer request*/
             });
+            services.AddSingleton<IAuthorizationHandler, CustomRequireClaimHandler>();
 
             return services;
         }
