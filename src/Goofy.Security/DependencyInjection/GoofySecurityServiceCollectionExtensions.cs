@@ -10,6 +10,7 @@ namespace Goofy.Security.DependencyInjection
         {
             services.BuildPermissions();
             services.AddScoped<CustomRequireClaimService>();
+            services.AddScoped<AuthorizationService>();
             return services;
         }
     }
