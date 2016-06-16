@@ -41,16 +41,6 @@ namespace Goofy.Application.Administration
                 if (unitOfWorkType != null)
                 {
                     var unitOfWork = (IUnitOfWork)_services.GetRequiredService(unitOfWorkType);
-                    if (plugin.Enabled)
-                    {
-                        //create tables if not exist
-                        unitOfWork.CreateTablesIfNotExist();
-                    }
-                    else
-                    {
-                        //delete tables if exist
-                        unitOfWork.DropTables();
-                    }
                 }
             }
         }
