@@ -71,26 +71,44 @@ namespace Goofy.Presentation
             var secretKey = "mysupersecret_secretkey!123";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
 
-            //var tokenValidationParameters = new TokenValidationParameters
-            //{
-            //    // The signing key must match!
-            //    ValidateIssuerSigningKey = true,
-            //    IssuerSigningKey = signingKey,
+            var options = new TokenProviderOptions
+            {
+                Audience = "GoofyAudience",
+                Issuer = "GoofyIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HMAC_SHA256),
+            };
+            app.UseMiddleware<TokenProviderMiddleware>(options);
 
-            //    // Validate the JWT Issuer (iss) claim
-            //    ValidateIssuer = true,
-            //    ValidIssuer = "ExampleIssuer",
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
 
-            //    // Validate the JWT Audience (aud) claim
-            //    ValidateAudience = true,
-            //    ValidAudience = "ExampleAudience",
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = options.Issuer,
 
-            //    // Validate the token expiry
-            //    ValidateLifetime = true,
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = options.Audience,
 
-            //    // If you want to allow a certain amount of clock drift, set that here:
-            //    ClockSkew = TimeSpan.Zero
-            //};
+                // Validate the token expiry
+                ValidateLifetime = true,
+
+                ValidateSignature = false,
+
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -98,13 +116,7 @@ namespace Goofy.Presentation
                 template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            var options = new TokenProviderOptions
-            {
-                Audience = "ExampleAudience",
-                Issuer = "ExampleIssuer",
-                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HMAC_SHA256),
-            };
-            app.UseMiddleware<TokenProviderMiddleware>(options);
+
         }
 
         // Entry point for the application.

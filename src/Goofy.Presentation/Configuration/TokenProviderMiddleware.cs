@@ -96,7 +96,7 @@ namespace Goofy.Presentation
             };
             claims.AddRange(userClaims);
 
-            var identity = new ClaimsIdentity(claims, null);
+            var identity = new ClaimsIdentity(claims, "JWT");
             var handler = new JwtSecurityTokenHandler();
             var rsa = new RSACryptoServiceProvider(2048);
             var rsaParams = rsa.ExportParameters(true);
