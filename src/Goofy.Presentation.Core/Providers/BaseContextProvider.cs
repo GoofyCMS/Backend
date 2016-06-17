@@ -3,13 +3,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Infrastructure;
 using Breeze.ContextProvider;
 using Breeze.ContextProvider.EF6;
 using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
 using Goofy.Domain.Core;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Goofy.Presentation.Core.Providers
 {
@@ -19,6 +19,7 @@ namespace Goofy.Presentation.Core.Providers
         private readonly ITypeAdapterFactory _typeAdapterFactory;
         private readonly EFContextProvider<TContext> _contextProvider;
         private readonly IServiceProvider _services;
+        private readonly ILogger _loger;
 
         protected BaseContextProvider(IServiceProvider services, IUnitOfWork context, ITypeAdapterFactory typeAdapterFactory)
         {
@@ -26,6 +27,8 @@ namespace Goofy.Presentation.Core.Providers
             _context = context;
             _typeAdapterFactory = typeAdapterFactory;
             _contextProvider = new EFContextProvider<TContext>();
+            var logger = services.GetRequiredService<ILoggerFactory>();
+            _loger = logger.CreateLogger<BaseContextProvider<TContext>>();
         }
 
 
@@ -36,19 +39,12 @@ namespace Goofy.Presentation.Core.Providers
 
         protected override void OpenDbConnection()
         {
-            var entityConnection = ((IObjectContextAdapter)_context).ObjectContext.Connection as EntityConnection;
-            if (entityConnection == null || entityConnection.State != ConnectionState.Closed)
-                return;
-            entityConnection.Open();
+            //DbContext OpenDbConnection default behavior
         }
 
         protected override void CloseDbConnection()
         {
-            var entityConnection = ((IObjectContextAdapter)_context)?.ObjectContext.Connection as EntityConnection;
-            if (entityConnection == null)
-                return;
-            entityConnection.Close();
-            entityConnection.Dispose();
+            //DbContext CloseDbConnection default behavior
         }
 
         protected override string BuildJsonMetadata()
