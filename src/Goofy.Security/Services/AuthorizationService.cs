@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Authorization;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Goofy.Security.Services
@@ -12,29 +12,17 @@ namespace Goofy.Security.Services
             _requireClaimService = requireClaimService;
         }
 
-        private const string CREATE = "CREATE";
-        private const string READ = "READ";
-        private const string UPDATE = "UPDATE";
-        private const string DELETE = "DELETE";
-
-        public bool IsAuthorized(ClaimsPrincipal user, string viewModelResource, string operation)
+        public IEnumerable<bool> GetPermissions(ClaimsPrincipal user, string viewModelResource)
         {
             var resource = GetResourceNameFromViewModelName(viewModelResource);
-            if (!Validate(operation))
-                return false;
-            var crudOperation = (operation == CREATE) ? CrudOperation.Create :
-                                (operation == READ) ? CrudOperation.Read :
-                                (operation == UPDATE) ? CrudOperation.Update :
-                                CrudOperation.Delete;
 
-            var claim = new Claim(SecurityUtils.GetPermissionName(resource, crudOperation), "");
-            return _requireClaimService.UserHasClaim(user, claim);
+            foreach (var operation in new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete })
+            {
+                var claim = new Claim(SecurityUtils.GetPermissionName(resource, operation), "");
+                yield return _requireClaimService.UserHasClaim(user, claim);
+            }
         }
 
-        private bool Validate(string method)
-        {
-            return method == CREATE || method == READ || method == UPDATE || method == DELETE;
-        }
 
         private static string GetResourceNameFromViewModelName(string viewModelName)
         {

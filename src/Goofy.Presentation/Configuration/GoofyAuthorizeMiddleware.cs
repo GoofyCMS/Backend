@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Goofy.Presentation.Configuration
@@ -55,23 +56,22 @@ namespace Goofy.Presentation.Configuration
         private async Task IsAuthorized(HttpContext context)
         {
             var viewModel = context.Request.Form[_options.ResourceField];
-            var method = context.Request.Form[_options.MethodField];
-            if (viewModel == "" || method == "")
+            if (viewModel == "")
             {
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync($"Fields \"{_options.ResourceField}\" and \"{_options.MethodField}\" are required.");
                 return;
             }
             var authorizationService = context.ApplicationServices.GetRequiredService<AuthorizationService>();
-            var isAuthorized = authorizationService.IsAuthorized(context.User, viewModel, method);
+            var permissions = authorizationService.GetPermissions(context.User, viewModel);
 
-            var response = new
+            var permissionResponse = new
             {
-                response = isAuthorized
+                permissions = permissions.ToArray()
             };
 
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(JsonConvert.SerializeObject(response, _serializerSettings));
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(permissionResponse, _serializerSettings));
         }
     }
 }
