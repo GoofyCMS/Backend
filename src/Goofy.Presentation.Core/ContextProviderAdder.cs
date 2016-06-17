@@ -17,7 +17,7 @@ namespace Goofy.Presentation.Core
         {
             foreach (var contextProviderType in FindContextProvider(assemblies.GetAssembliesPerLayer(AppLayer.Presentation)))
             {
-                services.AddSingleton(contextProviderType);
+                services.AddScoped(contextProviderType);
             }
         }
 

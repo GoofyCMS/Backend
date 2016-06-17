@@ -46,13 +46,8 @@ namespace Goofy.Infrastructure.Core.Data.Extensions
 
             if (typeof(IUnitOfWork).IsAssignableFrom(unitOfWorkObjectType))
             {
-                services.AddScoped(iUnitOfWorkInterface,
-                   s =>
-                   {
-                       var dataAccessConfig = s.GetRequiredService<IOptions<DataAccessConfiguration>>();
-                       return ActivatorUtilities.CreateInstance(s, unitOfWorkObjectType, new object[] { dataAccessConfig.Value.ConnectionString });
-                   });
                 services.AddUnitOfWork(unitOfWorkObjectType);
+                services.AddScoped(iUnitOfWorkInterface, s => s.GetRequiredService(unitOfWorkObjectType));
             }
             else
             {

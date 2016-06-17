@@ -16,7 +16,7 @@ namespace Goofy.Application.Blog.DependencyInjection
         public void ConfigureServices(IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
             services.AddUnitOfWork(typeof(IBlogUnitOfWork), typeof(BlogContext));
-            services.AddSingleton(typeof(IBlogServiceMapper<,>), typeof(BlogServiceMapper<,>));
+            services.AddScoped(typeof(IBlogServiceMapper<,>), typeof(BlogServiceMapper<,>));
             services.AddEntireCrudPermissions(typeof(Article));
         }
     }

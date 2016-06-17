@@ -12,7 +12,7 @@ namespace Goofy.Infrastructure.Core.Adapter.Extensions
             services.AddInstance<ITypeAdapterFactory>(new AutomapperTypeAdapterFactory(assemblies));
 
             //Register TypeAdapter implementation
-            services.AddSingleton(provider => provider.GetRequiredService<ITypeAdapterFactory>().Create());
+            services.AddScoped(provider => provider.GetRequiredService<ITypeAdapterFactory>().Create());
             return services;
         }
     }
