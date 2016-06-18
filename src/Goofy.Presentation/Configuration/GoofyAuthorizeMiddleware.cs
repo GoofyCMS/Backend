@@ -16,15 +16,19 @@ namespace Goofy.Presentation.Configuration
         private readonly RequestDelegate _next;
         private readonly GoofyAuthorizeOptions _options;
         private readonly JsonSerializerSettings _serializerSettings;
+        private readonly CustomCorsRequestValidator _corsValidator;
 
         public GoofyAuthorizeMiddleware(
            RequestDelegate next,
            GoofyAuthorizeOptions options,
+           CustomCorsRequestValidator corsValidator,
            ILoggerFactory loggerFactory)
         {
             _next = next;
             _options = options;
             _logger = loggerFactory.CreateLogger<TokenProviderMiddleware>();
+
+            _corsValidator = corsValidator;
 
             _serializerSettings = new JsonSerializerSettings
             {
@@ -32,25 +36,31 @@ namespace Goofy.Presentation.Configuration
             };
         }
 
-        public Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             // If the request path doesn't match, skip
             if (!context.Request.Path.Equals(_options.Path, StringComparison.Ordinal))
             {
-                return _next(context);
+                await _next(context);
+                return;
             }
+
+            var preflightRequest = await _corsValidator.AuthorizeCors(context);
+            if (preflightRequest)
+                return;
 
             // Request must be POST with Content-Type: application/x-www-form-urlencoded
             if (!context.Request.Method.Equals("POST")
                || !context.Request.HasFormContentType)
             {
                 context.Response.StatusCode = 400;
-                return context.Response.WriteAsync("Bad request.");
+                await context.Response.WriteAsync("Bad request.");
+                return;
             }
 
             _logger.LogInformation("Handling request: " + context.Request.Path);
 
-            return IsAuthorized(context);
+            await IsAuthorized(context);
         }
 
         private async Task IsAuthorized(HttpContext context)

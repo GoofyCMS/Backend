@@ -13,6 +13,7 @@ using System.Text;
 using System;
 using Microsoft.AspNet.Authentication.JwtBearer;
 using Goofy.Presentation.Configuration;
+using Goofy.Presentation.Configuration.Extensions;
 
 namespace Goofy.Presentation
 {
@@ -36,8 +37,13 @@ namespace Goofy.Presentation
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DataAccessConfiguration>(Configuration.GetSection("DataAccessConfiguration"));
+            var corsConfigSection = Configuration.GetSection("CorsConfiguration");
+            services.Configure<CorsConfiguration>(corsConfigSection);
             services.AddGoofySecurity();
             services.AddGoofy();
+            var config = corsConfigSection.GetConfiguration<CorsConfiguration>();
+            services.AddCorsPolicies(config);
+            services.AddScoped<CustomCorsRequestValidator>();
             services.AddMvcServices();
             services.StartEngine();
         }
@@ -114,6 +120,7 @@ namespace Goofy.Presentation
 
             app.UseMiddleware<GoofyAuthorizeMiddleware>(authorizeOptions);
 
+            app.UseMiddleware<Avoid401CorsRestrictionMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

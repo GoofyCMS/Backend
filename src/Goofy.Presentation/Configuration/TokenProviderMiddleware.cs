@@ -16,6 +16,9 @@ using System.Security.Cryptography;
 using System.IdentityModel.Tokens;
 using Microsoft.AspNet.Cors.Infrastructure;
 using Microsoft.Extensions.Primitives;
+using Goofy.Presentation.Configuration;
+using Microsoft.Extensions.OptionsModel;
+using System.Linq;
 
 namespace Goofy.Presentation
 {
@@ -31,10 +34,12 @@ namespace Goofy.Presentation
         private readonly TokenProviderOptions _options;
         private readonly ILogger _logger;
         private readonly JsonSerializerSettings _serializerSettings;
+        private readonly CustomCorsRequestValidator _corsValidator;
 
         public TokenProviderMiddleware(
             RequestDelegate next,
             TokenProviderOptions options,
+            CustomCorsRequestValidator corsValidator,
             ILoggerFactory loggerFactory)
         {
             _next = next;
@@ -42,6 +47,8 @@ namespace Goofy.Presentation
 
             _options = options;
             ThrowIfInvalidOptions(_options);
+
+            _corsValidator = corsValidator;
 
             _serializerSettings = new JsonSerializerSettings
             {
@@ -51,9 +58,6 @@ namespace Goofy.Presentation
 
         public async Task Invoke(HttpContext context)
         {
-            var corsPolicyProvider = context.ApplicationServices.GetRequiredService<ICorsPolicyProvider>();
-            var corsService = context.ApplicationServices.GetRequiredService<ICorsService>();
-
             // If the request path doesn't match, skip
             if (!context.Request.Path.Equals(_options.Path, StringComparison.Ordinal))
             {
@@ -61,30 +65,9 @@ namespace Goofy.Presentation
                 return;
             }
 
-            if (context.Request.Headers.ContainsKey(CorsConstants.Origin))
-            {
-                //IMPORTANT: THIS CODE IS FIXED TO "AllowNoOne" policy, it should be changed
-                var corsPolicy = await corsPolicyProvider?.GetPolicyAsync(context, "AllowNoOne");
-                if (corsPolicy != null)
-                {
-                    var corsResult = corsService.EvaluatePolicy(context, corsPolicy);
-                    corsService.ApplyResult(corsResult, context.Response);
-
-                    var accessControlRequestMethod =
-                        context.Request.Headers[CorsConstants.AccessControlRequestMethod];
-                    if (string.Equals(
-                            context.Request.Method,
-                            CorsConstants.PreflightHttpMethod,
-                            StringComparison.Ordinal) &&
-                            !StringValues.IsNullOrEmpty(accessControlRequestMethod))
-                    {
-                        // Since there is a policy which was identified,
-                        // always respond to preflight requests.
-                        context.Response.StatusCode = StatusCodes.Status204NoContent;
-                        return;
-                    }
-                }
-            }
+            var preflightRequest = await _corsValidator.AuthorizeCors(context);
+            if (preflightRequest)
+                return;
 
             // Request must be POST with Content-Type: application/x-www-form-urlencoded
             if (!context.Request.Method.Equals("POST")
@@ -131,7 +114,7 @@ namespace Goofy.Presentation
             };
             claims.AddRange(userClaims);
 
-            var identity = new ClaimsIdentity(claims, "JWT");
+            var identity = new ClaimsIdentity(claims, "");
             var handler = new JwtSecurityTokenHandler();
             var rsa = new RSACryptoServiceProvider(2048);
             var rsaParams = rsa.ExportParameters(true);
