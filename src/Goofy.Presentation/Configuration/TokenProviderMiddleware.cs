@@ -113,7 +113,7 @@ namespace Goofy.Presentation
             }
 
             var userClaimsProvider = context.ApplicationServices.GetRequiredService<IUserClaimProvider>();
-            var userClaims = userClaimsProvider.GetUserClaims(username, password);
+            var userClaims = await userClaimsProvider.GetUserClaims(username, password);
             if (userClaims == null)
             {
                 context.Response.StatusCode = 400;

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Goofy.Security.Services.Abstractions;
 using Microsoft.AspNet.Identity;
 using Goofy.Domain.Administration.Entity;
+using System.Threading.Tasks;
 
 namespace Goofy.Application.Administration.Services
 {
@@ -15,13 +16,13 @@ namespace Goofy.Application.Administration.Services
             _userManager = userManager;
         }
 
-        public IEnumerable<Claim> GetUserClaims(string userName, string password)
+        public async Task<IEnumerable<Claim>> GetUserClaims(string userName, string password)
         {
-            var user = _userManager.FindByNameAsync(userName).Result;
+            var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
                 return null;
 
-            var roles = _userManager.GetRolesAsync(user).Result;
+            var roles = await _userManager.GetRolesAsync(user);
             var claims = new List<Claim>(new Claim[] { new Claim(ClaimTypes.Name, user.UserName) });
             foreach (var r in roles) claims.Add(new Claim(ClaimTypes.Role, r));
             foreach (var c in user.Claims) claims.Add(new Claim(c.ClaimType, c.ClaimValue));
