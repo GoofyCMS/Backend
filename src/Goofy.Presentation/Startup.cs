@@ -19,6 +19,8 @@ namespace Goofy.Presentation
 {
     public class Startup
     {
+        private TokenValidationParameters _tokenValidationParameters;
+
         private ConfigurationBuilder ConfigurationBuilder { get; set; }
 
         protected IConfiguration Configuration { get; set; }
@@ -36,6 +38,43 @@ namespace Goofy.Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var secretKey = "mysupersecret_secretkey!123";
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            var options = new TokenProviderOptions
+            {
+                Audience = "GoofyAudience",
+                Issuer = "GoofyIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HMAC_SHA256),
+            };
+            services.Configure<TokenProviderOptions>(s =>
+            {
+                s.Audience = options.Audience;
+                s.Issuer = options.Issuer;
+                s.SigningCredentials = options.SigningCredentials;
+            });
+            _tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = options.Issuer,
+
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = options.Audience,
+
+                // Validate the token expiry
+                ValidateLifetime = true,
+
+                ValidateSignature = false,
+
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
             services.Configure<DataAccessConfiguration>(Configuration.GetSection("DataAccessConfiguration"));
             var corsConfigSection = Configuration.GetSection("CorsConfiguration");
             services.Configure<CorsConfiguration>(corsConfigSection);
@@ -43,7 +82,6 @@ namespace Goofy.Presentation
             services.AddGoofy();
             var config = corsConfigSection.GetConfiguration<CorsConfiguration>();
             services.AddCorsPolicies(config);
-            services.AddScoped<CustomCorsRequestValidator>();
             services.AddMvcServices();
             services.StartEngine();
         }
@@ -72,53 +110,13 @@ namespace Goofy.Presentation
                 }
                 catch { }
             }
-            var secretKey = "mysupersecret_secretkey!123";
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
-
-            var options = new TokenProviderOptions
-            {
-                Audience = "GoofyAudience",
-                Issuer = "GoofyIssuer",
-                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HMAC_SHA256),
-            };
-            app.UseMiddleware<TokenProviderMiddleware>(options);
-
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                // The signing key must match!
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
-
-                // Validate the JWT Issuer (iss) claim
-                ValidateIssuer = true,
-                ValidIssuer = options.Issuer,
-
-                // Validate the JWT Audience (aud) claim
-                ValidateAudience = true,
-                ValidAudience = options.Audience,
-
-                // Validate the token expiry
-                ValidateLifetime = true,
-
-                ValidateSignature = false,
-
-                // If you want to allow a certain amount of clock drift, set that here:
-                ClockSkew = TimeSpan.Zero
-            };
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
-                TokenValidationParameters = tokenValidationParameters
+                TokenValidationParameters = _tokenValidationParameters
             });
-
-            var authorizeOptions = new GoofyAuthorizeOptions
-            {
-                Path = "/permissions"
-            };
-
-            app.UseMiddleware<GoofyAuthorizeMiddleware>(authorizeOptions);
 
             app.UseMiddleware<Avoid401CorsRestrictionMiddleware>();
             app.UseMvc(routes =>

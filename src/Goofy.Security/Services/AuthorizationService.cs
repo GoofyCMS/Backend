@@ -12,24 +12,28 @@ namespace Goofy.Security.Services
             _requireClaimService = requireClaimService;
         }
 
-        public IEnumerable<bool> GetPermissions(ClaimsPrincipal user, string viewModelResource)
+        public IDictionary<string, IEnumerable<bool>> GetPermissions(ClaimsPrincipal user, string[] viewModelResources)
         {
-            var resource = GetResourceNameFromViewModelName(viewModelResource);
-
-            foreach (var operation in new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete })
+            var result = new Dictionary<string, IEnumerable<bool>>();
+            List<bool> permissions;
+            foreach (var viewModel in viewModelResources)
             {
-                var claim = new Claim(SecurityUtils.GetPermissionName(resource, operation), "");
-                yield return _requireClaimService.UserHasClaim(user, claim);
+                permissions = new List<bool>();
+                var resource = GetResourceNameFromViewModelName(viewModel);
+                foreach (var operation in new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete })
+                {
+                    var claim = new Claim(SecurityUtils.GetPermissionName(resource, operation), "");
+                    permissions.Add(_requireClaimService.UserHasClaim(user, claim));
+                }
+                result.Add(viewModel, permissions);
             }
+            return result;
         }
 
 
         private static string GetResourceNameFromViewModelName(string viewModelName)
         {
-            //No validatios are made here
-            var name = viewModelName.Substring(viewModelName.LastIndexOf('.') + 1);
-            return name.Substring(0, name.LastIndexOf('I')); // Remove the "Item" sufix
+            return viewModelName.Substring(0, viewModelName.LastIndexOf('I')); // Remove the "Item" sufix
         }
-
     }
 }

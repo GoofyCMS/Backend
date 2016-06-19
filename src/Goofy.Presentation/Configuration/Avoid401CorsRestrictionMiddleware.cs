@@ -19,7 +19,7 @@ namespace Goofy.Presentation.Configuration
             ILoggerFactory loggerFactory)
         {
             _next = next;
-            _logger = loggerFactory.CreateLogger<TokenProviderMiddleware>();
+            _logger = loggerFactory.CreateLogger<Avoid401CorsRestrictionMiddleware>();
 
         }
 
