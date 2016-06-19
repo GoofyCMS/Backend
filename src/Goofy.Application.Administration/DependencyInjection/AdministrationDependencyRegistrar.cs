@@ -15,6 +15,9 @@ using Goofy.Application.Core.Abstractions;
 using Goofy.Application.Administration.Services.Abstractions;
 using Goofy.Domain.Administration.Service.Adapter;
 using Goofy.Security.Services.Abstractions;
+using Goofy.Domain.Identity.Entity;
+using Goofy.Security;
+using Goofy.Security.DependencyInjection;
 
 namespace Goofy.Application.Administration.DependencyInjection
 {
@@ -46,7 +49,8 @@ namespace Goofy.Application.Administration.DependencyInjection
             services.AddScoped<IUserClaimProvider, UserClaimProvider>();
             services.AddScoped<IRoleClaimProvider, RoleClaimProvider>();
 
-            services.AddEntireCrudPermissions(typeof(GoofyUser), typeof(GoofyRole), typeof(Plugin));
+            services.AddCrudPermissions(typeof(Plugin), CrudOperation.Read, CrudOperation.Update);
+            services.AddEntireCrudPermissions(typeof(GoofyUser), typeof(GoofyRole), typeof(IdentityRoleClaim), typeof(IdentityUserRole), typeof(IdentityUserClaim), typeof(Permission));
         }
     }
 }

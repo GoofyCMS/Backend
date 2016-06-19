@@ -13,8 +13,16 @@ namespace Goofy.Security.Extensions
 
         public static void AddEntireCrudPermissions(this IServiceCollection services, params Type[] resources)
         {
-            var resourcesName = resources.Select(t => ResourceNameFromType(t)).ToArray();
-            services.AddEntireCrudPermissions(resourcesName);
+            foreach (var r in resources)
+            {
+                services.AddCrudPermissions(r, CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete);
+            }
+        }
+
+        public static void AddCrudPermissions(this IServiceCollection services, Type resource, params CrudOperation[] crudPermissions)
+        {
+            var resourceName = ResourceNameFromType(resource);
+            services.AddCrudPermissions(resourceName, crudPermissions);
         }
 
         private static string ResourceNameFromType(Type t)
@@ -22,20 +30,7 @@ namespace Goofy.Security.Extensions
             return t.FullName.Substring(t.FullName.LastIndexOf('.') + 1);
         }
 
-        private static void AddEntireCrudPermissions(this IServiceCollection services, params string[] resourceName)
-        {
-            if (Resources == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            foreach (var r in resourceName)
-            {
-                services.AddCrudPermissions(r, new[] { CrudOperation.Create, CrudOperation.Read, CrudOperation.Update, CrudOperation.Delete });
-            }
-        }
-
-        private static void AddCrudPermissions(this IServiceCollection services, string resource, params CrudOperation[] crudPermissions)
+        public static void AddCrudPermissions(this IServiceCollection services, string resource, params CrudOperation[] crudPermissions)
         {
             if (Resources == null)
             {

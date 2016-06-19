@@ -1,10 +1,11 @@
-﻿
-using Goofy.Application.Administration;
+﻿using Goofy.Application.Administration;
 using Goofy.Application.Administration.Services.Abstractions;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
 namespace Goofy.Presentation.Administration.Controllers
 {
+    [Authorize(Policy = "RequireUpdatePlugin")]
     [Route("api/administration/plugins")]
     public class PluginManagementController : Controller
     {

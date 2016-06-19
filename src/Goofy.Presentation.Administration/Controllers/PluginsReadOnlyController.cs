@@ -3,6 +3,7 @@ using Goofy.Domain.Administration.Entity;
 using Goofy.Domain.Administration.Service.Adapter;
 using Goofy.Presentation.Administration.Providers;
 using Goofy.Presentation.Core.Controllers;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
 namespace Goofy.Presentation.Administration.Controllers
@@ -15,11 +16,10 @@ namespace Goofy.Presentation.Administration.Controllers
         {
         }
 
-        /* con objetivos de testing*/
-        [Route("test")]
-        public string PluginReadOnlyController()
+        [Authorize(Policy = "RequireReadPlugin")]
+        public override IActionResult Get()
         {
-            return "Hello from PluginsReadOnlyController";
+            return base.Get();
         }
     }
 }
