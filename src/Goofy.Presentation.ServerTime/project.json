@@ -1,0 +1,15 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Presentation.ServerTime Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Goofy.Presentation.Core": "1.0.0",
+    "Goofy.Application.ServerTime": "1.0.0"
+  },
+  "frameworks": {
+    "net451": { }
+  }
+}

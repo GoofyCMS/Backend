@@ -11,8 +11,8 @@ paths.componentsTempOutputFolder = "./temp/plugins";
 paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
-    "Administration",
-    "Blog"
+    "Blog",
+    "ServerTime"
 ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];

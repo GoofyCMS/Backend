@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>1ab3dbff-2839-4c1b-a66a-a53da75b5fea</ProjectGuid>
-    <RootNamespace>Goofy.Application.ServerTime</RootNamespace>
+    <ProjectGuid>266ea718-e62c-4bf5-865d-bedd5fd39477</ProjectGuid>
+    <RootNamespace>Goofy.Presentation.ServerTime</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>

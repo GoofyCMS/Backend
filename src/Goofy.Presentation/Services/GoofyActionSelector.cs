@@ -30,7 +30,8 @@ namespace Goofy.Presentation.Services
 
         protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
         {
-            return FilterOnlyActiveActions(actions);
+            //return FilterOnlyActiveActions(actions);
+            return actions;
         }
 
         private List<ActionDescriptor> FilterOnlyActiveActions(IReadOnlyList<ActionDescriptor> actions)

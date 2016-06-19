@@ -9,11 +9,13 @@ namespace Goofy.Application
     {
         private readonly IAssemblyLoadContext _assemblyLoadContext;
         private readonly string _pluginDirectoryPath;
+        private readonly string _pluginFolder;
 
-        public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string pluginDirectoryPath)
+        public GoofyPluginDirectoryLoader(IAssemblyLoadContext assemblyLoadContext, string pluginDirectoryPath, string pluginFolder)
         {
             _assemblyLoadContext = assemblyLoadContext;
             _pluginDirectoryPath = pluginDirectoryPath;
+            _pluginFolder = pluginFolder;
         }
 
         public Assembly Load(AssemblyName assemblyName)
@@ -21,12 +23,13 @@ namespace Goofy.Application
             /*
                 Fix this for 
             */
-            return _assemblyLoadContext.LoadFile(Path.Combine(_pluginDirectoryPath, "Blog", assemblyName.Name + ".dll"));
+            return _assemblyLoadContext.LoadFile(Path.Combine(_pluginDirectoryPath, _pluginFolder, assemblyName.Name + ".dll"));
         }
 
         public IntPtr LoadUnmanagedLibrary(string name)
         {
             throw new NotImplementedException();
         }
+
     }
 }
