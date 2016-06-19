@@ -1,7 +1,7 @@
 ﻿
 namespace Goofy.Application.Core.Abstractions
 {
-    public interface IEngine
+    public interface IEngine : IDesignTimeService
     {
         void Start();
     }
