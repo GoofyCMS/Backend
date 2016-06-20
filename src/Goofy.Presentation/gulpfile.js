@@ -12,7 +12,8 @@ paths.componentsOutputFolder = './plugins';
 
 var externalAssemblies = [
     "Blog",
-    "ServerTime"
+    "ServerTime",
+    "SimpleExternalComment"
 ];
 var runtimes = ['net451'];
 var compModes = ['Debug'];

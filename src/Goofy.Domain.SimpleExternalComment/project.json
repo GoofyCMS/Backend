@@ -1,0 +1,15 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Goofy.Domain.SimpleExternalComment Class Library",
+  "authors": [ "leo" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "Goofy.Domain.Core": "1.0.0",
+    "Goofy.Domain.Blog": "1.0.0"
+  },
+  "frameworks": {
+    "net451": { }
+  }
+}
