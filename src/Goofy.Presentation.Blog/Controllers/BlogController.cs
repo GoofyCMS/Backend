@@ -1,15 +1,14 @@
 ﻿using Goofy.Domain.Blog.Entity;
-using Goofy.Application.Blog;
 using Goofy.Application.Blog.DTO;
 using Goofy.Presentation.Blog.Providers;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Mvc;
 using Goofy.Domain.Blog.Service.Adapter;
-using Goofy.Presentation.Core.Providers;
+using Microsoft.AspNet.Authorization;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
-    [Route("api/blog/ArticleItems")]
+    [Route("api/blogadmin/ArticleItems")]
     public class BlogController : BaseController<Article, ArticleItem, int>
     {
         public BlogController(IBlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)
@@ -17,10 +16,10 @@ namespace Goofy.Presentation.Blog.Controllers
         {
         }
 
-        [HttpGet("hola_soy_blog_controller")]
-        public string HolaSoyBlogController()
+        [Authorize(Policy = "RequireReadArticle")]
+        public override IActionResult Get()
         {
-            return "hola_soy_blog_controller";
+            return base.Get();
         }
 
     }
