@@ -21,6 +21,9 @@ namespace Goofy.Application.Administration.Services
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
                 return null;
+            var result = await _userManager.CheckPasswordAsync(user, password);
+            if (!result)
+                return null;
 
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new List<Claim>(new Claim[] { new Claim(ClaimTypes.Name, user.UserName) });
