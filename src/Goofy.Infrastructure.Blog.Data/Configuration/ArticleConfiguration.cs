@@ -12,7 +12,7 @@ namespace Goofy.Infrastructure.Blog.Data.Configuration
             HasKey(t => t.Id);
 
             Property(t => t.Content).IsRequired();
-
+            Property(t => t.AuthorName).IsRequired().HasMaxLength(256);
         }
     }
 }

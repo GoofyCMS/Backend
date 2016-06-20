@@ -1,10 +1,13 @@
-﻿using Goofy.Domain.Core.Entity;
+﻿using System;
+using Goofy.Domain.Core.Entity;
 
 namespace Goofy.Domain.Blog.Entity
 {
-    public class Article : BaseEntity
+    public class Article : IdentityEntity
     {
-        public int Id { get; set; }
+        public string AuthorName { get; set; }
         public string Content { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }

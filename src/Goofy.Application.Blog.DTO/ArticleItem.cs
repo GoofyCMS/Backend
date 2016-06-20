@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Goofy.Application.Blog.DTO
 {
@@ -6,6 +7,12 @@ namespace Goofy.Application.Blog.DTO
     {
         [Key]
         public int Id { get; set; }
+
+        [StringLength(256)]
+        public string AuthorName { get; set; }
+
         public string Content { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }
