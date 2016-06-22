@@ -18,8 +18,7 @@ namespace Goofy.Infrastructure.SimpleExternalComment.Adapter
             CreateMap<ArticleItem, Article>()
                 .ForMember(e => e.Content, e => e.Ignore())
                 .ForMember(e => e.AuthorName, e => e.Ignore())
-                .ForMember(e => e.CreationDate, e => e.Ignore())
-                .ForMember(e => e.LastModified, e => e.Ignore());
+                .ForMember(e => e.Title, e => e.Ignore());
         }
     }
 }

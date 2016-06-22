@@ -1,6 +1,6 @@
 ﻿using Goofy.Application.Administration.DTO;
 using Goofy.Domain.Administration.Entity;
-using Goofy.Domain.Administration.Service.Adapter;
+using Goofy.Domain.Identity.Services.Adapter;
 using Goofy.Presentation.Administration.Providers;
 using Goofy.Presentation.Core.Controllers;
 using Microsoft.AspNet.Authorization;
@@ -16,10 +16,10 @@ namespace Goofy.Presentation.Administration.Controllers
         {
         }
 
-        [Authorize(Policy = "RequireReadGoofyRole")]
-        public override IActionResult Get()
-        {
-            return base.Get();
-        }
+        //[Authorize(Policy = "RequireReadGoofyRole")]
+        //public override IActionResult Get()
+        //{
+        //    return base.Get();
+        //}
     }
 }

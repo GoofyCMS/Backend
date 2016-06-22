@@ -8,7 +8,7 @@ using Microsoft.AspNet.Authorization;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
-    [Route("api/blogadmin/ArticleItems")]
+    [Route("api/blogAdmin/ArticleItems")]
     public class ArticleAdminController : BaseController<Article, ArticleItem, int>
     {
         public ArticleAdminController(IBlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)
@@ -16,11 +16,11 @@ namespace Goofy.Presentation.Blog.Controllers
         {
         }
 
-        [Authorize(Policy = "RequireReadArticle")]
-        public override IActionResult Get()
-        {
-            return base.Get();
-        }
+        //[Authorize(Policy = "RequireReadArticle")]
+        //public override IActionResult Get()
+        //{
+        //    return base.Get();
+        //}
 
     }
 }

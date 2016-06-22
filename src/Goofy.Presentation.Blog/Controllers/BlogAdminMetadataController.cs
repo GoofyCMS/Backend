@@ -6,10 +6,10 @@ using Goofy.Presentation.Blog.Providers;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
-    [Route("api/blogadmin")]
-    public class BlogMetadataController : BaseMetadataController
+    [Route("api/blogAdmin")]
+    public class BlogAdminMetadataController : BaseMetadataController
     {
-        public BlogMetadataController(IServiceProvider serviceProvider)
+        public BlogAdminMetadataController(IServiceProvider serviceProvider)
             : base(serviceProvider.GetRequiredService<BlogContextProvider>())
         {
         }

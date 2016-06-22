@@ -38,7 +38,7 @@ namespace Goofy.Presentation.Core.Controllers
         }
 
         [HttpGet("")]
-        public virtual IActionResult Get(/*ODataQueryOptions<TViewModel> options = null*/)
+        public IActionResult Get([FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]int top, [FromQuery]string inlineCount)
         {
             return Ok(GetQuery(/*options*/));
         }

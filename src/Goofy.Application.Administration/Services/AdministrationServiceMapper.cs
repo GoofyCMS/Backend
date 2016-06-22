@@ -1,9 +1,9 @@
 ﻿using Goofy.Application.Core.Service;
-using Goofy.Domain.Administration.Service.Adapter;
 using Goofy.Domain.Administration.Service.Data;
 using Goofy.Domain.Core.Entity;
 using Goofy.Domain.Core.Service.Adapter;
 using Goofy.Domain.Core.Service.Data;
+using Goofy.Domain.Identity.Services.Adapter;
 
 namespace Goofy.Application.Administration.Services
 {

@@ -7,7 +7,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace Goofy.Presentation.Blog.Controllers
 {
-    [Route("api/blogpublic/ArticleItems")]
+    [Route("api/blogPublic/ArticleItems")]
     public class ArticlePublicController : BaseReadOnlyController<Article, ArticleItem, int>
     {
         public ArticlePublicController(IBlogServiceMapper<Article, ArticleItem> serviceMapper, BlogContextProvider provider)

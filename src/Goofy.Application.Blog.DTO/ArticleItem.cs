@@ -10,9 +10,7 @@ namespace Goofy.Application.Blog.DTO
 
         [StringLength(256)]
         public string AuthorName { get; set; }
-
         public string Content { get; set; }
-        public DateTime? CreationDate { get; set; }
-        public DateTime? LastModified { get; set; }
+        public string Title { get; set; }
     }
 }
